@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://djnknqukc4vyo"]
+[gd_scene load_steps=11 format=3 uid="uid://djnknqukc4vyo"]
 
-[ext_resource type="Script" uid="uid://b61f1js1mish4" path="res://Risco_Zero_Godot/Scripts/Camera25D.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b61f1js1mish4" path="res://Scripts/Camera25D.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c8jk5lxs0r7go" path="res://Scripts/HUD.gd" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://xdecdds51kx7" path="res://icon.svg" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bdb50e8ye8rpe" path="res://Assets2D/white_block.png" id="4_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,12 +18,19 @@ sky = SubResource("Sky_ig7tw")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
+bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h2yge"]
+
+[sub_resource type="Theme" id="Theme_1bvp3"]
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0xm2m")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="Sol" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.9762922, -0.030234776, 0.21433522, 0.21644601, -0.14643432, 0.9652503, 0.002201935, 0.98875827, 0.14950691, 10.254489, 11.460214, 20.493696)
 shadow_enabled = true
 
@@ -229,3 +239,76 @@ size = Vector3(1, 2, 1)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.9674787, 0.053409576, -0.24724989, -0.042495266, 0.9292448, 0.36701265, 0.24935769, 0.3655838, -0.896755, -1.6779488, 2.1916804, -3.7879333)
 script = ExtResource("1_ig7tw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_0xm2m")
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(29, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bvp3")
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 1154.0
+offset_bottom = 31.0
+scale = Vector2(0.0344827, 1)
+
+[node name="pause_button" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 25.448277
+offset_top = 5.999998
+offset_right = 161.44827
+offset_bottom = 142.0
+scale = Vector2(0.007361722, 0.22620603)
+theme_override_icons/icon = ExtResource("3_h2yge")
+toggle_mode = true
+
+[node name="speed1" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 26.551725
+offset_top = 6.0
+offset_right = 162.55173
+offset_bottom = 142.0
+scale = Vector2(0.007361722, 0.22620603)
+theme_override_icons/icon = ExtResource("3_h2yge")
+toggle_mode = true
+
+[node name="speed2" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 28.862068
+offset_top = 6.0000005
+offset_right = 164.86206
+offset_bottom = 142.0
+scale = Vector2(0.007361722, 0.22620603)
+theme_override_icons/icon = ExtResource("3_h2yge")
+toggle_mode = true
+
+[node name="speed3" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 6.0
+offset_right = 167.0
+offset_bottom = 142.0
+scale = Vector2(0.007361722, 0.22620603)
+theme_override_icons/icon = ExtResource("3_h2yge")
+toggle_mode = true
+
+[node name="DayCycle" type="TextureProgressBar" parent="CanvasLayer/Panel"]
+material = SubResource("CanvasItemMaterial_h2yge")
+layout_mode = 0
+offset_left = 15.586206
+offset_top = -1.9999999
+offset_right = 143.58621
+offset_bottom = 126.0
+scale = Vector2(0.041171722, 0.34711513)
+theme = SubResource("Theme_1bvp3")
+rounded = true
+fill_mode = 4
+texture_under = ExtResource("4_1bvp3")
+texture_progress = ExtResource("4_1bvp3")
+tint_under = Color(0.00082949136, 0.0007313117, 6.217525e-05, 1)
+tint_over = Color(0.601223, 0.601223, 0.60122293, 1)
+tint_progress = Color(0.74946034, 0.780041, 0.23402846, 1)
