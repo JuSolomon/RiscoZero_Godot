@@ -143,10 +143,10 @@ autowrap_mode = 2
 
 [node name="CloseButton" type="Button" parent="HUD/Panel/EventCard"]
 layout_mode = 0
-offset_left = 11.379309
-offset_top = 335.99997
-offset_right = 147.3793
-offset_bottom = 471.99997
+offset_left = 0.5172405
+offset_top = 336.0
+offset_right = 136.51724
+offset_bottom = 472.0
 scale = Vector2(0.007361722, 0.22620603)
 theme_override_icons/icon = ExtResource("3_h2yge")
 toggle_mode = true
