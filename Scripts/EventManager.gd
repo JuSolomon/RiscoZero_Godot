@@ -1,10 +1,12 @@
 extends Node
 ## EventManager.gd
-## Gera eventos ao longo do dia e posiciona os marcadores corretamente na cidade.
+## Gera eventos ao longo do dia, controla instâncias e posiciona os marcadores na cidade.
 
 # ------------------------------------------------
 # CONFIGURAÇÕES
 # ------------------------------------------------
+
+@export var event_library: EventLibrary
 
 ## Cena do marcador (arraste EventMarker.tscn no Inspector)
 @export var marker_scene: PackedScene
@@ -33,6 +35,9 @@ var _event_ticks_today: Array[int] = []
 var _events_spawned_today: int = 0
 var _last_tick: int = -1
 
+# id -> dicionário com dados da instância do evento
+var _active_events: Dictionary = {}
+
 
 # ------------------------------------------------
 # READY
@@ -59,6 +64,7 @@ func _on_tick(_t, _d, _w, _y, _term) -> void:
 
 	# Detecta virada de dia
 	if _last_tick != -1 and current_tick < _last_tick:
+		_on_new_day()
 		_start_new_day()
 
 	_last_tick = current_tick
@@ -92,6 +98,45 @@ func _start_new_day() -> void:
 	_event_ticks_today.sort()
 
 	print("EventManager: Novo dia -> eventos em ticks: ", _event_ticks_today)
+
+
+func _on_new_day() -> void:
+	# Avança um dia na vida de cada evento ativo
+	for event_id in _active_events.keys():
+		var ev = _active_events[event_id]
+
+		if ev["estado"] != "ativo":
+			continue
+
+		ev["dias_restantes_resolver"] -= 1
+		ev["dias_restantes_escalar"] -= 1
+
+		if ev["dias_restantes_escalar"] <= 0:
+			_escalar_evento(event_id)
+		elif ev["dias_restantes_resolver"] <= 0:
+			_falhar_evento(event_id)
+
+
+func _escalar_evento(event_id: String) -> void:
+	if not _active_events.has(event_id):
+		return
+
+	var ev = _active_events[event_id]
+	ev["estado"] = "escalado"
+
+	# Aqui você pode trocar o template, aumentar severidade, criar novo evento etc.
+	print("EventManager: evento escalado -> ", event_id)
+
+
+func _falhar_evento(event_id: String) -> void:
+	if not _active_events.has(event_id):
+		return
+
+	var ev = _active_events[event_id]
+	ev["estado"] = "expirado"
+
+	# Aplicar penalidades, remover marcador, etc.
+	print("EventManager: evento expirado sem resolução -> ", event_id)
 
 
 # ------------------------------------------------
@@ -140,6 +185,15 @@ func spawn_random_event() -> void:
 		print("EventManager: ERRO – marker_scene não configurado.")
 		return
 
+	if event_library == null:
+		print("EventManager: ERRO – event_library não configurada.")
+		return
+
+	var template: EventData = event_library.get_random_event()
+	if template == null:
+		print("EventManager: ERRO – event_library está vazia.")
+		return
+
 	var marker := marker_scene.instantiate() as Area3D
 	if marker == null:
 		print("EventManager: ERRO – marker_scene não é uma Area3D válida.")
@@ -148,13 +202,31 @@ func spawn_random_event() -> void:
 	var pos := _get_random_city_position()
 	marker.global_position = pos
 
+	# Cria id único para essa instância
+	var event_id := str(Time.get_ticks_msec()) + "_" + str(randi())
+
+	# Salva instância de evento na memória
+	var instance := {
+		"id": event_id,
+		"template": template,
+		"dias_restantes_resolver": template.dias_para_resolver,
+		"dias_restantes_escalar": template.dias_para_escalar,
+		"estado": "ativo",
+		"world_position": pos
+	}
+	_active_events[event_id] = instance
+
+	# Passa o id para o marcador (assumindo que ele tenha essa variável)
+	if "event_id" in marker:
+		marker.event_id = event_id
+
 	# Conecta clique
 	marker.clicked.connect(_on_marker_clicked)
 
 	# Adiciona ao mapa
 	get_tree().current_scene.add_child(marker)
 
-	print("EventManager: Evento criado em ", pos)
+	print("EventManager: Evento criado em ", pos, " id = ", event_id, " template = ", template.nome)
 
 
 # ------------------------------------------------
@@ -163,6 +235,13 @@ func spawn_random_event() -> void:
 
 func _on_marker_clicked(event_id: String) -> void:
 	print("EventManager: marcador clicado id = ", event_id)
+
+	if not _active_events.has(event_id):
+		push_error("EventManager: clique em marcador com id desconhecido: " + event_id)
+		return
+
+	var ev = _active_events[event_id]
+	var template: EventData = ev["template"]
 
 	var hud: Node = null
 
@@ -185,9 +264,11 @@ func _on_marker_clicked(event_id: String) -> void:
 
 	var event_data := {
 		"id": event_id,
-		"title": "Aviso Urgente!",
-		"body": "Um incêndio na usina local causou um blecaute total. A cidade precisa de energia de emergência imediatamente.",
-		"options": ["Resolver o problema", "Ignorar o alerta"]
+		"title": template.nome,
+		"body": template.descricao,
+		"dias_restantes_resolver": ev["dias_restantes_resolver"],
+		"dias_restantes_escalar": ev["dias_restantes_escalar"],
+		"required_unit_type": template.required_unit_type
 	}
 
 	print("EventManager: chamando HUD.show_event_card(...)")

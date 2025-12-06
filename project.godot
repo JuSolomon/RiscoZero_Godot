@@ -19,11 +19,13 @@ config/icon="res://Risco_Zero_Godot/icon.svg"
 
 TimeManager="*res://Scripts/TimeManager.gd"
 EventManager="*res://Scripts/EventManager.gd"
+GameTypes="*res://Scripts/game_types.gd"
 
 [file_customization]
 
 folder_colors={
 "res://Assets2D/": "pink",
+"res://Events/": "orange",
 "res://Scripts/": "green"
 }
 

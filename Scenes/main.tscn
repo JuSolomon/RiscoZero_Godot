@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://djnknqukc4vyo"]
+[gd_scene load_steps=18 format=3 uid="uid://djnknqukc4vyo"]
 
 [ext_resource type="Script" uid="uid://b61f1js1mish4" path="res://Scripts/Camera25D.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c8jk5lxs0r7go" path="res://Scripts/HUD.gd" id="2_0xm2m"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://behuxci437l03" path="res://Scripts/GameManager.gd" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://c3ukw8jvh1hkg" path="res://sky_manager.gd" id="7_5vw27"]
 [ext_resource type="Script" uid="uid://dx7gfkxka27r4" path="res://Scripts/EventManager.gd" id="8_ynf5e"]
+[ext_resource type="Resource" uid="uid://dfel452xxamnr" path="res://Events/event_library.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://d1lloedybbpg7" path="res://Scenes/EventMarker.tscn" id="9_ynf5e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
@@ -379,6 +380,7 @@ world_env = NodePath("../WorldEnvironment")
 
 [node name="EventManager" type="Node3D" parent="." node_paths=PackedStringArray("city_center")]
 script = ExtResource("8_ynf5e")
+event_library = ExtResource("9_hptm8")
 marker_scene = ExtResource("9_ynf5e")
 city_center = NodePath("../CityCenter")
 city_radius = 30.0

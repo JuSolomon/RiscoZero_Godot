@@ -1,0 +1,19 @@
+extends Resource
+
+enum UnitType
+{
+	COMLURB,
+	CET,
+	SAMU,
+	DEFESA_CIVIL,
+	GUARDA_MUNICIPAL,
+	BOMBEIROS
+}
+
+enum EventState
+{
+	ATIVO,
+	RESOLVIDO,
+	EXPIRADO,
+	ESCALADO
+}

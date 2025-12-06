@@ -21,6 +21,7 @@ var event_close_button: Button = null
 
 var _last_speed: float = 1.0
 
+
 # ------------------------------
 # _ready
 # ------------------------------
@@ -110,6 +111,7 @@ func _ready() -> void:
 func _on_tick(_t, _d, _w, _y, _term) -> void:
 	_update_all()
 
+
 func _update_all() -> void:
 	_update_time_label()
 	_update_clock_label()
@@ -123,12 +125,14 @@ func _update_time_label() -> void:
 	if time_label == null:
 		return
 
-	var d: int = TimeManager.day_in_week
-	var w: int = TimeManager.week_in_year
-	var y: int = TimeManager.year_in_term
-	var t: int = TimeManager.term_index
-
-	time_label.text = "Dia %d | Semana %d | Ano %d | Mandato %d" % [d, w, y, t]
+	if TimeManager and TimeManager.has_method("get_current_date"):
+		time_label.text = TimeManager.get_current_date()
+	else:
+		var d: int = TimeManager.day_in_week
+		var w: int = TimeManager.week_in_year
+		var y: int = TimeManager.year_in_term
+		var t: int = TimeManager.term_index
+		time_label.text = "Dia %d | Semana %d | Ano %d | Mandato %d" % [d, w, y, t]
 
 
 # ------------------------------------------------
@@ -138,14 +142,15 @@ func _update_clock_label() -> void:
 	if clock_label == null:
 		return
 
-	var p: float = TimeManager.get_day_progress() # 0.0 .. 1.0
-
-	var total_minutes: int = int(p * 24.0 * 60.0)
-	var hour: int = total_minutes / 60
-	var minute: int = total_minutes % 60
-
-	var time_str := "%02d:%02d" % [hour, minute]
-	clock_label.text = "Hora: %s" % time_str
+	if TimeManager and TimeManager.has_method("get_time_string"):
+		clock_label.text = "Hora: %s" % TimeManager.get_time_string()
+	else:
+		var p: float = TimeManager.get_day_progress()
+		var total_minutes: int = int(p * 24.0 * 60.0)
+		var hour: int = total_minutes / 60
+		var minute: int = total_minutes % 60
+		var time_str := "%02d:%02d" % [hour, minute]
+		clock_label.text = "Hora: %s" % time_str
 
 
 # ------------------------------------------------
@@ -154,11 +159,9 @@ func _update_clock_label() -> void:
 func _update_day_visuals() -> void:
 	var p: float = TimeManager.get_day_progress() # 0.0 .. 1.0
 
-	# DayCycle radial
 	if day_cycle:
 		day_cycle.value = p * day_cycle.max_value
 
-	# TickBar linear (baseado em current_tick)
 	if tick_bar and TimeManager.ticks_per_day > 0:
 		var pct: float = float(TimeManager.current_tick) / float(TimeManager.ticks_per_day)
 		tick_bar.value = pct * tick_bar.max_value
@@ -181,6 +184,7 @@ func _set_speed(value: float) -> void:
 	if speed3:
 		speed3.button_pressed = (value == 3.0)
 
+
 func _on_pause_toggled(pressed: bool) -> void:
 	if pressed:
 		if TimeManager.time_scale > 0.0:
@@ -202,27 +206,61 @@ func _on_pause_toggled(pressed: bool) -> void:
 # Integração com EventManager – abertura de card
 # ------------------------------------------------
 
-## FUNÇÃO PRINCIPAL: Chamada pelo EventManager ao clicar num marcador
-## event_data é um Dictionary com pelo menos: { "id": String, "title": String, "body": String, ... }
+# Traduz o tipo de unidade (int do enum UnitType em CAPS) para nome exibido
+func _get_unit_type_name(unit_type: int) -> String:
+	match unit_type:
+		0: return "COMLURB"
+		1: return "CET"
+		2: return "SAMU"
+		3: return "DEFESA CIVIL"
+		4: return "GUARDA MUNICIPAL"
+		5: return "BOMBEIROS"
+		_: return "ÓRGÃO DESCONHECIDO"
+
+
+## Chamada pelo EventManager ao clicar num marcador
+## event_data:
+## {
+##   "id": String,
+##   "title": String,
+##   "body": String,
+##   "dias_restantes_resolver": int,
+##   "dias_restantes_escalar": int,
+##   "required_unit_type": int
+## }
 func show_event_card(event_data: Dictionary) -> void:
 	if event_card == null:
 		print("HUD: EventCard não encontrado, não foi possível abrir o evento.")
 		return
 
-	# Pega título e corpo/descrição do evento
 	var title := str(event_data.get("title", "Ocorrência"))
 	var body := str(event_data.get("body", "Sem descrição detalhada."))
 
-	# Preenche os Labels e mostra o card
+	var dias_resolver: int = int(event_data.get("dias_restantes_resolver", -1))
+	var dias_escalar: int = int(event_data.get("dias_restantes_escalar", -1))
+	var required_unit: int = int(event_data.get("required_unit_type", -1))
+
+	var extra_info := ""
+
+	if dias_resolver >= 0:
+		extra_info += "\n\nDias para resolver: %d" % dias_resolver
+
+	if dias_escalar >= 0:
+		extra_info += "\nDias até escalar: %d" % dias_escalar
+
+	if required_unit >= 0:
+		extra_info += "\nÓrgão responsável: %s" % _get_unit_type_name(required_unit)
+
 	if event_title_label:
 		event_title_label.text = title
 
 	if event_body_label:
-		event_body_label.text = body
+		event_body_label.text = body + extra_info
 
 	event_card.visible = true
 
 	print("EVENTO ABERTO: %s" % title)
+
 
 func _close_event_card() -> void:
 	if event_card:
