@@ -24,6 +24,7 @@ GameTypes="*res://Scripts/game_types.gd"
 [file_customization]
 
 folder_colors={
+"res://3D Models/": "purple",
 "res://Assets2D/": "pink",
 "res://Events/": "orange",
 "res://Scripts/": "green"
