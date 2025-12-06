@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1lloedybbpg7"]
+
+[ext_resource type="Script" uid="uid://tjkebfnjimdt" path="res://Scripts/event_maker.gd" id="1_wcmmd"]
+[ext_resource type="Texture2D" uid="uid://xdecdds51kx7" path="res://icon.svg" id="2_bhd3c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_83njq"]
+
+[node name="EventMarker" type="Area3D"]
+script = ExtResource("1_wcmmd")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("2_bhd3c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_83njq")

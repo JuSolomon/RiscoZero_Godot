@@ -175,9 +175,118 @@ func set_running(value: bool) -> void:
 func set_time_scale(value: float) -> void:
 	time_scale = max(value, 0.0)
 
+# ---------------------------------------------------------
+#               HELPERS DE CICLO / HORÁRIO
+# ---------------------------------------------------------
+
+# Frações configuráveis do ciclo (noite/dia)
+const NIGHT_FRACTION := 1.0 / 3.0    # 0.333...
+const DAY_FRACTION := 2.0 / 3.0      # 0.666...
 
 func get_day_progress() -> float:
-	# 0.0 = começo do dia, 1.0 = final do dia
+	# 0.0 = início do dia, 1.0 = final do dia
 	if ticks_per_day <= 0:
 		return 0.0
 	return float(current_tick) / float(ticks_per_day)
+
+
+# ---------------------------------------------------------
+#               DIA / NOITE
+# ---------------------------------------------------------
+
+func is_night() -> bool:
+	return get_day_progress() < NIGHT_FRACTION
+
+
+func is_day() -> bool:
+	return get_day_progress() >= NIGHT_FRACTION
+
+
+func get_sun_phase() -> String:
+	var p := get_day_progress()
+
+	if p < NIGHT_FRACTION:
+		return "night"
+	else:
+		return "day"
+
+
+# ---------------------------------------------------------
+#            HORÁRIO (hh:mm) BASEADO NO PROGRESSO
+# ---------------------------------------------------------
+
+func get_daytime_hours() -> int:
+	# Dia completo = 24h distribuídas linearmente no ciclo de 0..1
+	var p := get_day_progress()
+	return int(p * 24.0) % 24
+
+
+func get_daytime_minutes() -> int:
+	var p := get_day_progress()
+	var total_minutes := int(p * 24.0 * 60.0)
+	return total_minutes % 60
+
+
+func get_time_string() -> String:
+	# Retorna no formato "HH:MM"
+	var h := get_daytime_hours()
+	var m := get_daytime_minutes()
+	return "%02d:%02d" % [h, m]
+
+
+# ---------------------------------------------------------
+#             PARTES DO DIA
+# ---------------------------------------------------------
+
+func is_morning() -> bool:
+	var p := get_day_progress()
+	return p >= NIGHT_FRACTION and p < (NIGHT_FRACTION + (DAY_FRACTION * 0.33))
+
+
+func is_afternoon() -> bool:
+	var p := get_day_progress()
+	return p >= (NIGHT_FRACTION + (DAY_FRACTION * 0.33)) and \
+		   p < (NIGHT_FRACTION + (DAY_FRACTION * 0.66))
+
+
+func is_evening() -> bool:
+	var p := get_day_progress()
+	return p >= (NIGHT_FRACTION + (DAY_FRACTION * 0.66))
+
+
+# ---------------------------------------------------------
+#          ESTADOS ÚTEIS PARA GAMEPLAY
+# ---------------------------------------------------------
+
+func is_peak_hour() -> bool:
+	# pico em "horário de trabalho": 8h–10h ou 17h–19h
+	var h := get_daytime_hours()
+	return (h >= 8 and h <= 10) or (h >= 17 and h <= 19)
+
+
+func is_sleep_time() -> bool:
+	# madrugada usada para certos eventos (barulho, baile etc.)
+	var h := get_daytime_hours()
+	return h >= 0 and h < 5
+
+
+func is_late_night() -> bool:
+	var h := get_daytime_hours()
+	return h >= 22 or h < 2
+
+
+# ---------------------------------------------------------
+#    PROGRESSOS (para animações, transições, fade do céu)
+# ---------------------------------------------------------
+
+func get_night_progress() -> float:
+	if is_day():
+		return 0.0
+	var p := get_day_progress()
+	return p / NIGHT_FRACTION  # 0..1 dentro da noite
+
+func get_day_cycle_progress() -> float:
+	if is_night():
+		return 0.0
+	var p := get_day_progress()
+	return (p - NIGHT_FRACTION) / DAY_FRACTION  # 0..1 dentro do dia
