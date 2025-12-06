@@ -9,6 +9,9 @@ metadata/_custom_type_script = "uid://biu7j8xueeqy6"
 
 [sub_resource type="Resource" id="Resource_mqy4i"]
 script = ExtResource("1_v7lxi")
+dias_para_resolver = 1
+dias_para_escalar = 5
+required_unit_type = 1
 metadata/_custom_type_script = "uid://biu7j8xueeqy6"
 
 [resource]
