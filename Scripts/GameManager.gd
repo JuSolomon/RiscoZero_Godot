@@ -38,7 +38,7 @@ signal mvp_finished()
 func _ready() -> void:
 	# Conecta sinais do TimeManager
 	TimeManager.day_changed.connect(_on_day_changed)
-	TimeManager.week_changed.connect(_on_week_changed)
+	TimeManager.week_starded.connect(_on_week_started)
 	TimeManager.mvp_period_finished.connect(_on_mvp_period_finished)
 
 	# Configura estado inicial
@@ -134,7 +134,7 @@ func _on_day_changed(day_in_week: int, week_in_year: int, year_in_term: int, _te
 	print("Novo dia – Dia %d, Semana %d, Ano %d" % [day_in_week, week_in_year, year_in_term])
 
 
-func _on_week_changed(week_in_year: int, year_in_term: int, _term: int) -> void:
+func _on_week_started(week_in_year: int, year_in_term: int, _term: int) -> void:
 	emit_signal("week_started", week_in_year, year_in_term)
 	print("Nova semana – Semana %d, Ano %d" % [week_in_year, year_in_term])
 

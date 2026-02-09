@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://dtqu8fb4tfnog" path="res://3D Models/Chão/sign-highway-detailed.fbx" id="43_nwwfm"]
 [ext_resource type="PackedScene" uid="uid://dvqv87cxeibyq" path="res://3D Models/Chão/sign-highway-wide.fbx" id="44_s8vy0"]
 [ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/debug_ui.tscn" id="46_nwwfm"]
+[ext_resource type="PackedScene" uid="uid://bs2mk1f3p7sgw" path="res://Scenes/WeekSummaryScreen.tscn" id="47_s8vy0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -611,3 +612,5 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.9135456, 0, -0.31889725)
 
 [node name="DebugUI" parent="." unique_id=623105750 instance=ExtResource("46_nwwfm")]
+
+[node name="WeekSummaryScreen" parent="." unique_id=1593188048 instance=ExtResource("47_s8vy0")]
