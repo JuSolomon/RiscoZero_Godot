@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var title_label: Label = $Panel/VBoxContainer/TitleLabel
-@onready var stats_label: Label = $Panel/VBoxContainer/StatsLabel
+@onready var stats_label: RichTextLabel = $Panel/VBoxContainer/StatsLabel
 @onready var confirm_button: Button = $Panel/VBoxContainer/ConfirmButton
 @onready var background: ColorRect = $Background
 @onready var panel: PanelContainer = $Panel
