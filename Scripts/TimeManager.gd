@@ -105,6 +105,7 @@ func _start_new_day() -> void:
 
 	day_in_week += 1
 	total_days += 1
+	current_tick = 0
 
 	if day_in_week > days_per_week:
 		day_in_week = 1
@@ -116,6 +117,7 @@ func _start_new_day() -> void:
 func _advance_week() -> void:
 	week_in_year += 1
 	total_weeks += 1
+	current_tick = 0
 
 	if enable_mvp_limit and not _mvp_finished and total_weeks >= mvp_weeks_limit:
 		_mvp_finished = true
@@ -131,6 +133,7 @@ func _advance_week() -> void:
 func _advance_year() -> void:
 	year_in_term += 1
 	total_years += 1
+	current_tick = 0
 
 	if year_in_term > years_per_term:
 		var prev := term_index
