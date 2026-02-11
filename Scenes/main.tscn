@@ -47,6 +47,7 @@
 [ext_resource type="PackedScene" uid="uid://dvqv87cxeibyq" path="res://3D Models/Chão/sign-highway-wide.fbx" id="44_s8vy0"]
 [ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/debug_ui.tscn" id="46_nwwfm"]
 [ext_resource type="PackedScene" uid="uid://bs2mk1f3p7sgw" path="res://Scenes/WeekSummaryScreen.tscn" id="47_s8vy0"]
+[ext_resource type="Script" uid="uid://des61orthw8j2" path="res://Scripts/CityStats.gd" id="48_jut3y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -409,6 +410,9 @@ size = Vector3(1, 2, 1)
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1202326231]
 transform = Transform3D(-0.9674787, 0.053409576, -0.24724989, -0.042495266, 0.9292448, 0.36701265, 0.24935769, 0.3655838, -0.896755, -1.6779488, 2.1916804, -3.7879333)
 script = ExtResource("1_ig7tw")
+
+[node name="CityStats" type="Node" parent="." unique_id=1831829807]
+script = ExtResource("48_jut3y")
 
 [node name="GameManager" type="Node" parent="." unique_id=1443821552 node_paths=PackedStringArray("hud", "event_system")]
 script = ExtResource("5_lquwl")

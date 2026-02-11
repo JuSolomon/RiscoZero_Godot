@@ -43,20 +43,31 @@ func _on_confirm_pressed() -> void:
 
 # Função auxiliar para formatar o texto (Personalize com seus dados reais)
 func _gerar_texto_resumo() -> String:
-	# Exemplo de como formatar. Substitua pelos seus Singletons reais.
-	# var saldo = EconomyManager.get_balance()
-	# var pop = CityManager.get_population()
+	# Verificação de segurança: O CityStats existe?
+	if not CityStats:
+		return "[center][color=red]ERRO: CityStats não encontrado como Autoload![/color][/center]"
+
+	var txt = "[center]"
 	
-	# Valores fictícios para teste:
-	var saldo_anterior = 5000
-	var lucro_semana = 1200
-	var novos_habitantes = 45
+	# --- RELATÓRIO DA SEMANA ANTERIOR ---
+	txt += "[b][font_size=24]RELATÓRIO SEMANAL[/font_size][/b]\n"
 	
-	var texto = ""
-	texto += "Receita Fiscal: +$%d\n" % lucro_semana
-	texto += "Custos de Manutenção: -$%d\n" % 300
-	texto += "----------------\n"
-	texto += "Saldo Atual: $%d\n\n" % (saldo_anterior + lucro_semana - 300)
-	texto += "Crescimento Populacional: +%d cidadãos" % novos_habitantes
+	# Usando str() para garantir que números virem texto sem quebrar o código
+	txt += "Mortes: [color=red]%s[/color]\n" % str(CityStats.last_week_deaths)
+	txt += "Gastos: [color=orange]-$%s[/color]\n" % str(CityStats.last_week_expenses)
 	
-	return texto
+	var cor_pop = "green" if CityStats.last_week_pop_delta >= 0 else "red"
+	txt += "Popularidade: [color=%s]%+.1f%%[/color]\n" % [cor_pop, CityStats.last_week_pop_delta]
+	
+	# --- PREVISÕES ---
+	txt += "\n[font_size=24][b]PRÓXIMA SEMANA[/b][/font_size]\n"
+	txt += "Clima: [b]%s[/b]\n" % str(CityStats.forecast_weather)
+	
+	# Formata a lista de eventos
+	if CityStats.forecast_events.size() > 0:
+		txt += "Eventos: %s" % ", ".join(CityStats.forecast_events)
+	else:
+		txt += "Nenhum evento previsto."
+	
+	txt += "[/center]"
+	return txt

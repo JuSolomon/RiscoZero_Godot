@@ -56,7 +56,7 @@ signal new_day_started(day_in_week, week_in_year, year_in_term, term_index)
 
 signal day_changed(day_in_week, week_in_year, year_in_term, term_index)
 signal week_ended(week_in_year, year_in_term, term_index)
-signal week_starded(week_in_year, year_in_term, term_index)
+signal week_started(week_in_year, year_in_term, term_index)
 signal year_changed(year_in_term, term_index)
 signal term_changed(new_term, previous_term)
 

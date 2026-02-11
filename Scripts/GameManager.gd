@@ -38,7 +38,7 @@ signal mvp_finished()
 func _ready() -> void:
 	# Conecta sinais do TimeManager
 	TimeManager.day_changed.connect(_on_day_changed)
-	TimeManager.week_starded.connect(_on_week_started)
+	TimeManager.week_started.connect(_on_week_started)
 	TimeManager.mvp_period_finished.connect(_on_mvp_period_finished)
 
 	# Configura estado inicial
