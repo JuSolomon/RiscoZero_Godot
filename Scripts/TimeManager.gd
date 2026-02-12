@@ -43,7 +43,8 @@ var total_years: int = 0
 var _accumulator: float = 0.0
 var _mvp_finished: bool = false
 
-var is_waiting_for_week_start: bool = false
+# Caso não esteja usando a versão de MVP, definir essa variável como false
+var is_waiting_for_week_start: bool = true
 
 # -------------------------
 # SINAIS
