@@ -43,6 +43,8 @@ var total_years: int = 0
 var _accumulator: float = 0.0
 var _mvp_finished: bool = false
 
+# Caso não esteja usando a versão de MVP, definir essa variável como false
+var is_waiting_for_week_start: bool = true
 
 # -------------------------
 # SINAIS
@@ -54,7 +56,8 @@ signal tick(current_tick, day_in_week, week_in_year, year_in_term, term_index)
 signal new_day_started(day_in_week, week_in_year, year_in_term, term_index)
 
 signal day_changed(day_in_week, week_in_year, year_in_term, term_index)
-signal week_changed(week_in_year, year_in_term, term_index)
+signal week_ended(week_in_year, year_in_term, term_index)
+signal week_started(week_in_year, year_in_term, term_index)
 signal year_changed(year_in_term, term_index)
 signal term_changed(new_term, previous_term)
 
@@ -67,7 +70,7 @@ signal mvp_period_finished()
 
 func _ready() -> void:
 	emit_signal("day_changed", day_in_week, week_in_year, year_in_term, term_index)
-	emit_signal("week_changed", week_in_year, year_in_term, term_index)
+	emit_signal("week_started", week_in_year, year_in_term, term_index)
 	emit_signal("year_changed", year_in_term, term_index)
 
 
@@ -76,7 +79,7 @@ func _ready() -> void:
 # -------------------------
 
 func _process(delta: float) -> void:
-	if not running:
+	if not running or is_waiting_for_week_start:
 		return
 
 	_accumulator += delta * time_scale
@@ -105,6 +108,7 @@ func _start_new_day() -> void:
 
 	day_in_week += 1
 	total_days += 1
+	current_tick = 0
 
 	if day_in_week > days_per_week:
 		day_in_week = 1
@@ -114,23 +118,40 @@ func _start_new_day() -> void:
 
 
 func _advance_week() -> void:
+	
+	emit_signal("week_ended", week_in_year, year_in_term, term_index)
+	is_waiting_for_week_start = true
+	
+func start_next_week() -> void:
+	if not is_waiting_for_week_start:
+		return
+		
+	# Agora sim, avançamos os dados
 	week_in_year += 1
 	total_weeks += 1
-
-	if enable_mvp_limit and not _mvp_finished and total_weeks >= mvp_weeks_limit:
-		_mvp_finished = true
-		emit_signal("mvp_period_finished")
-
+	current_tick = 0
+	
+	# Lógica de virada de ano (movida para cá)
 	if week_in_year > weeks_per_year:
 		week_in_year = 1
 		_advance_year()
 
-	emit_signal("week_changed", week_in_year, year_in_term, term_index)
+	# Checagem de MVP (movida para cá)
+	if enable_mvp_limit and not _mvp_finished and total_weeks >= mvp_weeks_limit:
+		_mvp_finished = true
+		emit_signal("mvp_period_finished")
+	
+	# Libera o tempo
+	is_waiting_for_week_start = false
+	
+	# Emite que a NOVA semana começou
+	emit_signal("week_started", week_in_year, year_in_term, term_index)
 
 
 func _advance_year() -> void:
 	year_in_term += 1
 	total_years += 1
+	current_tick = 0
 
 	if year_in_term > years_per_term:
 		var prev := term_index
@@ -163,7 +184,7 @@ func reset_time(full_reset: bool = true) -> void:
 
 	emit_signal("new_day_started", day_in_week, week_in_year, year_in_term, term_index)
 	emit_signal("day_changed", day_in_week, week_in_year, year_in_term, term_index)
-	emit_signal("week_changed", week_in_year, year_in_term, term_index)
+	emit_signal("week_started", week_in_year, year_in_term, term_index)
 	emit_signal("year_changed", year_in_term, term_index)
 
 

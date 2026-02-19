@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d1clxvcnuj17y"]
+
+[ext_resource type="Script" uid="uid://b3d0ex37820l" path="res://Scripts/DebugUI.gd" id="1_aqnpe"]
+
+[node name="DebugUI" type="CanvasLayer" unique_id=623105750]
+script = ExtResource("1_aqnpe")
+
+[node name="DebugPanel" type="Control" parent="." unique_id=1204991159]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="DebugPanel" unique_id=1797819341]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel/PanelContainer" unique_id=533541574]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugPanel/PanelContainer/VBoxContainer" unique_id=801517671]
+layout_mode = 2
+text = "DEBUG: Tempo "
+
+[node name="SkipDay" type="Button" parent="DebugPanel/PanelContainer/VBoxContainer" unique_id=1804084544]
+layout_mode = 2
+text = "Pular dia"
+
+[node name="SkipWeek" type="Button" parent="DebugPanel/PanelContainer/VBoxContainer" unique_id=2114079632]
+layout_mode = 2
+text = "Pular semana"

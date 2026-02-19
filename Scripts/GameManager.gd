@@ -38,7 +38,7 @@ signal mvp_finished()
 func _ready() -> void:
 	# Conecta sinais do TimeManager
 	TimeManager.day_changed.connect(_on_day_changed)
-	TimeManager.week_changed.connect(_on_week_changed)
+	TimeManager.week_started.connect(_on_week_started)
 	TimeManager.mvp_period_finished.connect(_on_mvp_period_finished)
 
 	# Configura estado inicial
@@ -51,6 +51,9 @@ func _ready() -> void:
 
 	# Garante velocidade padrão
 	TimeManager.set_time_scale(1.0)
+	
+	# HACK PARA MVP: Começar no fim da semana 1
+	_começar_no_resumo_v1.call_deferred()
 
 
 # -------------------------------------------------
@@ -134,7 +137,7 @@ func _on_day_changed(day_in_week: int, week_in_year: int, year_in_term: int, _te
 	print("Novo dia – Dia %d, Semana %d, Ano %d" % [day_in_week, week_in_year, year_in_term])
 
 
-func _on_week_changed(week_in_year: int, year_in_term: int, _term: int) -> void:
+func _on_week_started(week_in_year: int, year_in_term: int, _term: int) -> void:
 	emit_signal("week_started", week_in_year, year_in_term)
 	print("Nova semana – Semana %d, Ano %d" % [week_in_year, year_in_term])
 
@@ -145,3 +148,15 @@ func _on_mvp_period_finished() -> void:
 
 	# Entra no estado de resumo do MVP
 	_change_state(GameState.MVP_SUMMARY)
+	
+func _começar_no_resumo_v1() -> void:
+	print("MVP: Forçando início no resumo da Semana 1")
+	
+	# 1. (Opcional) Alguns dados iniciais para o CityStats não começar zerado
+	CityStats.last_week_deaths = 0
+	CityStats.last_week_expenses = 0
+	CityStats.forecast_weather = "Nublado"
+	
+	# 2. Emite o sinal manualmente (Semana 1, Ano 1, Mandato 0)
+	# Isso vai fazer a WeekSummaryScreen.gd capturar o sinal e aparecer.
+	TimeManager.emit_signal("week_ended", 1, 1, 0)
