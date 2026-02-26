@@ -13,7 +13,15 @@ enum UnitType
 enum EventState
 {
 	ATIVO,
+	EM_ATENDIMENTO,
 	RESOLVIDO,
 	EXPIRADO,
 	ESCALADO
+}
+
+enum ZonaType
+{
+	CENTRO,
+	ZONA_NORTE,
+	ZONA_SUL
 }

@@ -75,8 +75,8 @@ func _on_tick(_t, _d, _w, _y, _term) -> void:
 
 	# Chegou hora de spawnar?
 	if _events_spawned_today < _event_ticks_today.size():
-		var next_tick := _event_ticks_today[_events_spawned_today]
-		if current_tick >= next_tick:
+		var next_event_tick := _event_ticks_today[_events_spawned_today]
+		if current_tick >= next_event_tick:
 			spawn_random_event()
 			_events_spawned_today += 1
 
@@ -102,41 +102,44 @@ func _start_new_day() -> void:
 
 func _on_new_day() -> void:
 	# Avança um dia na vida de cada evento ativo
-	for event_id in _active_events.keys():
-		var ev = _active_events[event_id]
-
-		if ev["estado"] != "ativo":
-			continue
-
-		ev["dias_restantes_resolver"] -= 1
-		ev["dias_restantes_escalar"] -= 1
-
-		if ev["dias_restantes_escalar"] <= 0:
-			_escalar_evento(event_id)
-		elif ev["dias_restantes_resolver"] <= 0:
-			_falhar_evento(event_id)
+	#for event_id in _active_events.keys():
+		#var ev = _active_events[event_id]
+#
+		#if ev["estado"] != "ativo":
+			#continue
+#
+		#if ev["dias_restantes_escalar"] <= 0:
+			#if ev["evento_escalonado"] != null:
+				#_escalar_evento(event_id)
+			#else:
+				#_falhar_evento(event_id)
+		#else:
+			#ev["dias_restantes_escalar"] -= 1
+		pass
 
 
 func _escalar_evento(event_id: String) -> void:
-	if not _active_events.has(event_id):
-		return
-
-	var ev = _active_events[event_id]
-	ev["estado"] = "escalado"
-
-	# Aqui você pode trocar o template, aumentar severidade, criar novo evento etc.
-	print("EventManager: evento escalado -> ", event_id)
+	#if not _active_events.has(event_id):
+		#return
+#
+	#var ev = _active_events[event_id]
+	#ev["estado"] = "escalado"
+#
+	## Aqui você pode trocar o template, aumentar severidade, criar novo evento etc.
+	#print("EventManager: evento escalado -> ", event_id)
+	pass
 
 
 func _falhar_evento(event_id: String) -> void:
-	if not _active_events.has(event_id):
-		return
-
-	var ev = _active_events[event_id]
-	ev["estado"] = "expirado"
-
-	# Aplicar penalidades, remover marcador, etc.
-	print("EventManager: evento expirado sem resolução -> ", event_id)
+	#if not _active_events.has(event_id):
+		#return
+#
+	#var ev = _active_events[event_id]
+	#ev["estado"] = "expirado"
+#
+	## Aplicar penalidades, remover marcador, etc.
+	#print("EventManager: evento expirado sem resolução -> ", event_id)
+	pass
 
 
 # ------------------------------------------------
@@ -212,9 +215,9 @@ func spawn_random_event() -> void:
 		"dias_restantes_resolver": template.dias_para_resolver,
 		"dias_restantes_escalar": template.dias_para_escalar,
 		"estado": "ativo",
+		"evento_escalonado": template.evento_escalonado,
 		"world_position": pos
 	}
-	_active_events[event_id] = instance
 
 	# Passa o id para o marcador (assumindo que ele tenha essa variável)
 	if "event_id" in marker:
@@ -223,8 +226,19 @@ func spawn_random_event() -> void:
 	# Conecta clique
 	marker.clicked.connect(_on_marker_clicked)
 
+	var novo_evento = EventInstance.new()
+	novo_evento.name = event_id
+	novo_evento.id = event_id
+	novo_evento.evento_base = template
+	novo_evento.dias_para_resolver = template.dias_para_resolver
+	novo_evento.dias_para_escalar = template.dias_para_escalar
+	novo_evento.estado = GameTypes.EventState.ATIVO
+	
+	_active_events[event_id] = novo_evento
+	
 	# Adiciona ao mapa
 	get_tree().current_scene.add_child(marker)
+	marker.add_child(novo_evento)
 
 	print("EventManager: Evento criado em ", pos, " id = ", event_id, " template = ", template.nome)
 
@@ -240,8 +254,8 @@ func _on_marker_clicked(event_id: String) -> void:
 		push_error("EventManager: clique em marcador com id desconhecido: " + event_id)
 		return
 
-	var ev = _active_events[event_id]
-	var template: EventData = ev["template"]
+	var ev: EventInstance = _active_events[event_id]
+	var template: EventData = ev.evento_base
 
 	var hud: Node = null
 
@@ -262,14 +276,5 @@ func _on_marker_clicked(event_id: String) -> void:
 		push_error("EventManager: HUD encontrada, mas sem método show_event_card().")
 		return
 
-	var event_data := {
-		"id": event_id,
-		"title": template.nome,
-		"body": template.descricao,
-		"dias_restantes_resolver": ev["dias_restantes_resolver"],
-		"dias_restantes_escalar": ev["dias_restantes_escalar"],
-		"required_unit_type": template.required_unit_type
-	}
-
 	print("EventManager: chamando HUD.show_event_card(...)")
-	hud.show_event_card(event_data)
+	hud.show_event_card(ev)

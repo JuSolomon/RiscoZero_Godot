@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://f617nkqmtec0"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_qw1bq"]
+
+[resource]
+script = ExtResource("1_qw1bq")
+id = "COMLURB_LIXO_02"
+nome = "pregas nas ruas"
+descricao = "Pragasse espalham por calçadas, casas e lojas"
+zona_id = 1
+severidade_inicial = 2
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

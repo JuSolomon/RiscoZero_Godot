@@ -18,8 +18,13 @@ var event_card: Panel = null
 var event_title_label: Label = null
 var event_body_label: Label = null
 var event_close_button: Button = null
+var event_id: String = ''
 
+# Velocidades de jogo
 var _last_speed: float = 1.0
+@export var game_speed_1: float = 1.0
+@export var game_speed_2: float = 2.0
+@export var game_speed_3: float = 3.0
 
 
 # ------------------------------
@@ -92,11 +97,11 @@ func _ready() -> void:
 	if pause_button:
 		pause_button.toggled.connect(_on_pause_toggled)
 	if speed1:
-		speed1.pressed.connect(func() -> void: _set_speed(1.0))
+		speed1.pressed.connect(func() -> void: _set_speed(game_speed_1))
 	if speed2:
-		speed2.pressed.connect(func() -> void: _set_speed(2.0))
+		speed2.pressed.connect(func() -> void: _set_speed(game_speed_2))
 	if speed3:
-		speed3.pressed.connect(func() -> void: _set_speed(3.0))
+		speed3.pressed.connect(func() -> void: _set_speed(game_speed_3))
 
 	if event_close_button:
 		event_close_button.pressed.connect(_close_event_card)
@@ -178,11 +183,11 @@ func _set_speed(value: float) -> void:
 	if pause_button:
 		pause_button.button_pressed = false
 	if speed1:
-		speed1.button_pressed = (value == 1.0)
+		speed1.button_pressed = (value == game_speed_1)
 	if speed2:
-		speed2.button_pressed = (value == 2.0)
+		speed2.button_pressed = (value == game_speed_2)
 	if speed3:
-		speed3.button_pressed = (value == 3.0)
+		speed3.button_pressed = (value == game_speed_3)
 
 
 func _on_pause_toggled(pressed: bool) -> void:
@@ -195,16 +200,38 @@ func _on_pause_toggled(pressed: bool) -> void:
 		TimeManager.set_time_scale(_last_speed)
 
 		if speed1:
-			speed1.button_pressed = (_last_speed == 1.0)
+			speed1.button_pressed = (_last_speed == game_speed_1)
 		if speed2:
-			speed2.button_pressed = (_last_speed == 2.0)
+			speed2.button_pressed = (_last_speed == game_speed_2)
 		if speed3:
-			speed3.button_pressed = (_last_speed == 3.0)
+			speed3.button_pressed = (_last_speed == game_speed_3)
 
 
 # ------------------------------------------------
 # Integração com EventManager – abertura de card
 # ------------------------------------------------
+
+#func _update_event_card():
+	#if selected_event:
+		#var body := selected_event.evento_base.descricao
+		#
+		#var dias_resolver: int = selected_event.get_dias_restantes_resolver()
+		#var dias_escalar: int = selected_event.get_dias_restantes_escalar()
+		#var required_unit: int = selected_event.evento_base.required_unit_type
+#
+		#var extra_info := ""
+#
+		#if dias_resolver >= 0:
+			#extra_info += "\n\nDias para resolver: %d" % dias_resolver
+#
+		#if dias_escalar >= 0:
+			#extra_info += "\nDias até escalar: %d" % dias_escalar
+#
+		#if required_unit >= 0:
+			#extra_info += "\nÓrgão responsável: %s" % _get_unit_type_name(required_unit)
+			#
+		#if event_body_label:
+			#event_body_label.text = body + extra_info
 
 # Traduz o tipo de unidade (int do enum UnitType em CAPS) para nome exibido
 func _get_unit_type_name(unit_type: int) -> String:
@@ -228,17 +255,17 @@ func _get_unit_type_name(unit_type: int) -> String:
 ##   "dias_restantes_escalar": int,
 ##   "required_unit_type": int
 ## }
-func show_event_card(event_data: Dictionary) -> void:
-	if event_card == null:
+func show_event_card(event: EventInstance) -> void:
+	if event == null:
 		print("HUD: EventCard não encontrado, não foi possível abrir o evento.")
 		return
 
-	var title := str(event_data.get("title", "Ocorrência"))
-	var body := str(event_data.get("body", "Sem descrição detalhada."))
+	var title := event.evento_base.nome
+	var body := event.evento_base.descricao
 
-	var dias_resolver: int = int(event_data.get("dias_restantes_resolver", -1))
-	var dias_escalar: int = int(event_data.get("dias_restantes_escalar", -1))
-	var required_unit: int = int(event_data.get("required_unit_type", -1))
+	var dias_resolver: int = event.get_dias_restantes_resolver()
+	var dias_escalar: int = event.get_dias_restantes_escalar()
+	var required_unit: int = event.evento_base.required_unit_type
 
 	var extra_info := ""
 
@@ -265,3 +292,4 @@ func show_event_card(event_data: Dictionary) -> void:
 func _close_event_card() -> void:
 	if event_card:
 		event_card.visible = false
+		

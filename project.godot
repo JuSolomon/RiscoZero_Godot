@@ -8,17 +8,21 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Risco Zero"
 run/main_scene="uid://djnknqukc4vyo"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Risco_Zero_Godot/icon.svg"
 
 [autoload]
 
 TimeManager="*res://Scripts/TimeManager.gd"
-EventManager="*res://Scripts/EventManager.gd"
+EventManager="*res://Scripts/Event/EventManager.gd"
 GameTypes="*res://Scripts/game_types.gd"
 
 [display]

@@ -1,21 +1,22 @@
-[gd_resource type="Resource" script_class="EventLibrary" load_steps=5 format=3 uid="uid://dfel452xxamnr"]
+[gd_resource type="Resource" script_class="EventLibrary" format=3 uid="uid://dfel452xxamnr"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/EventData.gd" id="1_v7lxi"]
-[ext_resource type="Script" uid="uid://dxaypspyqbgqr" path="res://Scripts/EventLibrary.gd" id="2_mqy4i"]
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_v7lxi"]
+[ext_resource type="Resource" uid="uid://f617nkqmtec0" path="res://Events/comlurb_lixo_02.tres" id="2_iy326"]
+[ext_resource type="Script" uid="uid://dxaypspyqbgqr" path="res://Scripts/Event/EventLibrary.gd" id="2_mqy4i"]
 
 [sub_resource type="Resource" id="Resource_v7lxi"]
 script = ExtResource("1_v7lxi")
 id = "lixo espalhado"
 nome = "lixo espalhado"
 descricao = "Muito lixo nas ruas do centro "
-zona_id = "centro"
+evento_escalonado = ExtResource("2_iy326")
 metadata/_custom_type_script = "uid://biu7j8xueeqy6"
 
 [sub_resource type="Resource" id="Resource_mqy4i"]
 script = ExtResource("1_v7lxi")
 id = "semaforo quebrado"
 nome = "semaforo quebrado"
-descricao = "engarrafamento e tumulto no centro do rj"
+descricao = "Engarrafamento e tumulto no centro do rj"
 dias_para_resolver = 1
 dias_para_escalar = 5
 required_unit_type = 1
