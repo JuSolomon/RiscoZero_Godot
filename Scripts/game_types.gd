@@ -1,4 +1,4 @@
-extends Resource
+extends Node
 
 enum UnitType
 {
@@ -8,6 +8,15 @@ enum UnitType
 	DEFESA_CIVIL,
 	GUARDA_MUNICIPAL,
 	BOMBEIROS
+}
+
+var UnitDict = { 
+	UnitType.COMLURB: "Comlurb",
+	UnitType.CET: 'Cet',
+	UnitType.SAMU: 'Samu',
+	UnitType.DEFESA_CIVIL: 'Defesa Civil',
+	UnitType.GUARDA_MUNICIPAL: 'Guarda Municipal',
+	UnitType.BOMBEIROS: 'Bombeiros'
 }
 
 enum EventState

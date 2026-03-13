@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_qw1bq")
 id = "COMLURB_LIXO_02"
-nome = "pregas nas ruas"
-descricao = "Pragasse espalham por calçadas, casas e lojas"
+nome = "pragas nas ruas"
+descricao = "Pragas se espalham por calçadas, casas e lojas"
 zona_id = 1
 severidade_inicial = 2
 metadata/_custom_type_script = "uid://biu7j8xueeqy6"

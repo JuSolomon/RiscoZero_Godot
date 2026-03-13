@@ -118,28 +118,58 @@ func _on_new_day() -> void:
 		pass
 
 
-func _escalar_evento(event_id: String) -> void:
-	#if not _active_events.has(event_id):
-		#return
-#
-	#var ev = _active_events[event_id]
-	#ev["estado"] = "escalado"
-#
+func _resolver_evento(event_id: String) -> void:
+	if not _active_events.has(event_id):
+		return
+
+	var ev: EventInstance  = _active_events[event_id]
+
 	## Aqui você pode trocar o template, aumentar severidade, criar novo evento etc.
-	#print("EventManager: evento escalado -> ", event_id)
-	pass
+	print("EventManager: evento resolvido -> ", event_id)
+
+func _escalar_evento(event_id: String) -> void:
+	if not _active_events.has(event_id):
+		return
+
+	var ev: EventInstance = _active_events[event_id]
+	_active_events.erase(event_id)
+	
+	if ev.evento_base.evento_escalonado != null:
+		ev.set_estado_evento(GameTypes.EventState.ESCALADO)
+		
+		var template = ev.evento_base.evento_escalonado
+		var novo_evento = EventInstance.new()
+		var novo_id := str(Time.get_ticks_msec()) + "_" + str(randi())
+		
+		novo_evento.name = novo_id
+		novo_evento.id = novo_id
+		novo_evento.evento_base = template
+		novo_evento.dias_para_resolver = template.dias_para_resolver
+		novo_evento.dias_para_escalar = template.dias_para_escalar
+		novo_evento.set_estado_evento(GameTypes.EventState.ATIVO)
+		
+		novo_evento.escalar_evento.connect(_escalar_evento)
+		novo_evento.resolver_evento.connect(_resolver_evento)
+		
+		var ev_marker = ev.get_parent()
+		ev_marker.add_child(novo_evento)
+		_active_events[novo_id] = novo_evento
+		
+		print("EventManager: evento escalado -> ", event_id)
+	else:
+		_falhar_evento(event_id)
 
 
 func _falhar_evento(event_id: String) -> void:
-	#if not _active_events.has(event_id):
-		#return
-#
-	#var ev = _active_events[event_id]
-	#ev["estado"] = "expirado"
-#
+	if not _active_events.has(event_id):
+		return
+
+	var ev: EventInstance = _active_events[event_id]
+	ev.estado = GameTypes.EventState.EXPIRADO
+	_active_events.erase(event_id)
+
 	## Aplicar penalidades, remover marcador, etc.
-	#print("EventManager: evento expirado sem resolução -> ", event_id)
-	pass
+	print("EventManager: evento expirado sem resolução -> ", event_id)
 
 
 # ------------------------------------------------
@@ -208,17 +238,6 @@ func spawn_random_event() -> void:
 	# Cria id único para essa instância
 	var event_id := str(Time.get_ticks_msec()) + "_" + str(randi())
 
-	# Salva instância de evento na memória
-	var instance := {
-		"id": event_id,
-		"template": template,
-		"dias_restantes_resolver": template.dias_para_resolver,
-		"dias_restantes_escalar": template.dias_para_escalar,
-		"estado": "ativo",
-		"evento_escalonado": template.evento_escalonado,
-		"world_position": pos
-	}
-
 	# Passa o id para o marcador (assumindo que ele tenha essa variável)
 	if "event_id" in marker:
 		marker.event_id = event_id
@@ -233,6 +252,10 @@ func spawn_random_event() -> void:
 	novo_evento.dias_para_resolver = template.dias_para_resolver
 	novo_evento.dias_para_escalar = template.dias_para_escalar
 	novo_evento.estado = GameTypes.EventState.ATIVO
+	
+	# Conecta sinais de evento
+	novo_evento.escalar_evento.connect(_escalar_evento)
+	novo_evento.resolver_evento.connect(_resolver_evento)
 	
 	_active_events[event_id] = novo_evento
 	

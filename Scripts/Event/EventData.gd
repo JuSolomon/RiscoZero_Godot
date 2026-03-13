@@ -15,4 +15,4 @@ class_name EventData
 
 @export var severidade_inicial: int = 1
 
-@export var required_unit_type: int = 0 #Usa GameTypes.UnitType
+@export var required_unit_type: GameTypes.UnitType = 0 #Usa GameTypes.UnitType

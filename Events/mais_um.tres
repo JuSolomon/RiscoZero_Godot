@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://brulauypnfys2"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_dxs28"]
+
+[sub_resource type="Resource" id="Resource_dxs28"]
+script = ExtResource("1_dxs28")
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+
+[resource]
+script = ExtResource("1_dxs28")
+evento_escalonado = SubResource("Resource_dxs28")
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

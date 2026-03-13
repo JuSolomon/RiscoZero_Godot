@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://cqikcasgnw0d5"]
+
+[ext_resource type="Resource" uid="uid://brulauypnfys2" path="res://Events/mais_um.tres" id="1_63pkw"]
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_tscbb"]
+
+[resource]
+script = ExtResource("1_tscbb")
+evento_escalonado = ExtResource("1_63pkw")
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

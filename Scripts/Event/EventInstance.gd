@@ -17,12 +17,18 @@ var ticks_para_escalar: int = 0
 
 var estado : GameTypes.EventState: set = set_estado_evento
 
+signal escalar_evento(evento_id: String)
+signal resolver_evento(evento_id: String)
+
+signal progresso_evento_escalar(progresso_atual_ticks: int, progresso_restante_ticks)
+signal progresso_evento_resolver(progresso_atual_ticks: int, progresso_restante_ticks)
+
 func _init() -> void:
 	if TimeManager:
 		tick_inicio = TimeManager.current_tick
 		dia_inicio = TimeManager.day_in_week
 		semana_inicio = TimeManager.week_in_year
-		ano_inicio = TimeManager.years_per_term
+		ano_inicio = TimeManager.year_in_term
 	else:
 		push_error("EventInstance: TimeManager autoload não encontrado.")
 
@@ -44,15 +50,26 @@ func _on_tick(_t, _d, _w, _y, _term) -> void:
 	match estado:
 		GameTypes.EventState.ATIVO:
 			ticks_para_escalar += 1
-			if ticks_para_escalar >= TimeManager.ticks_per_day * dias_para_escalar:
-#				TODO Escalar evento 
-				pass
+			var ticks_restantes = TimeManager.ticks_per_day * dias_para_escalar - ticks_para_escalar
+			progresso_evento_escalar.emit(ticks_para_escalar, ticks_restantes)
+			if ticks_restantes <= 0:
+				#if evento_base.evento_escalonado:
+#					Escalar evento
+				#else:
+#					Falhar evento
+				escalar_evento.emit(id)
 			
 		GameTypes.EventState.EM_ATENDIMENTO:
 			ticks_para_resolver += 1
-			if ticks_para_resolver >= TimeManager.ticks_per_day * dias_para_resolver:
-#				TODO Resolver evento
-				pass
+			var ticks_restantes = TimeManager.ticks_per_day * dias_para_resolver - ticks_para_resolver
+			progresso_evento_resolver.emit(ticks_para_resolver, ticks_restantes)
+			if ticks_restantes <= 0:
+				resolver_evento.emit(id)
+				
+		GameTypes.EventState.EXPIRADO:
+			queue_free()
+		GameTypes.EventState.ESCALADO:
+			queue_free()
 
 # ------------------------------------------------
 # CONTROLE DE VARIÁVEIS
@@ -67,8 +84,8 @@ func get_dias_restantes_resolver() -> int:
 		resultado = floori(resultado)
 	return resultado
 
-func get_dias_restantes_escalar() -> int:
-	var resultado = float(dias_para_escalar) - float(ticks_para_escalar)/float(TimeManager.ticks_per_day)
-	if resultado > 1:
-		resultado = floori(resultado)
-	return resultado
+func get_tempo_restante_escalar() -> int:
+	#var resultado = float(dias_para_escalar) - float(ticks_para_escalar)/float(TimeManager.ticks_per_day)
+	#if resultado > 1:
+		#resultado = floori(resultado)
+	return (TimeManager.ticks_per_day * dias_para_escalar) - ticks_para_escalar

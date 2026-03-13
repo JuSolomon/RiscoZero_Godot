@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://djnknqukc4vyo"]
 
 [ext_resource type="Script" uid="uid://b61f1js1mish4" path="res://Scripts/Camera25D.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://c8jk5lxs0r7go" path="res://Scripts/HUD.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://c8jk5lxs0r7go" path="res://Scripts/UI/HUD.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bdlwo13ea07q2" path="res://Scenes/UI/EventCard.tscn" id="2_v2nl5"]
 [ext_resource type="Texture2D" uid="uid://xdecdds51kx7" path="res://icon.svg" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://bdb50e8ye8rpe" path="res://Assets2D/white_block.png" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://bpsrvsxrnp48b" path="res://lighting_manager.gd" id="4_272bh"]
 [ext_resource type="Script" uid="uid://behuxci437l03" path="res://Scripts/GameManager.gd" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://c3ukw8jvh1hkg" path="res://sky_manager.gd" id="7_5vw27"]
-[ext_resource type="Script" uid="uid://dx7gfkxka27r4" path="res://Scripts/EventManager.gd" id="8_ynf5e"]
+[ext_resource type="Script" uid="uid://dx7gfkxka27r4" path="res://Scripts/Event/EventManager.gd" id="8_ynf5e"]
 [ext_resource type="Resource" uid="uid://dfel452xxamnr" path="res://Events/event_library.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://d1lloedybbpg7" path="res://Scenes/EventMarker.tscn" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://pg8nhooomqmq" path="res://3D Models/Chão/light-curved-cross.fbx" id="10_6vcvc"]
@@ -45,7 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://cgnabq63bxg4i" path="res://3D Models/Chão/light-square.fbx" id="42_kqrg6"]
 [ext_resource type="PackedScene" uid="uid://dtqu8fb4tfnog" path="res://3D Models/Chão/sign-highway-detailed.fbx" id="43_nwwfm"]
 [ext_resource type="PackedScene" uid="uid://dvqv87cxeibyq" path="res://3D Models/Chão/sign-highway-wide.fbx" id="44_s8vy0"]
-[ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/debug_ui.tscn" id="46_nwwfm"]
+[ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/UI/debug_ui.tscn" id="46_nwwfm"]
 [ext_resource type="PackedScene" uid="uid://bs2mk1f3p7sgw" path="res://Scenes/WeekSummaryScreen.tscn" id="47_s8vy0"]
 [ext_resource type="Script" uid="uid://des61orthw8j2" path="res://Scripts/CityStats.gd" id="48_jut3y"]
 
@@ -75,6 +76,14 @@ glow_enabled = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=215820774]
 script = ExtResource("2_0xm2m")
+game_speed_2 = 25.0
+game_speed_3 = 50.0
+
+[node name="EventCard" parent="HUD" unique_id=1681084874 instance=ExtResource("2_v2nl5")]
+offset_left = 1458.0
+offset_top = 130.0
+offset_right = 1858.0
+offset_bottom = 630.0
 
 [node name="Panel" type="Panel" parent="HUD" unique_id=978389659]
 offset_right = 66.17242
@@ -157,6 +166,7 @@ offset_bottom = 35.0
 scale = Vector2(0.0344827, 1)
 
 [node name="EventCard" type="Panel" parent="HUD/Panel" unique_id=2143882041]
+visible = false
 layout_mode = 0
 offset_left = 53.37931
 offset_top = 138.0

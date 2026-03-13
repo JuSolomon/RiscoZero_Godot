@@ -288,3 +288,10 @@ func get_day_cycle_progress() -> float:
 		return 0.0
 	var p := get_day_progress()
 	return (p - NIGHT_FRACTION) / DAY_FRACTION
+
+func tick_to_time(ticks: int) -> Array[int]:
+	var resultado: Array[int]
+	var ticks_to_minutes = (float(ticks)/float(ticks_per_day))*24*60
+	
+	
+	return [ticks % ticks_per_day]

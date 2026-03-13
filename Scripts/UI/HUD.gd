@@ -14,11 +14,9 @@ var speed2: Button = null
 var speed3: Button = null
 
 # Card de evento
-var event_card: Panel = null
-var event_title_label: Label = null
-var event_body_label: Label = null
-var event_close_button: Button = null
+var event_card: EventCard = null
 var event_id: String = ''
+var selected_event: EventInstance = null
 
 # Velocidades de jogo
 var _last_speed: float = 1.0
@@ -46,10 +44,6 @@ func _ready() -> void:
 	speed3 = find_child("speed3", true, false)
 
 	event_card = find_child("EventCard", true, false)
-	if event_card:
-		event_title_label = event_card.find_child("TitleLabel", true, false)
-		event_body_label = event_card.find_child("BodyLabel", true, false)
-		event_close_button = event_card.find_child("CloseButton", true, false)
 
 	# --- Estiliza textos básicos (branco) ---
 	if time_label:
@@ -103,8 +97,8 @@ func _ready() -> void:
 	if speed3:
 		speed3.pressed.connect(func() -> void: _set_speed(game_speed_3))
 
-	if event_close_button:
-		event_close_button.pressed.connect(_close_event_card)
+	if event_card:
+		event_card.close_button.pressed.connect(_close_event_card)
 
 	# Atualiza tudo na largada
 	_update_all()
@@ -211,28 +205,6 @@ func _on_pause_toggled(pressed: bool) -> void:
 # Integração com EventManager – abertura de card
 # ------------------------------------------------
 
-#func _update_event_card():
-	#if selected_event:
-		#var body := selected_event.evento_base.descricao
-		#
-		#var dias_resolver: int = selected_event.get_dias_restantes_resolver()
-		#var dias_escalar: int = selected_event.get_dias_restantes_escalar()
-		#var required_unit: int = selected_event.evento_base.required_unit_type
-#
-		#var extra_info := ""
-#
-		#if dias_resolver >= 0:
-			#extra_info += "\n\nDias para resolver: %d" % dias_resolver
-#
-		#if dias_escalar >= 0:
-			#extra_info += "\nDias até escalar: %d" % dias_escalar
-#
-		#if required_unit >= 0:
-			#extra_info += "\nÓrgão responsável: %s" % _get_unit_type_name(required_unit)
-			#
-		#if event_body_label:
-			#event_body_label.text = body + extra_info
-
 # Traduz o tipo de unidade (int do enum UnitType em CAPS) para nome exibido
 func _get_unit_type_name(unit_type: int) -> String:
 	match unit_type:
@@ -260,33 +232,10 @@ func show_event_card(event: EventInstance) -> void:
 		print("HUD: EventCard não encontrado, não foi possível abrir o evento.")
 		return
 
-	var title := event.evento_base.nome
-	var body := event.evento_base.descricao
-
-	var dias_resolver: int = event.get_dias_restantes_resolver()
-	var dias_escalar: int = event.get_dias_restantes_escalar()
-	var required_unit: int = event.evento_base.required_unit_type
-
-	var extra_info := ""
-
-	if dias_resolver >= 0:
-		extra_info += "\n\nDias para resolver: %d" % dias_resolver
-
-	if dias_escalar >= 0:
-		extra_info += "\nDias até escalar: %d" % dias_escalar
-
-	if required_unit >= 0:
-		extra_info += "\nÓrgão responsável: %s" % _get_unit_type_name(required_unit)
-
-	if event_title_label:
-		event_title_label.text = title
-
-	if event_body_label:
-		event_body_label.text = body + extra_info
-
+	event_card.setup_completo(event)
 	event_card.visible = true
 
-	print("EVENTO ABERTO: %s" % title)
+	print("EVENTO ABERTO: %s" % event.evento_base.nome)
 
 
 func _close_event_card() -> void:
