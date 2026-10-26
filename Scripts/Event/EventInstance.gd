@@ -17,6 +17,9 @@ var ticks_para_escalar: int = 0
 
 var estado : GameTypes.EventState: set = set_estado_evento
 
+# Viatura enviada para este evento (null = nenhuma)
+var unidade_designada: Node = null
+
 signal escalar_evento(evento_id: String)
 signal resolver_evento(evento_id: String)
 

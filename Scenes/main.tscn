@@ -48,6 +48,10 @@
 [ext_resource type="PackedScene" uid="uid://dvqv87cxeibyq" path="res://3D Models/Chão/sign-highway-wide.fbx" id="44_s8vy0"]
 [ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/UI/debug_ui.tscn" id="46_nwwfm"]
 [ext_resource type="PackedScene" uid="uid://bs2mk1f3p7sgw" path="res://Scenes/WeekSummaryScreen.tscn" id="47_s8vy0"]
+[ext_resource type="Script" uid="uid://g0a66c44dmj4" path="res://Scripts/Dispatch/RoadNetwork.gd" id="49_road"]
+[ext_resource type="Script" uid="uid://d08rh6lib0mkr" path="res://Scripts/Dispatch/DispatchManager.gd" id="50_disp"]
+[ext_resource type="Script" uid="uid://dydfbm4fv4u4r" path="res://Scripts/Dispatch/UnitBase.gd" id="51_base"]
+[ext_resource type="PackedScene" uid="uid://ci0u38ci8s8gq" path="res://Scenes/Unit.tscn" id="52_unit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -625,3 +629,44 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.91
 [node name="DebugUI" parent="." unique_id=623105750 instance=ExtResource("46_nwwfm")]
 
 [node name="WeekSummaryScreen" parent="." unique_id=1593188048 instance=ExtResource("47_s8vy0")]
+
+[node name="RoadNetwork" type="Node3D" parent="." unique_id=1567548921]
+script = ExtResource("49_road")
+
+[node name="DispatchManager" type="Node" parent="." unique_id=1806107182 node_paths=PackedStringArray("road_network", "event_manager")]
+script = ExtResource("50_disp")
+road_network = NodePath("../RoadNetwork")
+event_manager = NodePath("../EventManager")
+unit_scene = ExtResource("52_unit")
+
+[node name="Bases" type="Node3D" parent="." unique_id=197247004]
+
+[node name="BaseComlurb" type="Marker3D" parent="Bases" unique_id=1032875149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -4)
+script = ExtResource("51_base")
+unit_type = 0
+
+[node name="BaseCET" type="Marker3D" parent="Bases" unique_id=229715731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4)
+script = ExtResource("51_base")
+unit_type = 1
+
+[node name="BaseSAMU" type="Marker3D" parent="Bases" unique_id=1697695046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 4)
+script = ExtResource("51_base")
+unit_type = 2
+
+[node name="BaseDefesaCivil" type="Marker3D" parent="Bases" unique_id=192888740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 10)
+script = ExtResource("51_base")
+unit_type = 3
+
+[node name="BaseGuardaMunicipal" type="Marker3D" parent="Bases" unique_id=266317236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 10)
+script = ExtResource("51_base")
+unit_type = 4
+
+[node name="BaseBombeiros" type="Marker3D" parent="Bases" unique_id=131926886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 4)
+script = ExtResource("51_base")
+unit_type = 5

@@ -152,8 +152,13 @@ func _escalar_evento(event_id: String) -> void:
 	if "event_id" in ev_marker:
 		ev_marker.event_id = novo_id
 
+	var novo_evento := _criar_instancia(template, novo_id)
+	# A viatura a caminho continua valendo se o órgão responsável for o mesmo
+	if template.required_unit_type == ev.evento_base.required_unit_type:
+		novo_evento.unidade_designada = ev.unidade_designada
+
 	ev.queue_free()
-	ev_marker.add_child(_criar_instancia(template, novo_id))
+	ev_marker.add_child(novo_evento)
 
 	print("EventManager: evento escalado -> ", event_id, " virou ", novo_id, " (", template.nome, ")")
 
@@ -169,6 +174,19 @@ func _falhar_evento(event_id: String) -> void:
 	## Aqui entram as penalidades (mortes, popularidade, etc.)
 	_remover_marcador(ev)
 	print("EventManager: evento expirado sem resolução -> ", event_id)
+
+
+func iniciar_atendimento(event_id: String) -> void:
+	if not _active_events.has(event_id):
+		return
+	_active_events[event_id].set_estado_evento(GameTypes.EventState.EM_ATENDIMENTO)
+	print("EventManager: equipe chegou, atendimento iniciado -> ", event_id)
+
+
+func get_evento_do_marcador(marker: Node) -> EventInstance:
+	if marker == null or not is_instance_valid(marker) or not ("event_id" in marker):
+		return null
+	return _active_events.get(marker.event_id)
 
 
 # Remove o marcador do mapa junto com a instância do evento

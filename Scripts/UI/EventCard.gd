@@ -6,6 +6,8 @@ var valores: Array[Label]
 var title: Label
 var body: Label
 var close_button: Button
+var enviar_button: Button
+var avisos: RichTextLabel
 var evento_atual: EventInstance = null
 
 func _ready() -> void:
@@ -23,6 +25,9 @@ func _ready() -> void:
 	body = find_child("BodyLabel", true, false)
 	
 	close_button = find_child("CloseButton", true, false)
+	enviar_button = find_child("EnviarButton", true, false)
+	avisos = find_child("Avisos", true, false)
+	enviar_button.pressed.connect(_on_enviar_pressed)
 
 func setup_completo(event: EventInstance):
 	_desconectar_evento()
@@ -42,6 +47,7 @@ func setup_completo(event: EventInstance):
 	event.progresso_evento_escalar.connect(_on_progresso_evento_escalar)
 	event.progresso_evento_resolver.connect(_on_progresso_evento_resolver)
 	event.tree_exiting.connect(_on_evento_removido)
+	_atualizar_despacho()
 
 
 # Desfaz as conexões com o evento mostrado antes, para o card não misturar contadores
@@ -74,6 +80,29 @@ func _formatar_ticks(ticks_restantes: int) -> String:
 
 func _on_progresso_evento_escalar(_progresso_atual_ticks: int, progresso_restante_ticks):
 	valores[0].text = _formatar_ticks(progresso_restante_ticks)
+	_atualizar_despacho()
 	
 func _on_progresso_evento_resolver(_progresso_atual_ticks: int, progresso_restante_ticks):
 	valores[1].text = _formatar_ticks(progresso_restante_ticks)
+	_atualizar_despacho()
+
+
+# ------------------------------------------------
+# ENVIO DE EQUIPE
+# ------------------------------------------------
+
+func _on_enviar_pressed() -> void:
+	var dispatch := get_tree().get_first_node_in_group("dispatch")
+	if dispatch and evento_atual and is_instance_valid(evento_atual):
+		dispatch.despachar(evento_atual)
+	_atualizar_despacho()
+
+
+# Habilita o botão só quando dá para enviar; senão explica o motivo
+func _atualizar_despacho() -> void:
+	if evento_atual == null or not is_instance_valid(evento_atual):
+		return
+	var dispatch := get_tree().get_first_node_in_group("dispatch")
+	var motivo: String = "Sistema de despacho não encontrado." if dispatch == null else dispatch.motivo_bloqueio(evento_atual)
+	enviar_button.disabled = motivo != ""
+	avisos.text = motivo
