@@ -240,5 +240,6 @@ func show_event_card(event: EventInstance) -> void:
 
 func _close_event_card() -> void:
 	if event_card:
+		event_card._desconectar_evento()
 		event_card.visible = false
 		

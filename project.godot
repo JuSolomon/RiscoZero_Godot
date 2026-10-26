@@ -22,9 +22,8 @@ config/icon="res://Risco_Zero_Godot/icon.svg"
 [autoload]
 
 TimeManager="*res://Scripts/TimeManager.gd"
-EventManager="*res://Scripts/Event/EventManager.gd"
 GameTypes="*res://Scripts/game_types.gd"
-CityStats="*uid://des61orthw8j2"
+CityStats="*res://Scripts/CityStats.gd"
 
 [display]
 
