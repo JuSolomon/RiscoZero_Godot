@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://hmrmy2ccto9mb"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://mmpvuigg1i5h" path="res://Events/alta/surto_de_dengue.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "PRAGAS_NAS_RUAS"
+nome = "Pragas nas ruas"
+descricao = "Ratos e baratas tomaram calçadas, casas e lojas. Moradores postam vídeos que viralizam com a hashtag #RioDosRatos."
+zona_id = 1
+dias_para_resolver = 2
+dias_para_escalar = 2
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 2
+required_unit_type = 0
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

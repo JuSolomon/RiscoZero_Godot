@@ -1,30 +1,19 @@
 [gd_resource type="Resource" script_class="EventLibrary" format=3 uid="uid://dfel452xxamnr"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_v7lxi"]
-[ext_resource type="Resource" uid="uid://f617nkqmtec0" path="res://Events/comlurb_lixo_02.tres" id="2_iy326"]
-[ext_resource type="Script" uid="uid://dxaypspyqbgqr" path="res://Scripts/Event/EventLibrary.gd" id="2_mqy4i"]
-[ext_resource type="Resource" uid="uid://cqikcasgnw0d5" path="res://Events/novo_evento.tres" id="3_iy326"]
-
-[sub_resource type="Resource" id="Resource_v7lxi"]
-script = ExtResource("1_v7lxi")
-id = "lixo espalhado"
-nome = "lixo espalhado"
-descricao = "Muito lixo nas ruas do centro "
-evento_escalonado = ExtResource("2_iy326")
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
-
-[sub_resource type="Resource" id="Resource_mqy4i"]
-script = ExtResource("1_v7lxi")
-id = "semaforo quebrado"
-nome = "semaforo quebrado"
-descricao = "Engarrafamento e tumulto no centro do rj"
-dias_para_resolver = 1
-dias_para_escalar = 5
-evento_escalonado = ExtResource("3_iy326")
-required_unit_type = 1
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" uid="uid://dxaypspyqbgqr" path="res://Scripts/Event/EventLibrary.gd" id="2_lib"]
+[ext_resource type="Resource" uid="uid://j2rfj4fsymb7b" path="res://Events/baixa/lixo_acumulado.tres" id="3_ev"]
+[ext_resource type="Resource" uid="uid://fqct34171orjb" path="res://Events/baixa/semaforo_quebrado.tres" id="4_ev"]
+[ext_resource type="Resource" uid="uid://75zc1skqxgro" path="res://Events/baixa/bueiros_entupidos.tres" id="5_ev"]
+[ext_resource type="Resource" uid="uid://c0t9k1bblr30b" path="res://Events/media/encosta_instavel.tres" id="6_ev"]
+[ext_resource type="Resource" uid="uid://gdd71zmbsjqi" path="res://Events/baixa/bloco_superlotado.tres" id="7_ev"]
+[ext_resource type="Resource" uid="uid://ub62rtfbi8hlb" path="res://Events/baixa/manifestacao.tres" id="8_ev"]
+[ext_resource type="Resource" uid="uid://bpnb2ik4rw63" path="res://Events/baixa/furtos_na_praia.tres" id="9_ev"]
+[ext_resource type="Resource" uid="uid://jhesg0jr8w67b" path="res://Events/baixa/arvore_com_risco.tres" id="10_ev"]
+[ext_resource type="Resource" uid="uid://yl19zenoslohb" path="res://Events/baixa/foco_de_incendio.tres" id="11_ev"]
+[ext_resource type="Resource" uid="uid://4egx7npdzisdb" path="res://Events/media/mal_subito_calor.tres" id="12_ev"]
 
 [resource]
-script = ExtResource("2_mqy4i")
-events = Array[ExtResource("1_v7lxi")]([SubResource("Resource_v7lxi"), SubResource("Resource_mqy4i")])
+script = ExtResource("2_lib")
+events = Array[ExtResource("1_data")]([ExtResource("3_ev"), ExtResource("4_ev"), ExtResource("5_ev"), ExtResource("6_ev"), ExtResource("7_ev"), ExtResource("8_ev"), ExtResource("9_ev"), ExtResource("10_ev"), ExtResource("11_ev"), ExtResource("12_ev")])
 metadata/_custom_type_script = "uid://dxaypspyqbgqr"

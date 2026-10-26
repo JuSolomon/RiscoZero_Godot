@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://2zbpvglm9s4s"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://mbbuktebkf2bb" path="res://Events/alta/confronto_em_protesto.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "PROTESTO"
+nome = "Protesto com bloqueio de via"
+descricao = "Manifestantes fecharam uma avenida importante e exigem falar com o prefeito. A pauta, ironicamente, é a demora da prefeitura."
+zona_id = 0
+dias_para_resolver = 1
+dias_para_escalar = 2
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 2
+required_unit_type = 1
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

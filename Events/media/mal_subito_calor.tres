@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://4egx7npdzisdb"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "MAL_SUBITO_CALOR"
+nome = "Onda de mal súbito por calor"
+descricao = "Com a sensação térmica passando dos 50°C, vários casos de desmaio e desidratação na orla e nos pontos de ônibus."
+zona_id = 2
+dias_para_resolver = 1
+dias_para_escalar = 2
+severidade_inicial = 2
+required_unit_type = 2
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

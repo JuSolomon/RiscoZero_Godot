@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://fqct34171orjb"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://jfrp84oao3owb" path="res://Events/media/engarrafamento_generalizado.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "SEMAFORO_QUEBRADO"
+nome = "Semáforo quebrado"
+descricao = "Um semáforo de um cruzamento movimentado está piscando amarelo desde cedo. Cada um passa quando acha que deve."
+zona_id = 0
+dias_para_resolver = 1
+dias_para_escalar = 2
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 1
+required_unit_type = 1
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"

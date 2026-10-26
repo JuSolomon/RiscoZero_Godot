@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://j72rx4i4bl57b"]
+
+[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "ARRASTAO"
+nome = "Arrastão"
+descricao = "Um arrastão na orla espalhou pânico entre banhistas e turistas. O turismo da semana vai sentir o golpe."
+zona_id = 2
+dias_para_resolver = 2
+dias_para_escalar = 1
+severidade_inicial = 3
+required_unit_type = 4
+metadata/_custom_type_script = "uid://biu7j8xueeqy6"
