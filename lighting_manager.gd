@@ -7,7 +7,7 @@ class_name LightingManager
 # fração do dia que é “noite” (incluindo amanhecer)
 const NIGHT_FRAC := 1.0 / 3.0   # ≈ 0.333
 
-@export var night_energy: float = 0.1
+@export var night_energy: float = 0.35
 @export var day_energy: float   = 1.0
 
 

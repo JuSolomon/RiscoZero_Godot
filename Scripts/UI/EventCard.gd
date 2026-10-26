@@ -105,4 +105,5 @@ func _atualizar_despacho() -> void:
 	var dispatch := get_tree().get_first_node_in_group("dispatch")
 	var motivo: String = "Sistema de despacho não encontrado." if dispatch == null else dispatch.motivo_bloqueio(evento_atual)
 	enviar_button.disabled = motivo != ""
+	enviar_button.text = "Enviar equipe (R$ %d)" % CityStats.custo_envio(evento_atual)
 	avisos.text = motivo

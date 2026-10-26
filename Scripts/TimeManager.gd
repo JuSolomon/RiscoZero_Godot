@@ -84,7 +84,8 @@ func _process(delta: float) -> void:
 
 	_accumulator += delta * time_scale
 
-	while _accumulator >= seconds_per_tick:
+	# Para de contar assim que a rodada termina, mesmo no meio do quadro
+	while _accumulator >= seconds_per_tick and not is_waiting_for_week_start:
 		_accumulator -= seconds_per_tick
 		_do_tick()
 
@@ -181,11 +182,20 @@ func reset_time(full_reset: bool = true) -> void:
 		total_years = 0
 
 	running = true
+	time_scale = 1.0
+	is_waiting_for_week_start = true
 
 	emit_signal("new_day_started", day_in_week, week_in_year, year_in_term, term_index)
 	emit_signal("day_changed", day_in_week, week_in_year, year_in_term, term_index)
 	emit_signal("week_started", week_in_year, year_in_term, term_index)
 	emit_signal("year_changed", year_in_term, term_index)
+
+
+## Libera o relógio para a rodada começar (o jogo começa parado, esperando o jogador)
+func iniciar_rodada(hora_inicial: float = 7.0) -> void:
+	current_tick = int(ticks_per_day * hora_inicial / 24.0)
+	is_waiting_for_week_start = false
+	running = true
 
 
 func set_running(value: bool) -> void:

@@ -13,6 +13,9 @@ var speed1: Button = null
 var speed2: Button = null
 var speed3: Button = null
 
+# Dinheiro e popularidade
+var recursos_label: Label = null
+
 # Card de evento
 var event_card: EventCard = null
 var event_id: String = ''
@@ -99,6 +102,16 @@ func _ready() -> void:
 
 	if event_card:
 		event_card.close_button.pressed.connect(_close_event_card)
+
+	# --- Dinheiro e popularidade (barra do topo) ---
+	recursos_label = Label.new()
+	recursos_label.name = "RecursosLabel"
+	recursos_label.position = Vector2(1200, 8)
+	recursos_label.add_theme_font_size_override("font_size", 20)
+	recursos_label.add_theme_color_override("font_color", Color(1, 1, 1))
+	add_child(recursos_label)
+	CityStats.mudou.connect(_atualizar_recursos)
+	_atualizar_recursos()
 
 	# Atualiza tudo na largada
 	_update_all()
@@ -236,6 +249,16 @@ func show_event_card(event: EventInstance) -> void:
 	event_card.visible = true
 
 	print("EVENTO ABERTO: %s" % event.evento_base.nome)
+
+
+func _atualizar_recursos() -> void:
+	var cor := "" if CityStats.money_total >= 0 else " (estourado)"
+	recursos_label.text = "Orçamento: R$ %d%s   |   Popularidade: %d%%" % [
+		CityStats.money_total, cor, roundi(CityStats.popularity_current)]
+
+
+func fechar_card() -> void:
+	_close_event_card()
 
 
 func _close_event_card() -> void:

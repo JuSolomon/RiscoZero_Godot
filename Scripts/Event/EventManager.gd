@@ -11,7 +11,10 @@ extends Node
 ## Cena do marcador (arraste EventMarker.tscn no Inspector)
 @export var marker_scene: PackedScene
 
-## Centro da cidade para gerar posições aleatórias
+## Regiões desbloqueadas: os eventos surgem nos cruzamentos de rua delas
+@export var regioes: RegionManager
+
+## Centro da cidade para gerar posições aleatórias (usado só sem RegionManager)
 @export var city_center: Node3D
 
 ## Raio de spawn dos eventos (em torno do city_center)
@@ -21,7 +24,10 @@ extends Node
 @export var spawn_height: float = 200.0
 
 ## Quanto acima do chão o marcador deve aparecer
-@export var marker_height_offset: float = 1.0
+@export var marker_height_offset: float = 3.0
+
+## Tamanho do marcador no mapa
+@export var escala_marcador: float = 1.0
 
 ## Quantos eventos por dia
 @export var min_events_per_day: int = 1
@@ -126,7 +132,7 @@ func _resolver_evento(event_id: String) -> void:
 	ev.set_estado_evento(GameTypes.EventState.RESOLVIDO)
 	_active_events.erase(event_id)
 
-	## Aqui entram as recompensas (popularidade, etc.)
+	CityStats.registrar_resolucao(ev)
 	_remover_marcador(ev)
 	print("EventManager: evento resolvido -> ", event_id)
 
@@ -145,6 +151,7 @@ func _escalar_evento(event_id: String) -> void:
 
 	ev.set_estado_evento(GameTypes.EventState.ESCALADO)
 	_active_events.erase(event_id)
+	CityStats.registrar_escalada(ev)
 
 	# O novo evento ocupa o mesmo marcador do evento antigo
 	var ev_marker := ev.get_parent()
@@ -153,6 +160,7 @@ func _escalar_evento(event_id: String) -> void:
 		ev_marker.event_id = novo_id
 
 	var novo_evento := _criar_instancia(template, novo_id)
+	novo_evento.escaladas = ev.escaladas + 1
 	# A viatura a caminho continua valendo se o órgão responsável for o mesmo
 	if template.required_unit_type == ev.evento_base.required_unit_type:
 		novo_evento.unidade_designada = ev.unidade_designada
@@ -171,9 +179,9 @@ func _falhar_evento(event_id: String) -> void:
 	ev.set_estado_evento(GameTypes.EventState.EXPIRADO)
 	_active_events.erase(event_id)
 
-	## Aqui entram as penalidades (mortes, popularidade, etc.)
+	var mortes := CityStats.registrar_falha(ev)
 	_remover_marcador(ev)
-	print("EventManager: evento expirado sem resolução -> ", event_id)
+	print("EventManager: evento expirado sem resolução -> ", event_id, " (mortes: ", mortes, ")")
 
 
 func iniciar_atendimento(event_id: String) -> void:
@@ -181,6 +189,22 @@ func iniciar_atendimento(event_id: String) -> void:
 		return
 	_active_events[event_id].set_estado_evento(GameTypes.EventState.EM_ATENDIMENTO)
 	print("EventManager: equipe chegou, atendimento iniciado -> ", event_id)
+
+
+## Demandas ainda abertas que já escalaram (contam como não atendidas na nota)
+func contar_pendentes_escalados() -> int:
+	var n := 0
+	for ev in _active_events.values():
+		if ev.escaladas > 0:
+			n += 1
+	return n
+
+
+## Remove todos os eventos do mapa (fim de rodada)
+func limpar_eventos() -> void:
+	for ev in _active_events.values():
+		_remover_marcador(ev)
+	_active_events.clear()
 
 
 func get_evento_do_marcador(marker: Node) -> EventInstance:
@@ -224,6 +248,11 @@ func _criar_instancia(template: EventData, event_id: String) -> EventInstance:
 # ------------------------------------------------
 
 func _get_random_city_position() -> Vector3:
+	if regioes and regioes.road_network:
+		var ponto: Vector3 = regioes.road_network.ponto_aleatorio(regioes.desbloqueadas)
+		if ponto != Vector3.INF:
+			return ponto + Vector3.UP * marker_height_offset
+
 	var center := Vector3.ZERO
 
 	if city_center and is_instance_valid(city_center):
@@ -293,6 +322,7 @@ func spawn_random_event() -> void:
 	get_tree().current_scene.add_child(marker)
 	var pos := _get_random_city_position()
 	marker.global_position = pos
+	marker.scale = Vector3.ONE * escala_marcador
 	marker.add_child(_criar_instancia(template, event_id))
 
 	print("EventManager: Evento criado em ", pos, " id = ", event_id, " template = ", template.nome)

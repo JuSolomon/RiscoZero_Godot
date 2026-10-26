@@ -14,19 +14,22 @@ script = ExtResource("1_lymsv")
 [node name="Modelo" type="Node3D" parent="." unique_id=1188350467]
 
 [node name="Efeito" type="Node3D" parent="." unique_id=902154187]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 
 [node name="Anel" type="MeshInstance3D" parent="Efeito" unique_id=1734405722]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
 mesh = SubResource("TorusMesh_anel")
 
 [node name="Sirene" type="OmniLight3D" parent="Efeito" unique_id=559331906]
 light_color = Color(1, 0, 0, 1)
-light_energy = 2.0
-omni_range = 1.5
+light_energy = 4.0
+omni_range = 10.0
 
 [node name="Rotulo" type="Label3D" parent="Efeito" unique_id=1302937318]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-pixel_size = 0.003
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0005
+fixed_size = true
+font_size = 56
 billboard = 1
 no_depth_test = true
 outline_size = 8

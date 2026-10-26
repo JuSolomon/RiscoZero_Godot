@@ -4,12 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://xdecdds51kx7" path="res://icon.svg" id="2_bhd3c"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_83njq"]
+radius = 2.5
 
 [node name="EventMarker" type="Area3D" unique_id=488017267]
 script = ExtResource("1_wcmmd")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1860926655]
+pixel_size = 0.0005
 billboard = 1
+no_depth_test = true
+fixed_size = true
 texture = ExtResource("2_bhd3c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=937911234]

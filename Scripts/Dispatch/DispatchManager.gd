@@ -12,11 +12,16 @@ class_name DispatchManager
 @export var unit_scene: PackedScene
 
 ## A viatura estaciona um pouco antes do marcador, para não ficar embaixo dele
-@export var distancia_estacionar: float = 0.8
+@export var distancia_estacionar: float = 4.0
 
 
 func _ready() -> void:
 	add_to_group("dispatch")
+	_verificar_ruas.call_deferred()
+
+
+# O mapa carrega as ruas no _ready dele, que roda depois deste
+func _verificar_ruas() -> void:
 	if road_network == null or not road_network.tem_ruas():
 		push_warning("DispatchManager: sem rede de ruas, as viaturas vão em linha reta.")
 
@@ -52,6 +57,7 @@ func despachar(ev: EventInstance) -> bool:
 
 	base.disponiveis -= 1
 	ev.unidade_designada = unit
+	CityStats.registrar_envio(ev)
 
 	unit.chegou_ao_destino.connect(_on_unidade_chegou)
 	unit.voltou_para_base.connect(_on_unidade_voltou)
@@ -86,7 +92,8 @@ func _on_unidade_voltou(unit: Unit) -> void:
 
 
 func _mandar_voltar(unit: Unit) -> void:
-	if not is_instance_valid(unit) or unit.estado == Unit.Estado.VOLTANDO:
+	# Na troca de cena tudo sai da árvore junto: não há para onde voltar
+	if not is_instance_valid(unit) or not unit.is_inside_tree() or unit.estado == Unit.Estado.VOLTANDO:
 		return
 	unit.seguir_rota(_rota(unit.global_position, unit.base.global_position), Unit.Estado.VOLTANDO)
 

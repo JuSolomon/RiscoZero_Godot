@@ -20,6 +20,9 @@ var estado : GameTypes.EventState: set = set_estado_evento
 # Viatura enviada para este evento (null = nenhuma)
 var unidade_designada: Node = null
 
+# Quantas vezes esta demanda já escalou (0 = ainda no estágio inicial)
+var escaladas: int = 0
+
 signal escalar_evento(evento_id: String)
 signal resolver_evento(evento_id: String)
 

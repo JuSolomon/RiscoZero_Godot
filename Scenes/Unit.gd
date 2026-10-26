@@ -30,9 +30,9 @@ const CORES := {
 }
 
 ## Unidades de mundo por segundo, na velocidade 1x do jogo
-@export var velocidade: float = 2.0
-@export var escala_modelo: float = 0.15
-@export var altura_efeito: float = 0.55
+@export var velocidade: float = 4.0
+@export var escala_modelo: float = 2.5
+@export var altura_efeito: float = 4.5
 
 var unit_type: int = GameTypes.UnitType.SAMU
 var base: UnitBase
@@ -129,6 +129,6 @@ func _animar_efeito(delta: float) -> void:
 	if not efeito.visible:
 		return
 	_tempo_efeito += delta
-	efeito.position.y = altura_efeito + sin(_tempo_efeito * 3.0) * 0.06
+	efeito.position.y = altura_efeito + sin(_tempo_efeito * 3.0) * 0.4
 	anel.rotate_y(delta * 2.5)
 	sirene.light_color = Color.RED if int(_tempo_efeito * 4.0) % 2 == 0 else Color.BLUE

@@ -11,46 +11,12 @@
 [ext_resource type="Script" uid="uid://dx7gfkxka27r4" path="res://Scripts/Event/EventManager.gd" id="8_ynf5e"]
 [ext_resource type="Resource" uid="uid://dfel452xxamnr" path="res://Events/event_library.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://d1lloedybbpg7" path="res://Scenes/EventMarker.tscn" id="9_ynf5e"]
-[ext_resource type="PackedScene" uid="uid://pg8nhooomqmq" path="res://3D Models/Chão/light-curved-cross.fbx" id="10_6vcvc"]
-[ext_resource type="PackedScene" uid="uid://dwol48kkt6yly" path="res://3D Models/Chão/road-curve-intersection.fbx" id="11_7k868"]
-[ext_resource type="PackedScene" uid="uid://cecd24i726kqw" path="res://3D Models/Chão/road-curve.fbx" id="12_hpc6h"]
-[ext_resource type="PackedScene" uid="uid://babodwcfgx0tw" path="res://3D Models/Chão/road-driveway-double.fbx" id="13_kltya"]
-[ext_resource type="PackedScene" uid="uid://b0y13ol8jr786" path="res://3D Models/Predios/Comercial/building-a.fbx" id="14_e08e2"]
-[ext_resource type="PackedScene" uid="uid://mumn8mxeh3ul" path="res://3D Models/Predios/Comercial/building-d.fbx" id="15_neg2b"]
-[ext_resource type="PackedScene" uid="uid://3236t8fyb04i" path="res://3D Models/Predios/Comercial/building-e.fbx" id="16_r33sp"]
-[ext_resource type="PackedScene" uid="uid://cs4xuxoaqxmwx" path="res://3D Models/Predios/Comercial/building-g.fbx" id="17_hdf80"]
-[ext_resource type="PackedScene" uid="uid://d1vodnwl0qiu6" path="res://3D Models/Predios/Arranhaceu/building-a.fbx" id="18_jwpg7"]
-[ext_resource type="PackedScene" uid="uid://bmo2yy32hmhmq" path="res://3D Models/Predios/Arranhaceu/building-e.fbx" id="19_k2e45"]
-[ext_resource type="PackedScene" uid="uid://dr3beesptymdl" path="res://3D Models/Predios/Arranhaceu/building-k.fbx" id="20_536cc"]
-[ext_resource type="PackedScene" uid="uid://dagfkaw6ekrak" path="res://3D Models/Predios/Suburbio/building-type-a.fbx" id="21_aqgau"]
-[ext_resource type="PackedScene" uid="uid://cveoihxva5v3v" path="res://3D Models/Predios/Suburbio/building-type-d.fbx" id="22_8cuat"]
-[ext_resource type="PackedScene" uid="uid://pg22cw51xmog" path="res://3D Models/Predios/Suburbio/building-type-o.fbx" id="23_o1aky"]
-[ext_resource type="PackedScene" uid="uid://cx0mmqhv5o3td" path="res://3D Models/Chão/sign-highway.fbx" id="24_kwxat"]
-[ext_resource type="PackedScene" uid="uid://paetuflyht5e" path="res://3D Models/Pessoal/character-female-d.fbx" id="25_aa8k8"]
-[ext_resource type="PackedScene" uid="uid://dddwlgohpu82g" path="res://3D Models/Pessoal/character-male-f.fbx" id="26_kqrg6"]
-[ext_resource type="PackedScene" uid="uid://cis67xvpnwi3e" path="res://3D Models/Veículos/Carros/ambulance.fbx" id="27_nwwfm"]
-[ext_resource type="PackedScene" uid="uid://chsr6wwlfkjry" path="res://3D Models/Veículos/Carros/garbage-truck.fbx" id="28_s8vy0"]
-[ext_resource type="PackedScene" uid="uid://5m6bo3xrllkh" path="res://3D Models/Veículos/Carros/sedan-sports.fbx" id="29_jut3y"]
-[ext_resource type="PackedScene" uid="uid://cfw4xm8u70i84" path="res://3D Models/Veículos/Carros/taxi.fbx" id="30_aqgau"]
-[ext_resource type="PackedScene" uid="uid://8sji12k8d40n" path="res://3D Models/Veículos/Carros/van.fbx" id="31_8cuat"]
-[ext_resource type="PackedScene" uid="uid://bbifusg50fuxn" path="res://3D Models/Chão/road-crossing.fbx" id="32_o1aky"]
-[ext_resource type="PackedScene" uid="uid://neex5dyu5xhj" path="res://3D Models/Chão/road-driveway-single.fbx" id="33_kwxat"]
-[ext_resource type="PackedScene" uid="uid://4xgqk503fjui" path="res://3D Models/Predios/Suburbio/path-long.fbx" id="34_aa8k8"]
-[ext_resource type="PackedScene" uid="uid://dlbk1gehoibs7" path="res://3D Models/Predios/Suburbio/planter.fbx" id="35_kqrg6"]
-[ext_resource type="PackedScene" uid="uid://tolu83eb201h" path="res://3D Models/Predios/Suburbio/tree-large.fbx" id="36_nwwfm"]
-[ext_resource type="PackedScene" uid="uid://dv6lbrrksnin6" path="res://3D Models/Predios/Suburbio/tree-small.fbx" id="37_s8vy0"]
-[ext_resource type="PackedScene" uid="uid://bt4jyoh8bt6lu" path="res://3D Models/Veículos/Barcos/boat-tug-b.fbx" id="38_jut3y"]
-[ext_resource type="PackedScene" uid="uid://ca86fntsbiwng" path="res://3D Models/Veículos/Barcos/ship-ocean-liner-small.fbx" id="39_v2nl5"]
-[ext_resource type="PackedScene" uid="uid://6cpsdls15pp4" path="res://3D Models/Veículos/Barcos/ship-ocean-liner.fbx" id="40_dmskm"]
-[ext_resource type="PackedScene" uid="uid://bpmm40yew3mu7" path="res://3D Models/Chão/light-square-cross.fbx" id="41_aa8k8"]
-[ext_resource type="PackedScene" uid="uid://cgnabq63bxg4i" path="res://3D Models/Chão/light-square.fbx" id="42_kqrg6"]
-[ext_resource type="PackedScene" uid="uid://dtqu8fb4tfnog" path="res://3D Models/Chão/sign-highway-detailed.fbx" id="43_nwwfm"]
-[ext_resource type="PackedScene" uid="uid://dvqv87cxeibyq" path="res://3D Models/Chão/sign-highway-wide.fbx" id="44_s8vy0"]
 [ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/UI/debug_ui.tscn" id="46_nwwfm"]
-[ext_resource type="PackedScene" uid="uid://bs2mk1f3p7sgw" path="res://Scenes/WeekSummaryScreen.tscn" id="47_s8vy0"]
+[ext_resource type="Script" uid="uid://8ndtnhhvp1u5" path="res://Scripts/Mapa/MapaRio.gd" id="53_mapa"]
+[ext_resource type="Script" uid="uid://bryddkrivdxuf" path="res://Scripts/Mapa/RegionManager.gd" id="54_reg"]
+[ext_resource type="Script" uid="uid://cfmm2k7hbsi4w" path="res://Scripts/UI/TelaMVP.gd" id="55_tela"]
 [ext_resource type="Script" uid="uid://g0a66c44dmj4" path="res://Scripts/Dispatch/RoadNetwork.gd" id="49_road"]
 [ext_resource type="Script" uid="uid://d08rh6lib0mkr" path="res://Scripts/Dispatch/DispatchManager.gd" id="50_disp"]
-[ext_resource type="Script" uid="uid://dydfbm4fv4u4r" path="res://Scripts/Dispatch/UnitBase.gd" id="51_base"]
 [ext_resource type="PackedScene" uid="uid://ci0u38ci8s8gq" path="res://Scenes/Unit.tscn" id="52_unit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
@@ -215,420 +181,30 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1334514710]
 environment = SubResource("Environment_0xm2m")
 
-[node name="floor" type="CSGBox3D" parent="." unique_id=1266919293]
-transform = Transform3D(6.1774917, 0, 0, 0, 0.8, 0, 0, 0, 5.3945575, 1.8857527, -0.42983484, 3.6000004)
-size = Vector3(14, 1, 18)
-use_collision = true
-
-[node name="Predios" type="Node3D" parent="." unique_id=525336422]
-transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 1.5, 0)
-visible = false
-
-[node name="Predios1" type="CSGCombiner3D" parent="Predios" unique_id=2074815728]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Predios/Predios1" unique_id=1127591260]
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Predios/Predios1" unique_id=1973500583]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.0849164, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Predios/Predios1" unique_id=1627243738]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -2.218171, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Predios/Predios1" unique_id=2108295565]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, -3.4439213, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Predios/Predios1" unique_id=692293055]
-transform = Transform3D(1, 0, 0, 0, 0.69849813, 0, 0, 0, 1, 0, -0.6317651, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Predios/Predios1" unique_id=1793242626]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.0849164, -0.2553466, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Predios/Predios1" unique_id=1371672080]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -2.218171, -0.2553466, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Predios/Predios1" unique_id=672428283]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, -3.4439213, -0.22065365, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Predios/Predios1" unique_id=1872800647]
-transform = Transform3D(1, 0, 0, 0, 0.7421135, 0, 0, 0, 1, 3.3300855, -0.5103369, -1.3975029)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Predios/Predios1" unique_id=1468721378]
-transform = Transform3D(1, 0, 0, 0, 0.6669287, 0, 0, 0, 1, 3.3300855, -0.31677866, -2.5229406)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Predios/Predios1" unique_id=896177840]
-transform = Transform3D(1, 0, 0, 0, 0.2314398, 0, 0, 0, 1.177168, 2.1165488, -0.4801581, -1.4283737)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Predios/Predios1" unique_id=993166622]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, 2.1165488, -0.31677866, -2.5439992)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Predios/Predios1" unique_id=2052125762]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.7421135, 0, 0.99997276, 0, 0.0073826397, 6.108329, -0.5103369, -1.3975029)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Predios/Predios1" unique_id=488609701]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.6669287, 0, 0.99997276, 0, 0.0073826397, 6.108329, -0.31677866, -2.5229406)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="Predios/Predios1" unique_id=6244358]
-transform = Transform3D(0.0073826397, 0, -1.177136, 0, 0.2314398, 0, 0.99997276, 0, 0.008690608, 4.8947916, -0.4801581, -1.4283737)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Predios/Predios1" unique_id=1290520205]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.9388425, 0, 0.99997276, 0, 0.0073826397, 4.8947916, -0.31677866, -2.5439992)
-size = Vector3(1, 2, 1)
-
-[node name="Predios2" type="CSGCombiner3D" parent="Predios" unique_id=2071375669]
-transform = Transform3D(-0.9999387, 0, 0.01108253, 0, 1, 0, -0.01108253, 0, -0.9999387, 3.0496607, 0, 6.8009925)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Predios/Predios2" unique_id=1701427093]
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Predios/Predios2" unique_id=375345260]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.0849164, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Predios/Predios2" unique_id=193001553]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -2.218171, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Predios/Predios2" unique_id=115391566]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, -3.4439213, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Predios/Predios2" unique_id=1916787885]
-transform = Transform3D(1, 0, 0, 0, 0.69849813, 0, 0, 0, 1, 0, -0.6317651, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Predios/Predios2" unique_id=1344373183]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.0849164, -0.2553466, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Predios/Predios2" unique_id=1452204491]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -2.218171, -0.2553466, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Predios/Predios2" unique_id=467471770]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, -3.4439213, -0.22065365, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Predios/Predios2" unique_id=970677042]
-transform = Transform3D(1, 0, 0, 0, 0.7421135, 0, 0, 0, 1, 3.3300855, -0.5103369, -1.3975029)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Predios/Predios2" unique_id=1393171816]
-transform = Transform3D(1, 0, 0, 0, 0.6669287, 0, 0, 0, 1, 3.3300855, -0.31677866, -2.5229406)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Predios/Predios2" unique_id=293027998]
-transform = Transform3D(1, 0, 0, 0, 0.2314398, 0, 0, 0, 1.177168, 2.1165488, -0.4801581, -1.4283737)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Predios/Predios2" unique_id=84268026]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, 2.1165488, -0.31677866, -2.5439992)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Predios/Predios2" unique_id=823783693]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.7421135, 0, 0.99997276, 0, 0.0073826397, 6.108329, -0.5103369, -1.3975029)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Predios/Predios2" unique_id=422880020]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.6669287, 0, 0.99997276, 0, 0.0073826397, 6.108329, -0.31677866, -2.5229406)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="Predios/Predios2" unique_id=25195628]
-transform = Transform3D(0.0073826397, 0, -1.177136, 0, 0.2314398, 0, 0.99997276, 0, 0.008690608, 4.8947916, -0.4801581, -1.4283737)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Predios/Predios2" unique_id=1081211346]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.9388425, 0, 0.99997276, 0, 0.0073826397, 4.8947916, -0.31677866, -2.5439992)
-size = Vector3(1, 2, 1)
-
-[node name="Predios3" type="CSGCombiner3D" parent="Predios" unique_id=1943662824]
-transform = Transform3D(-0.010175143, 0, 0.9999483, 0, 1, 0, -0.9999483, 0, -0.010175143, 10.483565, 0, 2.6305094)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Predios/Predios3" unique_id=1337639278]
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Predios/Predios3" unique_id=942826687]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.0849164, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Predios/Predios3" unique_id=2015188844]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -2.218171, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Predios/Predios3" unique_id=1435724513]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, -3.4439213, -0.31677866, 0)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Predios/Predios3" unique_id=1361605177]
-transform = Transform3D(1, 0, 0, 0, 0.69849813, 0, 0, 0, 1, 0, -0.6317651, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Predios/Predios3" unique_id=599098916]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.0849164, -0.2553466, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Predios/Predios3" unique_id=1898163309]
-transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -2.218171, -0.2553466, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Predios/Predios3" unique_id=883704118]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, -3.4439213, -0.22065365, 1.1207447)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Predios/Predios3" unique_id=574853057]
-transform = Transform3D(1, 0, 0, 0, 0.7421135, 0, 0, 0, 1, 3.3300855, -0.5103369, -1.3975029)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Predios/Predios3" unique_id=1731754553]
-transform = Transform3D(1, 0, 0, 0, 0.6669287, 0, 0, 0, 1, 3.3300855, -0.31677866, -2.5229406)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Predios/Predios3" unique_id=71488727]
-transform = Transform3D(1, 0, 0, 0, 0.2314398, 0, 0, 0, 1.177168, 2.1165488, -0.4801581, -1.4283737)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Predios/Predios3" unique_id=439513686]
-transform = Transform3D(1, 0, 0, 0, 0.9388425, 0, 0, 0, 1, 2.1165488, -0.31677866, -2.5439992)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Predios/Predios3" unique_id=1498239739]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.7421135, 0, 0.99997276, 0, 0.0073826397, 6.108329, -0.5103369, -1.3975029)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Predios/Predios3" unique_id=444416218]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.6669287, 0, 0.99997276, 0, 0.0073826397, 6.108329, -0.31677866, -2.5229406)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="Predios/Predios3" unique_id=746827910]
-transform = Transform3D(0.0073826397, 0, -1.177136, 0, 0.2314398, 0, 0.99997276, 0, 0.008690608, 4.8947916, -0.4801581, -1.4283737)
-size = Vector3(1, 2, 1)
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Predios/Predios3" unique_id=448696403]
-transform = Transform3D(0.0073826397, 0, -0.99997276, 0, 0.9388425, 0, 0.99997276, 0, 0.0073826397, 4.8947916, -0.31677866, -2.5439992)
-size = Vector3(1, 2, 1)
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1202326231]
 transform = Transform3D(-0.9674787, 0.053409576, -0.24724989, -0.042495266, 0.9292448, 0.36701265, 0.24935769, 0.3655838, -0.896755, -1.6779488, 2.1916804, -3.7879333)
 script = ExtResource("1_ig7tw")
 
-[node name="GameManager" type="Node" parent="." unique_id=1443821552 node_paths=PackedStringArray("hud", "event_system")]
+[node name="GameManager" type="Node" parent="." unique_id=1443821552 node_paths=PackedStringArray("hud", "tela", "regioes", "event_manager", "camera")]
 script = ExtResource("5_lquwl")
 hud = NodePath("../HUD")
-event_system = NodePath("../EventManager")
+tela = NodePath("../Tela")
+regioes = NodePath("../RegionManager")
+event_manager = NodePath("../EventManager")
+camera = NodePath("../Camera3D")
 
 [node name="SkyManager" type="Node" parent="." unique_id=54061246 node_paths=PackedStringArray("world_env")]
 script = ExtResource("7_5vw27")
 world_env = NodePath("../WorldEnvironment")
 
-[node name="EventManager" type="Node3D" parent="." unique_id=252366997 node_paths=PackedStringArray("city_center")]
+[node name="EventManager" type="Node3D" parent="." unique_id=252366997 node_paths=PackedStringArray("regioes")]
 script = ExtResource("8_ynf5e")
+regioes = NodePath("../RegionManager")
 event_library = ExtResource("9_hptm8")
 marker_scene = ExtResource("9_ynf5e")
-city_center = NodePath("../CityCenter")
 city_radius = 30.0
 
-[node name="CityCenter" type="Node3D" parent="." unique_id=193117263]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6987085, 0, 2.2813816)
-
-[node name="Cidade" type="Node3D" parent="." unique_id=2016659167]
-
-[node name="light-curved-cross" parent="Cidade" unique_id=1372011835 instance=ExtResource("10_6vcvc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2319279, -0.66594744, -3.155199)
-
-[node name="road-curve-intersection" parent="Cidade" unique_id=657105358 instance=ExtResource("11_7k868")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5648108, 9.536743e-07, -1.7595387)
-
-[node name="road-curve" parent="Cidade" unique_id=350682304 instance=ExtResource("12_hpc6h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37079144, -0.0034701824, -1.7646179)
-
-[node name="road-driveway-double" parent="Cidade" unique_id=1120481932 instance=ExtResource("13_kltya")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0687609, -0.0021367073, -2.2623043)
-
-[node name="building-a" parent="Cidade" unique_id=1625275881 instance=ExtResource("14_e08e2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9202957, 0, -1.1095943)
-
-[node name="building-d" parent="Cidade" unique_id=2081072029 instance=ExtResource("15_neg2b")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.100029, -4.7683716e-07, -3.3369083)
-
-[node name="building-e" parent="Cidade" unique_id=602266342 instance=ExtResource("16_r33sp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7664976, -0.027894974, -3.3664303)
-
-[node name="building-g" parent="Cidade" unique_id=603135415 instance=ExtResource("17_hdf80")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.38015652, 0.016159058, -3.3296776)
-
-[node name="building-g2" parent="Cidade" unique_id=308212124 instance=ExtResource("17_hdf80")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.261034, 0.016159058, -4.45693)
-
-[node name="building-a2" parent="Cidade" unique_id=1927937663 instance=ExtResource("18_jwpg7")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.123394, 0, -3.4735413)
-
-[node name="building-e2" parent="Cidade" unique_id=481612730 instance=ExtResource("19_k2e45")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.2648792, 0, -1.7861137)
-
-[node name="building-k" parent="Cidade" unique_id=617586802 instance=ExtResource("20_536cc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4119568, 0, -0.18480682)
-
-[node name="building-type-a" parent="Cidade" unique_id=857253309 instance=ExtResource("21_aqgau")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.379302, 0, 0.10368729)
-
-[node name="building-type-d" parent="Cidade" unique_id=2067287716 instance=ExtResource("22_8cuat")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.2605495, 0, 1.1921082)
-
-[node name="building-type-o" parent="Cidade" unique_id=338347725 instance=ExtResource("23_o1aky")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.3869276, -2.3841858e-07, 1.4515648)
-
-[node name="sign-highway" parent="Cidade" unique_id=827927092 instance=ExtResource("24_kwxat")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50160027, 0, -2.2687607)
-
-[node name="character-female-d" parent="Cidade" unique_id=1112356874 instance=ExtResource("25_aa8k8")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.773529, -2.3841858e-07, -0.6268425)
-
-[node name="character-male-f" parent="Cidade" unique_id=2009863413 instance=ExtResource("26_kqrg6")]
-transform = Transform3D(-8.742278e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.742278e-09, -1.7795849, -0.0057849884, 0.41532516)
-
-[node name="ambulance" parent="Cidade" unique_id=357637678 instance=ExtResource("27_nwwfm")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.8465271, 0, -0.27021027)
-
-[node name="garbage-truck" parent="Cidade" unique_id=1328622279 instance=ExtResource("28_s8vy0")]
-transform = Transform3D(-0.14999999, 0, -1.3113416e-08, 0, 0.14999999, 0, 1.3113416e-08, 0, -0.14999999, 1.0597458, 0, 0.38573074)
-
-[node name="sedan-sports" parent="Cidade" unique_id=745318089 instance=ExtResource("29_jut3y")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.832531, -0.016653359, 0.8679733)
-
-[node name="taxi" parent="Cidade" unique_id=879899824 instance=ExtResource("30_aqgau")]
-transform = Transform3D(-0.14999999, 0, -1.3113416e-08, 0, 0.14999999, 0, 1.3113416e-08, 0, -0.14999999, 0.71133137, 0, -0.28544617)
-
-[node name="van" parent="Cidade" unique_id=832500104 instance=ExtResource("31_8cuat")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -1.2801962, 0, 0.42912674)
-
-[node name="road-crossing" parent="Cidade" unique_id=1781938722 instance=ExtResource("32_o1aky")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0767164, 0, -0.28087616)
-
-[node name="road-crossing2" parent="Cidade" unique_id=361895403 instance=ExtResource("32_o1aky")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.8812494, 0, -0.28087616)
-
-[node name="road-driveway-single" parent="Cidade" unique_id=1325344306 instance=ExtResource("33_kwxat")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0764647, 0, 0.72167206)
-
-[node name="road-driveway-single3" parent="Cidade" unique_id=1861388984 instance=ExtResource("33_kwxat")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.8812895, 0, 0.72167206)
-
-[node name="road-driveway-single4" parent="Cidade" unique_id=1127265917 instance=ExtResource("33_kwxat")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.8719168, 0, 1.7268753)
-
-[node name="road-driveway-single2" parent="Cidade" unique_id=25978633 instance=ExtResource("33_kwxat")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0790539, 0, 1.7210617)
-
-[node name="path-long" parent="Cidade" unique_id=2127880306 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, 1.5219307)
-
-[node name="path-long2" parent="Cidade" unique_id=98329942 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, 1.9154625)
-
-[node name="path-long3" parent="Cidade" unique_id=1687001694 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, 0.7353134)
-
-[node name="path-long4" parent="Cidade" unique_id=464363986 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, 1.1288452)
-
-[node name="path-long5" parent="Cidade" unique_id=921951174 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, -0.039188385)
-
-[node name="path-long6" parent="Cidade" unique_id=1066953863 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, 0.3543434)
-
-[node name="path-long7" parent="Cidade" unique_id=2057574266 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, -0.6974144)
-
-[node name="path-long8" parent="Cidade" unique_id=1246479320 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7574034, 0, -0.3074913)
-
-[node name="path-long9" parent="Cidade" unique_id=1650018566 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, 1.5219307)
-
-[node name="path-long10" parent="Cidade" unique_id=1641107773 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, 1.9154625)
-
-[node name="path-long11" parent="Cidade" unique_id=1139403813 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, 0.7353134)
-
-[node name="path-long12" parent="Cidade" unique_id=46301129 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, 1.1288452)
-
-[node name="path-long13" parent="Cidade" unique_id=296611183 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, -0.039188385)
-
-[node name="path-long14" parent="Cidade" unique_id=107007406 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, 0.3543434)
-
-[node name="path-long15" parent="Cidade" unique_id=49412629 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, -0.6974144)
-
-[node name="path-long16" parent="Cidade" unique_id=1362305755 instance=ExtResource("34_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5622225, 0, -0.3074913)
-
-[node name="planter" parent="Cidade" unique_id=661042698 instance=ExtResource("35_kqrg6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054944992, -2.3841858e-07, -0.41156006)
-
-[node name="tree-large" parent="Cidade" unique_id=968872831 instance=ExtResource("36_nwwfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3084879, 0, 0.1507225)
-
-[node name="tree-small" parent="Cidade" unique_id=1815028707 instance=ExtResource("37_s8vy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12013626, 0, 0.26071167)
-
-[node name="planter2" parent="Cidade" unique_id=1377343775 instance=ExtResource("35_kqrg6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054944992, -2.3841858e-07, 0.7012863)
-
-[node name="tree-large2" parent="Cidade" unique_id=1061110439 instance=ExtResource("36_nwwfm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3084879, 0, 1.2635689)
-
-[node name="tree-small2" parent="Cidade" unique_id=798957288 instance=ExtResource("37_s8vy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12013626, 0, 1.373558)
-
-[node name="building-a3" parent="Cidade" unique_id=1473500548 instance=ExtResource("14_e08e2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8307867, 0, -1.1214428)
-
-[node name="boat-tug-b" parent="Cidade" unique_id=2092097186 instance=ExtResource("38_jut3y")]
-transform = Transform3D(-8.742278e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.742278e-09, 7.575485, -0.08758807, 0.9906311)
-
-[node name="ship-ocean-liner-small" parent="Cidade" unique_id=1099033978 instance=ExtResource("39_v2nl5")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 4.699442, 0, 2.4483833)
-
-[node name="ship-ocean-liner" parent="Cidade" unique_id=706083205 instance=ExtResource("40_dmskm")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 4.70405, -2.3841858e-07, -0.7873211)
-
-[node name="light-square-cross" parent="Cidade" unique_id=669381034 instance=ExtResource("41_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6172199, 0, -0.8745041)
-
-[node name="light-square-cross2" parent="Cidade" unique_id=917567731 instance=ExtResource("41_aa8k8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4605255, 0, -0.4674225)
-
-[node name="light-square" parent="Cidade" unique_id=213572914 instance=ExtResource("42_kqrg6")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.49155617, -0.029875755, -0.011734009)
-
-[node name="sign-highway-detailed" parent="Cidade" unique_id=1937867880 instance=ExtResource("43_nwwfm")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0825539, 0, 1.384922)
-
-[node name="sign-highway-wide" parent="Cidade" unique_id=451537745 instance=ExtResource("44_s8vy0")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.9135456, 0, -0.31889725)
-
 [node name="DebugUI" parent="." unique_id=623105750 instance=ExtResource("46_nwwfm")]
-
-[node name="WeekSummaryScreen" parent="." unique_id=1593188048 instance=ExtResource("47_s8vy0")]
 
 [node name="RoadNetwork" type="Node3D" parent="." unique_id=1567548921]
 script = ExtResource("49_road")
@@ -639,34 +215,14 @@ road_network = NodePath("../RoadNetwork")
 event_manager = NodePath("../EventManager")
 unit_scene = ExtResource("52_unit")
 
-[node name="Bases" type="Node3D" parent="." unique_id=197247004]
+[node name="MapaRio" type="Node3D" parent="." unique_id=1782340961 node_paths=PackedStringArray("road_network")]
+script = ExtResource("53_mapa")
+road_network = NodePath("../RoadNetwork")
 
-[node name="BaseComlurb" type="Marker3D" parent="Bases" unique_id=1032875149]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -4)
-script = ExtResource("51_base")
-unit_type = 0
+[node name="RegionManager" type="Node" parent="." unique_id=1093371865 node_paths=PackedStringArray("mapa", "road_network")]
+script = ExtResource("54_reg")
+mapa = NodePath("../MapaRio")
+road_network = NodePath("../RoadNetwork")
 
-[node name="BaseCET" type="Marker3D" parent="Bases" unique_id=229715731]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4)
-script = ExtResource("51_base")
-unit_type = 1
-
-[node name="BaseSAMU" type="Marker3D" parent="Bases" unique_id=1697695046]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 4)
-script = ExtResource("51_base")
-unit_type = 2
-
-[node name="BaseDefesaCivil" type="Marker3D" parent="Bases" unique_id=192888740]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 10)
-script = ExtResource("51_base")
-unit_type = 3
-
-[node name="BaseGuardaMunicipal" type="Marker3D" parent="Bases" unique_id=266317236]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 10)
-script = ExtResource("51_base")
-unit_type = 4
-
-[node name="BaseBombeiros" type="Marker3D" parent="Bases" unique_id=131926886]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 4)
-script = ExtResource("51_base")
-unit_type = 5
+[node name="Tela" type="CanvasLayer" parent="." unique_id=1690052744]
+script = ExtResource("55_tela")

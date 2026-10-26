@@ -5,10 +5,10 @@ class_name SkyManager
 
 const NIGHT_FRAC := 1.0 / 3.0
 
-@export var night_color: Color = Color(0.02, 0.02, 0.08)
+@export var night_color: Color = Color(0.25, 0.28, 0.45)
 @export var day_color: Color   = Color(0.4, 0.7, 1.0)
 
-@export var night_ambient_energy: float = 0.2
+@export var night_ambient_energy: float = 0.55
 @export var day_ambient_energy: float   = 1.0
 
 
