@@ -13,6 +13,8 @@ var dias_para_resolver: int
 var dias_para_escalar: int
 
 var ticks_para_resolver: int = 0
+# progresso fracionado do atendimento (equipes com upgrade 2 avançam mais rápido)
+var _progresso_resolver: float = 0.0
 var ticks_para_escalar: int = 0
 
 var estado : GameTypes.EventState: set = set_estado_evento
@@ -73,7 +75,8 @@ func _on_tick(_t, _d, _w, _y, _term) -> void:
 				escalar_evento.emit(id)
 			
 		GameTypes.EventState.EM_ATENDIMENTO:
-			ticks_para_resolver += 1
+			_progresso_resolver += fator_resolucao()
+			ticks_para_resolver = int(_progresso_resolver)
 			var ticks_restantes = TimeManager.ticks_per_day * dias_para_resolver - ticks_para_resolver
 			progresso_evento_resolver.emit(ticks_para_resolver, ticks_restantes)
 			if ticks_restantes <= 0:
@@ -130,6 +133,17 @@ func faltando() -> Dictionary:
 		if n > 0:
 			falta[tipo] = n
 	return falta
+
+
+## Velocidade do atendimento: média das sedes das viaturas no local (upgrade 2)
+func fator_resolucao() -> float:
+	var soma := 0.0
+	var n := 0
+	for u in unidades:
+		if is_instance_valid(u) and u.estado == Unit.Estado.ESTACIONADO:
+			soma += u.base.fator_resolucao()
+			n += 1
+	return soma / n if n > 0 else 1.0
 
 
 ## Todas as viaturas da receita estão estacionadas no local?

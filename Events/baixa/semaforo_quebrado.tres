@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "SEMAFORO_QUEBRADO"
 nome = "Semáforo quebrado"
 descricao = "Um semáforo de um cruzamento movimentado está piscando amarelo desde cedo. Cada um passa quando acha que deve."
+climas = Array[int]([4])
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")

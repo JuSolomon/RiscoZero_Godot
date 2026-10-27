@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "FOCO_DE_INCENDIO"
 nome = "Foco de incêndio em vegetação"
 descricao = "Um foco de incêndio começou num terreno baldio com mato seco. O tempo quente e o vento não ajudam."
+climas = Array[int]([1, 0])
 etiquetas = Array[int]([2])
 dias_para_resolver = 1
 dias_para_escalar = 1

@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "RIO_TRANSBORDANDO"
 nome = "Rio transbordando"
 descricao = "Depois de horas de chuva, um rio da região saiu do leito e ameaça invadir as ruas mais baixas."
+climas = Array[int]([3, 4])
 etiquetas = Array[int]([3])
 dias_para_resolver = 1
 dias_para_escalar = 1

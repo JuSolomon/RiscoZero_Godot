@@ -142,6 +142,23 @@ func _montar_sede() -> void:
 	_titulo("%s — %s" % [_sede.nome(), local], Unit.CORES[_sede.unit_type])
 	_texto("%d de %d viaturas disponíveis" % [_sede.disponiveis(), _sede.unidades.size()])
 
+	# Upgrades em ordem: 1 Frota rápida -> 2 Equipe treinada -> 3 Ampliação
+	var sedes := get_tree().get_first_node_in_group("sedes_manager")
+	if sedes:
+		var feitos: Array[String] = []
+		for i in _sede.nivel:
+			feitos.append(SedeManager.NOMES_UPGRADE[i])
+		_texto("Nível %d/3%s" % [_sede.nivel, "  (" + ", ".join(feitos) + ")" if not feitos.is_empty() else ""], true)
+		var proximo: Dictionary = sedes.proximo_upgrade(_sede)
+		if not proximo.is_empty():
+			var up := Button.new()
+			up.text = "Upgrade %d: %s — %s (R$ %d)" % [_sede.nivel + 1, proximo["nome"], proximo["efeito"], proximo["custo"]]
+			up.disabled = CityStats.money_total < proximo["custo"]
+			up.pressed.connect(func() -> void:
+				sedes.fazer_upgrade(_sede)
+				_atualizar())
+			_conteudo.add_child(up)
+
 	for unit in _sede.unidades:
 		var linha := HBoxContainer.new()
 		var marcar := CheckBox.new()

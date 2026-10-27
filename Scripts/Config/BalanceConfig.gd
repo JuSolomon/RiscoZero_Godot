@@ -22,6 +22,46 @@ class_name BalanceConfig
 ## Custo por km de trajeto (sede mais longe = envio mais caro)
 @export var custo_por_km: int = 30
 
+@export_group("Sedes")
+## Custo para construir uma sede (já vem com as viaturas iniciais)
+@export var custo_sede: int = 6000
+## Vagas para sedes por subprefeitura, por dificuldade [Fácil, Normal, Difícil]
+@export var vagas_por_dificuldade: Array[int] = [8, 10, 12]
+## Máximo de sedes do mesmo órgão numa subprefeitura
+@export var max_sedes_por_orgao: int = 2
+
+@export_group("Upgrades da sede (em ordem: 1, 2, 3)")
+## Custo de cada upgrade [Frota rápida, Equipe treinada, Ampliação]
+@export var custo_upgrade: Array[int] = [3000, 4000, 5000]
+## Upgrade 1: viaturas da sede mais rápidas (0.25 = 25%)
+@export var bonus_velocidade: float = 0.25
+## Upgrade 2: atendimentos mais rápidos (0.25 = 25%)
+@export var bonus_resolucao: float = 0.25
+## Upgrade 3: viaturas a mais na sede
+@export var viaturas_ampliacao: int = 2
+
+@export_group("Economia semanal")
+## Arrecadação por subprefeitura sob o seu comando, no fim de cada semana
+@export var arrecadacao_por_subprefeitura: int = 15000
+@export var manutencao_por_sede: int = 500
+@export var manutencao_por_viatura: int = 200
+
+@export_group("Geração da semana")
+## Eventos na 1ª semana com uma subprefeitura
+@export var eventos_semana_base: int = 6
+## Eventos a mais por subprefeitura além da primeira
+@export var eventos_por_subprefeitura_extra: int = 2
+@export var eventos_semana_min: int = 3
+@export var eventos_semana_max: int = 12
+## Máximo de eventos num mesmo dia
+@export var eventos_por_dia_max: int = 3
+## Quanto um evento fica mais provável no clima "dele" (ex.: enchente na chuva)
+@export var peso_clima_favoravel: float = 3.0
+## Chance de cada clima [Sol, Calor, Nublado, Chuva, Temporal]
+@export var chance_clima: Array[float] = [0.3, 0.2, 0.2, 0.2, 0.1]
+## Peso de cada clima na distribuição dos eventos pelos dias [Sol, Calor, Nublado, Chuva, Temporal]
+@export var peso_dia_por_clima: Array[float] = [1.0, 1.2, 0.8, 1.3, 2.0]
+
 @export_group("Dificuldade pela população")
 ## A partir de quantos habitantes a subprefeitura é Normal
 @export var populacao_normal: int = 400000

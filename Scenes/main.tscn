@@ -20,6 +20,10 @@
 [ext_resource type="Script" uid="uid://cfmm2k7hbsi4w" path="res://Scripts/UI/TelaMVP.gd" id="55_tela"]
 [ext_resource type="Script" uid="uid://7kovddt6dssv" path="res://Scripts/UI/PainelDespacho.gd" id="56_painel"]
 [ext_resource type="Script" uid="uid://db1rrcr3n1gmk" path="res://Scripts/UI/ListaOcorrencias.gd" id="57_lista"]
+[ext_resource type="Script" uid="uid://ctuv1m11tbsw8" path="res://Scripts/Dispatch/SedeManager.gd" id="58_sedes"]
+[ext_resource type="Script" uid="uid://d1o5ltj6h1t7f" path="res://Scripts/UI/ConstrucaoUI.gd" id="59_constr"]
+[ext_resource type="Script" uid="uid://df7dla0gajdcw" path="res://Scripts/UI/PainelPreparacao.gd" id="60_prep"]
+[ext_resource type="Script" uid="uid://dopf86terb64o" path="res://Scripts/UI/ManchetesUI.gd" id="61_manch"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -187,13 +191,15 @@ environment = SubResource("Environment_0xm2m")
 transform = Transform3D(-0.9674787, 0.053409576, -0.24724989, -0.042495266, 0.9292448, 0.36701265, 0.24935769, 0.3655838, -0.896755, -1.6779488, 2.1916804, -3.7879333)
 script = ExtResource("1_ig7tw")
 
-[node name="GameManager" type="Node" parent="." unique_id=1443821552 node_paths=PackedStringArray("hud", "tela", "regioes", "event_manager", "camera")]
+[node name="GameManager" type="Node" parent="." unique_id=1443821552 node_paths=PackedStringArray("hud", "tela", "regioes", "event_manager", "camera", "preparacao", "sedes")]
 script = ExtResource("5_lquwl")
 hud = NodePath("../HUD")
 tela = NodePath("../Tela")
 regioes = NodePath("../RegionManager")
 event_manager = NodePath("../EventManager")
 camera = NodePath("../Camera3D")
+preparacao = NodePath("../PainelPreparacao")
+sedes = NodePath("../SedeManager")
 
 [node name="SkyManager" type="Node" parent="." unique_id=54061246 node_paths=PackedStringArray("world_env")]
 script = ExtResource("7_5vw27")
@@ -237,3 +243,19 @@ dispatch = NodePath("../DispatchManager")
 script = ExtResource("57_lista")
 event_manager = NodePath("../EventManager")
 hud = NodePath("../HUD")
+
+[node name="SedeManager" type="Node" parent="." unique_id=1530924688 node_paths=PackedStringArray("regioes")]
+script = ExtResource("58_sedes")
+regioes = NodePath("../RegionManager")
+
+[node name="ConstrucaoUI" type="CanvasLayer" parent="." unique_id=1937522610 node_paths=PackedStringArray("sedes", "road_network")]
+script = ExtResource("59_constr")
+sedes = NodePath("../SedeManager")
+road_network = NodePath("../RoadNetwork")
+
+[node name="PainelPreparacao" type="CanvasLayer" parent="." unique_id=742716054]
+script = ExtResource("60_prep")
+
+[node name="ManchetesUI" type="CanvasLayer" parent="." unique_id=1168427932 node_paths=PackedStringArray("event_manager")]
+script = ExtResource("61_manch")
+event_manager = NodePath("../EventManager")

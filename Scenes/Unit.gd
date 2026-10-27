@@ -112,7 +112,7 @@ func segundos_restantes() -> float:
 	for i in range(_indice, _rota.size()):
 		total += anterior.distance_to(_rota[i])
 		anterior = _rota[i]
-	return total / velocidade
+	return total / (velocidade * base.fator_velocidade())
 
 
 ## Volta direto para a sede, sem animação (início de jogo, recarregar)
@@ -134,7 +134,7 @@ func _process(delta: float) -> void:
 	if not TimeManager.running or TimeManager.is_waiting_for_week_start:
 		return
 
-	var passo := velocidade * TimeManager.time_scale * delta
+	var passo := velocidade * base.fator_velocidade() * TimeManager.time_scale * delta
 	while passo > 0.0 and _indice < _rota.size():
 		var alvo := _rota[_indice]
 		var vetor := alvo - global_position

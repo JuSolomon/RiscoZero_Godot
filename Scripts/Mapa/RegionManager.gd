@@ -90,12 +90,7 @@ func limites_desbloqueados() -> Rect2:
 
 # Uma sede de cada órgão em volta do centro da região, sempre num cruzamento de rua
 func _criar_sedes(id: String) -> void:
-	var raiz := get_tree().current_scene.get_node_or_null("Sedes")
-	if raiz == null:
-		raiz = Node3D.new()
-		raiz.name = "Sedes"
-		get_tree().current_scene.add_child(raiz)
-
+	var sedes_manager := get_tree().get_first_node_in_group("sedes_manager")
 	var centro := mapa.centro_regiao(id)
 	var limites := mapa.limites_regiao(id)
 	var raio := minf(limites.size.x, limites.size.y) * 0.18
@@ -103,11 +98,5 @@ func _criar_sedes(id: String) -> void:
 	for i in tipos.size():
 		var angulo := TAU * i / tipos.size()
 		var alvo := centro + Vector3(cos(angulo), 0.0, sin(angulo)) * raio
-		var base := UnitBase.new()
-		base.name = "Sede_%s_%s" % [id, GameTypes.UnitDict[tipos[i]].replace(" ", "")]
-		base.unit_type = tipos[i]
-		base.viaturas = CityStats.config.viaturas_por_sede
-		base.regiao_id = id
-		raiz.add_child(base)
 		var ponto := road_network.ponto_na_regiao_perto_de(id, alvo) if road_network else Vector3.INF
-		base.global_position = alvo if ponto == Vector3.INF else ponto
+		sedes_manager.criar_sede(tipos[i], alvo if ponto == Vector3.INF else ponto, id)

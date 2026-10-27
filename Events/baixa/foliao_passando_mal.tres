@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "FOLIAO_PASSANDO_MAL"
 nome = "Folião passando mal"
 descricao = "Calor, sol e muita animação: um folião desmaiou no meio do bloco e a multidão não abre caminho."
+climas = Array[int]([1])
 etiquetas = Array[int]([5])
 dias_para_resolver = 1
 dias_para_escalar = 1

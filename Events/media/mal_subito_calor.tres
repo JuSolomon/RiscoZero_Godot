@@ -7,6 +7,7 @@ script = ExtResource("1_data")
 id = "MAL_SUBITO_CALOR"
 nome = "Onda de mal súbito por calor"
 descricao = "Com a sensação térmica passando dos 50°C, vários casos de desmaio e desidratação na orla e nos pontos de ônibus."
+climas = Array[int]([1])
 dias_para_resolver = 1
 dias_para_escalar = 2
 severidade_inicial = 2

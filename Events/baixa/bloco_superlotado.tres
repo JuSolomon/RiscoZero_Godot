@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "BLOCO_SUPERLOTADO"
 nome = "Bloco superlotado"
 descricao = "Um bloco de rua juntou bem mais gente do que o previsto. As ruas estão travadas e os ânimos, alterados."
+climas = Array[int]([0, 1])
 etiquetas = Array[int]([5])
 dias_para_resolver = 1
 dias_para_escalar = 2

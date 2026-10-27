@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "FIO_CAIDO"
 nome = "Fio de alta tensão caído"
 descricao = "Um fio de alta tensão caiu na calçada depois de um temporal e solta faíscas. Curiosos se aproximam para filmar."
+climas = Array[int]([4])
 dias_para_resolver = 1
 dias_para_escalar = 1
 evento_escalonado = ExtResource("2_prox")

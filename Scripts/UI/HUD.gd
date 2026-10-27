@@ -106,11 +106,12 @@ func _ready() -> void:
 	# --- Dinheiro e popularidade (barra do topo) ---
 	recursos_label = Label.new()
 	recursos_label.name = "RecursosLabel"
-	recursos_label.position = Vector2(1200, 8)
-	recursos_label.add_theme_font_size_override("font_size", 20)
+	recursos_label.position = Vector2(1165, 9)
+	recursos_label.add_theme_font_size_override("font_size", 18)
 	recursos_label.add_theme_color_override("font_color", Color(1, 1, 1))
 	add_child(recursos_label)
 	CityStats.mudou.connect(_atualizar_recursos)
+	TimeManager.day_changed.connect(func(_a, _b, _c, _d) -> void: _atualizar_recursos())
 	_atualizar_recursos()
 
 	# Atualiza tudo na largada
@@ -244,8 +245,10 @@ func show_event_card(event: EventInstance) -> void:
 
 func _atualizar_recursos() -> void:
 	var cor := "" if CityStats.money_total >= 0 else " (estourado)"
-	recursos_label.text = "Orçamento: R$ %d%s   |   Popularidade: %d%%" % [
-		CityStats.money_total, cor, roundi(CityStats.popularity_current)]
+	var eventos := get_tree().get_first_node_in_group("eventos")
+	var clima: String = GameTypes.ClimaDict[eventos.clima_de_hoje()] if eventos and not eventos.previsao.is_empty() else "—"
+	recursos_label.text = "Caixa: R$ %d%s   |   Popularidade: %d%%   |   %s" % [
+		CityStats.money_total, cor, roundi(CityStats.popularity_current), clima]
 
 
 func fechar_card() -> void:

@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "ENCOSTA_INSTAVEL"
 nome = "Encosta instável"
 descricao = "Moradores relatam rachaduras nas paredes e árvores inclinando no morro. Com a chuva da semana, o risco é real."
+climas = Array[int]([3, 4])
 etiquetas = Array[int]([1])
 dias_para_resolver = 1
 dias_para_escalar = 2

@@ -49,6 +49,23 @@ var EtiquetaDict = {
 	Etiqueta.CARNAVAL: 'Carnaval'
 }
 
+enum Clima
+{
+	SOL,
+	CALOR,
+	NUBLADO,
+	CHUVA,
+	TEMPORAL
+}
+
+var ClimaDict = {
+	Clima.SOL: 'Sol',
+	Clima.CALOR: 'Calor forte',
+	Clima.NUBLADO: 'Nublado',
+	Clima.CHUVA: 'Chuva',
+	Clima.TEMPORAL: 'Temporal'
+}
+
 # Dificuldade de um evento: vem da população da subprefeitura onde ele surge
 enum Dificuldade
 {

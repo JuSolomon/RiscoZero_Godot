@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "IMOVEL_COM_RISCO"
 nome = "Imóvel com risco de desabamento"
 descricao = "Rachaduras enormes apareceram num prédio antigo. Os moradores juram que o estalo começou ontem."
+climas = Array[int]([3, 4])
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")

@@ -14,6 +14,11 @@ var config: BalanceConfig
 var money_total: int = 0
 var popularity_current: float = 50.0
 
+# --- economia semanal ---
+var dinheiro_inicio_semana: int = 0
+var ultima_arrecadacao: int = 0
+var ultima_manutencao: int = 0
+
 # --- estatísticas da rodada ---
 var gastos: int = 0
 var mortes: int = 0
@@ -30,6 +35,7 @@ func _ready() -> void:
 
 func nova_rodada() -> void:
 	money_total = config.orcamento_rodada
+	dinheiro_inicio_semana = money_total
 	popularity_current = config.popularidade_inicial
 	popularidade_inicio = popularity_current
 	gastos = 0
@@ -45,8 +51,21 @@ func nova_rodada() -> void:
 # -------------------------------------------------
 
 func registrar_envio(custo: int) -> void:
-	money_total -= custo
-	gastos += custo
+	registrar_gasto(custo)
+
+
+## Qualquer gasto: envio, construção, upgrade
+func registrar_gasto(valor: int) -> void:
+	money_total -= valor
+	gastos += valor
+	mudou.emit()
+
+
+## Fim da semana: entra a arrecadação e sai a manutenção
+func fechar_semana(subprefeituras: int, manutencao: int) -> void:
+	ultima_arrecadacao = config.arrecadacao_por_subprefeitura * subprefeituras
+	ultima_manutencao = manutencao
+	money_total += ultima_arrecadacao - ultima_manutencao
 	mudou.emit()
 
 
@@ -92,8 +111,9 @@ func calcular_nota(pendentes_escalados: int = 0) -> Dictionary:
 	var nota_mortes := maxf(0.0, 100.0 * (1.0 - float(mortes) / c.mortes_para_zerar))
 
 	var financas := 100.0
-	if gastos > c.orcamento_rodada:
-		var estouro := float(gastos - c.orcamento_rodada) / (c.orcamento_rodada * c.estouro_para_zerar)
+	# gastou mais do que tinha no começo da semana?
+	if gastos > dinheiro_inicio_semana:
+		var estouro := float(gastos - dinheiro_inicio_semana) / (dinheiro_inicio_semana * c.estouro_para_zerar)
 		financas = maxf(0.0, 100.0 * (1.0 - estouro))
 
 	var variacao := popularity_current - popularidade_inicio

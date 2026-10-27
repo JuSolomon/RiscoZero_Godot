@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "BURACO_NA_VIA"
 nome = "Buraco na via"
 descricao = "Uma cratera se abriu no asfalto de uma rua movimentada. Motoristas desviam como podem e já tem pneu estourado."
+climas = Array[int]([3])
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")

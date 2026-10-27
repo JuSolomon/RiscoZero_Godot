@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "PEDRAS_NA_PISTA"
 nome = "Pedras rolando na pista"
 descricao = "Pedras se soltaram da encosta e caíram numa estrada. Ainda não machucou ninguém, mas o morro continua escorrendo."
+climas = Array[int]([3, 4])
 etiquetas = Array[int]([1])
 dias_para_resolver = 1
 dias_para_escalar = 1

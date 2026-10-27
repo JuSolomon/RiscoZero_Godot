@@ -23,6 +23,10 @@ var _desenhos: Dictionary = {}
 # id da região -> PackedInt32Array com os cruzamentos dentro dela
 var nos_por_regiao: Dictionary = {}
 
+# cruzamento -> índice em _nomes_regioes (-1 = fora das regiões)
+var _regiao_do_no := PackedInt32Array()
+var _nomes_regioes: Array = []
+
 
 func _ready() -> void:
 	for c in get_children():
@@ -65,6 +69,8 @@ func carregar(dados: Dictionary) -> void:
 	for nome in nomes:
 		listas[nome] = PackedInt32Array()
 	var regiao_do_no: Array = dados["regiao_do_no"]
+	_regiao_do_no = PackedInt32Array(regiao_do_no)
+	_nomes_regioes = nomes
 	for i in regiao_do_no.size():
 		if regiao_do_no[i] >= 0:
 			listas[nomes[regiao_do_no[i]]].append(i)
@@ -130,6 +136,23 @@ func ponto_aleatorio(ids_regioes: Array) -> Vector3:
 	if candidatos.is_empty():
 		return Vector3.INF
 	return _astar.get_point_position(candidatos[randi() % candidatos.size()])
+
+
+## Cruzamento mais próximo de um ponto (qualquer região)
+func ponto_mais_proximo(alvo: Vector3) -> Vector3:
+	if not tem_ruas():
+		return alvo
+	return _astar.get_point_position(_astar.get_closest_point(alvo))
+
+
+## Subprefeitura do cruzamento mais próximo ("" se fora das regiões)
+func regiao_perto_de(alvo: Vector3) -> String:
+	if not tem_ruas() or _regiao_do_no.is_empty():
+		return ""
+	var no := _astar.get_closest_point(alvo)
+	if no < 0 or no >= _regiao_do_no.size() or _regiao_do_no[no] < 0:
+		return ""
+	return _nomes_regioes[_regiao_do_no[no]]
 
 
 ## Cruzamento da região mais próximo de um ponto

@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "ARVORE_COM_RISCO"
 nome = "Árvore com risco de queda"
 descricao = "Uma árvore antiga está inclinada sobre a calçada e os fios. Os vizinhos já ligaram três vezes."
+climas = Array[int]([4])
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")

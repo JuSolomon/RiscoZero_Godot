@@ -8,6 +8,7 @@ script = ExtResource("1_data")
 id = "FURTOS_NA_PRAIA"
 nome = "Furtos na praia"
 descricao = "Aumento de furtos de celulares e bolsas na areia. Os turistas reclamam nas redes e nos guias de viagem."
+climas = Array[int]([0, 1])
 etiquetas = Array[int]([0])
 dias_para_resolver = 1
 dias_para_escalar = 2

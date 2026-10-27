@@ -191,6 +191,11 @@ func reset_time(full_reset: bool = true) -> void:
 	emit_signal("year_changed", year_in_term, term_index)
 
 
+## Coloca o relógio num horário do dia (sem passar o tempo)
+func posicionar_hora(hora: float) -> void:
+	current_tick = int(ticks_per_day * hora / 24.0)
+
+
 ## Libera o relógio para a rodada começar (o jogo começa parado, esperando o jogador)
 func iniciar_rodada(hora_inicial: float = 7.0) -> void:
 	current_tick = int(ticks_per_day * hora_inicial / 24.0)

@@ -7,6 +7,7 @@ script = ExtResource("1_data")
 id = "BANHISTAS_EM_RISCO"
 nome = "Banhistas em risco no mar"
 descricao = "Ressaca forte e bandeira vermelha, mas a praia está cheia. Já houve dois resgates e os salva-vidas pedem reforço."
+climas = Array[int]([0, 1])
 etiquetas = Array[int]([0])
 dias_para_resolver = 1
 dias_para_escalar = 1

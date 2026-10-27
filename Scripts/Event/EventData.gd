@@ -9,6 +9,9 @@ class_name EventData
 ## O evento só surge em subprefeituras com pelo menos uma destas etiquetas (vazio = qualquer uma)
 @export var etiquetas: Array[GameTypes.Etiqueta] = []
 
+## Climas em que o evento fica mais provável (ex.: enchente na chuva)
+@export var climas: Array[GameTypes.Clima] = []
+
 ## Dias que a equipe completa leva no local para resolver
 @export var dias_para_resolver: int = 3
 ## Dias até o evento escalar (ou falhar) se a equipe completa não estiver no local

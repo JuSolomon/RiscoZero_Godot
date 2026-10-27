@@ -32,19 +32,23 @@ extends Node
 ## Avisa quando uma nova ocorrência aparece no mapa (alertas do HUD)
 signal evento_criado(ev: EventInstance)
 
-## Quantos eventos por dia
-@export var min_events_per_day: int = 1
-@export var max_events_per_day: int = 3
+## Avisos para as manchetes diárias
+signal evento_resolvido(ev: EventInstance)
+signal evento_escalado(antigo: EventInstance, novo: EventInstance)
+signal evento_falhou(ev: EventInstance, mortes: int)
 
 # ------------------------------------------------
 # VARIÁVEIS INTERNAS
 # ------------------------------------------------
 
-var _event_ticks_today: Array[int] = []
-var _events_spawned_today: int = 0
-var _last_tick: int = -1
+## Previsão do clima de cada dia da semana (GameTypes.Clima), índice 0 = dia 1
+var previsao: Array[int] = []
 
-# id -> dicionário com dados da instância do evento
+# Agenda da semana: [dia, tick], em ordem
+var _agenda: Array = []
+var _proximo_da_agenda: int = 0
+
+# id -> instância do evento
 var _active_events: Dictionary = {}
 
 
@@ -54,6 +58,7 @@ var _active_events: Dictionary = {}
 
 func _ready() -> void:
 	randomize()
+	add_to_group("eventos")
 
 	if TimeManager:
 		TimeManager.tick.connect(_on_tick)
@@ -62,69 +67,83 @@ func _ready() -> void:
 
 
 # ------------------------------------------------
+# GERAÇÃO DA SEMANA
+# ------------------------------------------------
+
+## Monta a semana: previsão do clima e quantos eventos surgem em cada dia.
+## `hora_inicial`: o primeiro dia começa nesse horário (os eventos dele ficam depois disso)
+func planejar_semana(hora_inicial: float = 7.0) -> void:
+	var c := CityStats.config
+	previsao.clear()
+	for dia in TimeManager.days_per_week:
+		previsao.append(_sortear(c.chance_clima))
+
+	var subprefeituras := maxi(regioes.desbloqueadas.size(), 1) if regioes else 1
+	var total := c.eventos_semana_base + c.eventos_por_subprefeitura_extra * (subprefeituras - 1) + randi_range(-1, 1)
+	total = clampi(total, c.eventos_semana_min, c.eventos_semana_max)
+
+	# dias de temporal recebem mais eventos; nenhum dia passa do máximo
+	var por_dia: Array[int] = []
+	por_dia.resize(previsao.size())
+	por_dia.fill(0)
+	var pesos: Array[float] = []
+	for clima in previsao:
+		pesos.append(c.peso_dia_por_clima[clima])
+	for i in total:
+		var livres := pesos.duplicate()
+		for d in livres.size():
+			if por_dia[d] >= c.eventos_por_dia_max:
+				livres[d] = 0.0
+		if livres.max() <= 0.0:
+			break
+		por_dia[_sortear(livres)] += 1
+
+	var tpd := TimeManager.ticks_per_day
+	var inicio := int(tpd * hora_inicial / 24.0)
+	_agenda.clear()
+	for d in por_dia.size():
+		for i in por_dia[d]:
+			_agenda.append([d + 1, randi_range(inicio if d == 0 else 0, tpd - 1)])
+	_agenda.sort_custom(func(a, b) -> bool: return a[0] < b[0] or (a[0] == b[0] and a[1] < b[1]))
+	_proximo_da_agenda = 0
+	print("EventManager: semana planejada -> %d eventos, por dia %s, clima %s" % [_agenda.size(), por_dia, previsao])
+
+
+func eventos_previstos() -> int:
+	return _agenda.size()
+
+
+func clima_de_hoje() -> int:
+	var dia := TimeManager.day_in_week - 1
+	return previsao[dia] if dia >= 0 and dia < previsao.size() else GameTypes.Clima.SOL
+
+
+# índice sorteado proporcional aos pesos
+func _sortear(pesos: Array) -> int:
+	var total := 0.0
+	for p in pesos:
+		total += p
+	var r := randf() * total
+	for i in pesos.size():
+		r -= pesos[i]
+		if r <= 0.0 and pesos[i] > 0.0:
+			return i
+	return pesos.size() - 1
+
+
+# ------------------------------------------------
 # INTEGRAÇÃO COM O TEMPO
 # ------------------------------------------------
 
 func _on_tick(_t, _d, _w, _y, _term) -> void:
-	if TimeManager.ticks_per_day <= 0:
-		return
-
-	var current_tick := TimeManager.current_tick
-
-	# Detecta virada de dia
-	if _last_tick != -1 and current_tick < _last_tick:
-		_on_new_day()
-		_start_new_day()
-
-	_last_tick = current_tick
-
-	# Se ainda não temos agenda, cria
-	if _event_ticks_today.is_empty():
-		_start_new_day()
-
-	# Chegou hora de spawnar?
-	if _events_spawned_today < _event_ticks_today.size():
-		var next_event_tick := _event_ticks_today[_events_spawned_today]
-		if current_tick >= next_event_tick:
-			spawn_random_event()
-			_events_spawned_today += 1
-
-
-func _start_new_day() -> void:
-	_event_ticks_today.clear()
-	_events_spawned_today = 0
-
-	var tpd := TimeManager.ticks_per_day
-	if tpd <= 0:
-		return
-
-	var num_events := randi_range(min_events_per_day, max_events_per_day)
-
-	for i in range(num_events):
-		var tick := randi_range(0, tpd - 1)
-		_event_ticks_today.append(tick)
-
-	_event_ticks_today.sort()
-
-	print("EventManager: Novo dia -> eventos em ticks: ", _event_ticks_today)
-
-
-func _on_new_day() -> void:
-	# Avança um dia na vida de cada evento ativo
-	#for event_id in _active_events.keys():
-		#var ev = _active_events[event_id]
-#
-		#if ev["estado"] != "ativo":
-			#continue
-#
-		#if ev["dias_restantes_escalar"] <= 0:
-			#if ev["evento_escalonado"] != null:
-				#_escalar_evento(event_id)
-			#else:
-				#_falhar_evento(event_id)
-		#else:
-			#ev["dias_restantes_escalar"] -= 1
-		pass
+	while _proximo_da_agenda < _agenda.size():
+		var item: Array = _agenda[_proximo_da_agenda]
+		var chegou: bool = TimeManager.day_in_week > item[0] \
+			or (TimeManager.day_in_week == item[0] and TimeManager.current_tick >= item[1])
+		if not chegou:
+			break
+		_proximo_da_agenda += 1
+		spawn_random_event()
 
 
 func _resolver_evento(event_id: String) -> void:
@@ -136,6 +155,7 @@ func _resolver_evento(event_id: String) -> void:
 	_active_events.erase(event_id)
 
 	CityStats.registrar_resolucao(ev)
+	evento_resolvido.emit(ev)
 	_remover_marcador(ev)
 	print("EventManager: evento resolvido -> ", event_id)
 
@@ -180,6 +200,7 @@ func _escalar_evento(event_id: String) -> void:
 	ev_marker.add_child(novo_evento)
 	if dispatch:
 		dispatch.verificar_inicio(novo_evento)
+	evento_escalado.emit(ev, novo_evento)
 
 	print("EventManager: evento escalado -> ", event_id, " virou ", novo_id, " (", template.nome, ")")
 
@@ -193,6 +214,7 @@ func _falhar_evento(event_id: String) -> void:
 	_active_events.erase(event_id)
 
 	var mortes := CityStats.registrar_falha(ev)
+	evento_falhou.emit(ev, mortes)
 	_remover_marcador(ev)
 	print("EventManager: evento expirado sem resolução -> ", event_id, " (mortes: ", mortes, ")")
 
@@ -330,9 +352,11 @@ func spawn_random_event() -> void:
 	var dificuldade: int = GameTypes.Dificuldade.NORMAL
 	var template: EventData
 	if regioes and not regioes.desbloqueadas.is_empty():
-		regiao_id = regioes.desbloqueadas.pick_random()
+		# subprefeituras mais populosas têm mais ocorrências
+		var pops: Array = regioes.desbloqueadas.map(func(id) -> float: return float(regioes.dados(id).populacao))
+		regiao_id = regioes.desbloqueadas[_sortear(pops)]
 		var sub: SubprefeituraData = regioes.dados(regiao_id)
-		template = event_library.get_random_event_for(sub.etiquetas)
+		template = event_library.get_random_event_for_clima(sub.etiquetas, clima_de_hoje(), CityStats.config.peso_clima_favoravel)
 		dificuldade = sub.dificuldade(CityStats.config)
 	else:
 		template = event_library.get_random_event()

@@ -5,6 +5,7 @@ class_name GameManager
 # GameManager
 # Fluxo do MVP:
 #   MENU (escolhe a subprefeitura ou sorteia)
+#   -> PREPARACAO (previsão do clima, construir sedes, upgrades; relógio parado)
 #   -> JOGANDO (rodada de N dias, eventos só nas regiões desbloqueadas)
 #   -> RESUMO (nota de aproveitamento)
 #        nota < mínima: "Tentar de novo" recomeça na mesma região
@@ -13,13 +14,15 @@ class_name GameManager
 #   -> FIM_MVP
 ##
 
-enum GameState { MENU, PLAYING, RESUMO, OFERTA, REVELACAO, FIM_MVP }
+enum GameState { MENU, PLAYING, RESUMO, OFERTA, REVELACAO, FIM_MVP, PREPARACAO }
 
 @export var hud: CanvasLayer
 @export var tela: TelaMVP
 @export var regioes: RegionManager
 @export var event_manager: Node
 @export var camera: Camera3D
+@export var preparacao: PainelPreparacao
+@export var sedes: SedeManager
 
 var state: GameState = GameState.MENU
 var _regiao_ofertada: String = ""
@@ -37,6 +40,7 @@ func _preparar() -> void:
 	TimeManager.days_per_week = CityStats.config.dias_por_rodada
 	CityStats.nova_rodada()
 	TimeManager.week_ended.connect(_on_rodada_terminou)
+	preparacao.iniciar_semana.connect(_comecar_semana)
 
 	regioes.cobrir_todas()
 	camera.enable_limits = false
@@ -82,9 +86,17 @@ func _iniciar(id: String) -> void:
 	regioes.desbloquear(id, false)
 	camera.definir_limites(regioes.limites_desbloqueados())
 	camera.voar_para(regioes.mapa.centro_regiao(id), 110.0, 2.0)
+	TimeManager.posicionar_hora(7.0)
+	hud._update_all()
+	event_manager.planejar_semana(7.0)
+	_change_state(GameState.PREPARACAO)
+	preparacao.mostrar(TimeManager.week_in_year, regioes.nome(id), "")
+
+
+func _comecar_semana() -> void:
 	_change_state(GameState.PLAYING)
 	TimeManager.iniciar_rodada()
-	print("GameManager: rodada iniciada em ", regioes.nome(id))
+	print("GameManager: semana iniciada em ", regioes.nome(regioes.desbloqueadas[0]))
 
 
 # -------------------------------------------------
@@ -98,8 +110,11 @@ func _on_rodada_terminou(_semana: int, _ano: int, _mandato: int) -> void:
 	var nota := CityStats.calcular_nota(event_manager.contar_pendentes_escalados())
 	event_manager.limpar_eventos()
 	hud.fechar_card()
+	CityStats.fechar_semana(regioes.desbloqueadas.size(), sedes.manutencao_semanal())
 
 	var texto := _texto_resumo(nota)
+	texto += "\n[center]Arrecadação +R$ %s  •  Manutenção −R$ %s  •  Caixa: R$ %s[/center]" % [
+		_dinheiro(CityStats.ultima_arrecadacao), _dinheiro(CityStats.ultima_manutencao), _dinheiro(CityStats.money_total)]
 	if nota["aprovado"]:
 		tela.mostrar("Fim da semana: bom trabalho!", texto,
 			[["Ver proposta da prefeitura", _mostrar_oferta]])
@@ -119,7 +134,7 @@ func _texto_resumo(nota: Dictionary) -> String:
 		CityStats.falhas, "" if nota["pendentes_escalados"] == 0 else ", %d escaladas sem atendimento" % nota["pendentes_escalados"]])
 	t += _linha("Mortes", nota["mortes"], c.peso_mortes, "%d mortes" % CityStats.mortes)
 	t += _linha("Finanças", nota["financas"], c.peso_financas,
-		"gastou R$ %s de R$ %s" % [_dinheiro(CityStats.gastos), _dinheiro(c.orcamento_rodada)])
+		"gastou R$ %s de R$ %s" % [_dinheiro(CityStats.gastos), _dinheiro(CityStats.dinheiro_inicio_semana)])
 	t += _linha("Popularidade", nota["popularidade"], c.peso_popularidade,
 		"%d%% → %d%% (%+d)" % [roundi(CityStats.popularidade_inicio), roundi(CityStats.popularity_current),
 		roundi(nota["variacao_popularidade"])])

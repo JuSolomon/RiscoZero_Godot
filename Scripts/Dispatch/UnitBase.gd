@@ -12,6 +12,9 @@ class_name UnitBase
 ## Nome da região da sede (aparece no menu)
 @export var regiao_id: String = ""
 
+## Upgrades feitos (0 a 3): 1 Frota rápida, 2 Equipe treinada, 3 Ampliação
+var nivel: int = 0
+
 ## Viaturas desta sede (criadas pelo DispatchManager)
 var unidades: Array[Unit] = []
 
@@ -26,6 +29,16 @@ func _ready() -> void:
 
 func nome() -> String:
 	return "Sede " + GameTypes.UnitDict[unit_type]
+
+
+## Multiplicador de velocidade das viaturas (upgrade 1)
+func fator_velocidade() -> float:
+	return 1.0 + CityStats.config.bonus_velocidade if nivel >= 1 else 1.0
+
+
+## Multiplicador da velocidade de atendimento (upgrade 2)
+func fator_resolucao() -> float:
+	return 1.0 + CityStats.config.bonus_resolucao if nivel >= 2 else 1.0
 
 
 ## Viaturas que podem ser enviadas agora (na sede ou voltando para ela)
