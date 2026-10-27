@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://djnknqukc4vyo"]
 
+[ext_resource type="Texture2D" uid="uid://cxitxsq2rckur" path="res://3D Models/CeuCenario.exr" id="1_cbgmd"]
 [ext_resource type="Script" uid="uid://b61f1js1mish4" path="res://Scripts/Camera25D.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c8jk5lxs0r7go" path="res://Scripts/UI/HUD.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://dobwyihyqx1w2" path="res://Scenes/ceu_cenario.gd" id="2_1w6v2"]
 [ext_resource type="PackedScene" uid="uid://bdlwo13ea07q2" path="res://Scenes/UI/EventCard.tscn" id="2_v2nl5"]
 [ext_resource type="Texture2D" uid="uid://xdecdds51kx7" path="res://icon.svg" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://bdb50e8ye8rpe" path="res://Assets2D/white_block.png" id="4_1bvp3"]
@@ -11,6 +13,9 @@
 [ext_resource type="Script" uid="uid://dx7gfkxka27r4" path="res://Scripts/Event/EventManager.gd" id="8_ynf5e"]
 [ext_resource type="Resource" uid="uid://dfel452xxamnr" path="res://Events/event_library.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://d1lloedybbpg7" path="res://Scenes/EventMarker.tscn" id="9_ynf5e"]
+[ext_resource type="Shader" uid="uid://b55htq8vu0kde" path="res://Assets2D/mapa/nuvem_atlas.gdshader" id="19_1w6v2"]
+[ext_resource type="Shader" uid="uid://dm8kq0firi53l" path="res://Assets2D/mapa/oceano.gdshader" id="19_6vcvc"]
+[ext_resource type="Texture2D" uid="uid://dcxjxoacgfj5w" path="res://Assets2D/CanvasTrocar/atlas_nuvens.png" id="20_ueoa1"]
 [ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/UI/debug_ui.tscn" id="46_nwwfm"]
 [ext_resource type="Script" uid="uid://g0a66c44dmj4" path="res://Scripts/Dispatch/RoadNetwork.gd" id="49_road"]
 [ext_resource type="Script" uid="uid://d08rh6lib0mkr" path="res://Scripts/Dispatch/DispatchManager.gd" id="50_disp"]
@@ -24,6 +29,16 @@
 [ext_resource type="Script" uid="uid://d1o5ltj6h1t7f" path="res://Scripts/UI/ConstrucaoUI.gd" id="59_constr"]
 [ext_resource type="Script" uid="uid://df7dla0gajdcw" path="res://Scripts/UI/PainelPreparacao.gd" id="60_prep"]
 [ext_resource type="Script" uid="uid://dopf86terb64o" path="res://Scripts/UI/ManchetesUI.gd" id="61_manch"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ueoa1"]
+shading_mode = 0
+albedo_texture = ExtResource("1_cbgmd")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6vcvc"]
+material = SubResource("StandardMaterial3D_ueoa1")
+flip_faces = true
+radius = 1500.0
+height = 3000.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -47,7 +62,42 @@ sky = SubResource("Sky_ig7tw")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7k868"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hpc6h"]
+noise = SubResource("FastNoiseLite_7k868")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kltya"]
+render_priority = 0
+shader = ExtResource("19_6vcvc")
+shader_parameter/cor_fundo = Color(0.17, 0.35, 0.55, 1)
+shader_parameter/cor_onda = Color(0.32, 0.55, 0.72, 1)
+shader_parameter/ruido = SubResource("NoiseTexture2D_hpc6h")
+shader_parameter/escala = 0.05
+shader_parameter/vel_1 = Vector2(0.01, 0.006)
+shader_parameter/vel_2 = Vector2(-0.007, 0.009)
+shader_parameter/intensidade = 0.6
+
+[sub_resource type="QuadMesh" id="QuadMesh_ueoa1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cbgmd"]
+render_priority = 10
+shader = ExtResource("19_1w6v2")
+shader_parameter/atlas = ExtResource("20_ueoa1")
+shader_parameter/colunas = 2
+shader_parameter/linhas = 3
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/fade_perto = 4.0
+shader_parameter/fade_longe = 15.0
+
 [node name="Main" type="Node3D" unique_id=919139921]
+
+[node name="CeuCenario" type="MeshInstance3D" parent="." unique_id=282020297 node_paths=PackedStringArray("camera")]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_6vcvc")
+script = ExtResource("2_1w6v2")
+camera = NodePath("../Camera3D")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=215820774]
 script = ExtResource("2_0xm2m")
@@ -226,6 +276,12 @@ unit_scene = ExtResource("52_unit")
 [node name="MapaRio" type="Node3D" parent="." unique_id=1782340961 node_paths=PackedStringArray("road_network")]
 script = ExtResource("53_mapa")
 road_network = NodePath("../RoadNetwork")
+cor_entorno = Color(0.38232103, 0.39107662, 0.42604652, 1)
+material_mar = SubResource("ShaderMaterial_kltya")
+malha_nuvem = SubResource("QuadMesh_ueoa1")
+material_nuvem = SubResource("ShaderMaterial_cbgmd")
+tamanho_nuvem = 20.0
+achatamento = 0.67
 
 [node name="RegionManager" type="Node" parent="." unique_id=1093371865 node_paths=PackedStringArray("mapa", "road_network")]
 script = ExtResource("54_reg")

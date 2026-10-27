@@ -13,6 +13,7 @@ signal revelacao_terminada(regiao_id: String)
 const ARQ_REGIOES := "res://Mapa/dados/regioes.json"
 const ARQ_AREAS := "res://Mapa/dados/areas.json"
 const ARQ_RUAS := "res://Mapa/dados/ruas.json"
+const ARQ_ENTORNO := "res://Mapa/dados/entorno.json"
 
 @export var road_network: RoadNetwork
 
@@ -26,6 +27,10 @@ const ARQ_RUAS := "res://Mapa/dados/ruas.json"
 @export var cor_agua: Color = Color(0.42, 0.68, 0.84)
 @export var cor_limite: Color = Color(0.35, 0.35, 0.45)
 @export var cor_nuvem: Color = Color(0.97, 0.97, 1.0)
+@export var cor_entorno: Color = Color(0.32, 0.33, 0.36)
+
+## Material do mar. Vazio = cor chapada (Cor Mar)
+@export var material_mar: Material
 
 ## Cor e largura (em unidades) de cada nível de rua: estrutural, arterial 1ª, arterial 2ª, coletora, local
 @export var cores_ruas: Array[Color] = [Color(1.0, 0.78, 0.35), Color(1.0, 0.86, 0.55), Color(1, 1, 1), Color(1, 1, 1), Color(0.82, 0.80, 0.76)]
@@ -41,6 +46,12 @@ const ARQ_RUAS := "res://Mapa/dados/ruas.json"
 @export var tamanho_nuvem: float = 7.0
 ## Variação aleatória do tamanho (0.3 = de 70% a 130%)
 @export_range(0.0, 1.0) var variacao_tamanho: float = 0.3
+## Quantas nuvens criar em volta de cada ponto (mais = céu mais fechado)
+@export_range(1, 8) var nuvens_por_ponto: int = 3
+## Até que distância (em unidades) elas se espalham em volta do ponto
+@export var espalhamento_ponto: float = 4.0
+## Quantos desenhos diferentes existem no atlas (colunas x linhas)
+@export var desenhos_no_atlas: int = 6
 ## Altura da nuvem em relação à largura (1 = redonda; use 1 com QuadMesh/Billboard)
 @export_range(0.05, 1.0) var achatamento: float = 0.45
 ## Opacidade da névoa que cobre o chão das regiões bloqueadas (0 = sem névoa)
@@ -61,6 +72,7 @@ var _coberturas: Dictionary = {}
 
 func _ready() -> void:
 	_criar_mar()
+	_carregar_entorno()
 	_carregar_areas()
 	_carregar_regioes()
 	_carregar_ruas()
@@ -105,10 +117,11 @@ func cobrir(id: String) -> void:
 	nevoa.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	cobertura.add_child(nevoa)
 
-	# nuvens: esferas achatadas espalhadas pela região
+		# nuvens: várias por ponto, cada uma com um desenho sorteado do atlas
 	var pontos: Array = dados["nuvens"]
 	var mm := MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.use_custom_data = true   # precisa vir antes de instance_count
 	if malha_nuvem:
 		mm.mesh = malha_nuvem
 	else:
@@ -116,16 +129,23 @@ func cobrir(id: String) -> void:
 		esfera.radial_segments = 12
 		esfera.rings = 6
 		mm.mesh = esfera
-	mm.instance_count = pontos.size() / 2
+	var qtd_pontos := pontos.size() / 2
+	mm.instance_count = qtd_pontos * nuvens_por_ponto
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(id)
 	var bases: Array[Transform3D] = []
-	for i in mm.instance_count:
-		var s := tamanho_nuvem * rng.randf_range(1.0 - variacao_tamanho, 1.0 + variacao_tamanho)
-		var t := Transform3D(Basis.from_scale(Vector3(s, s * achatamento, s)),
-			Vector3(pontos[i * 2], altura_nuvens + rng.randf_range(-0.8, 0.8), pontos[i * 2 + 1]))
-		mm.set_instance_transform(i, t)
-		bases.append(t)
+	for p in qtd_pontos:
+		for k in nuvens_por_ponto:
+			var i := p * nuvens_por_ponto + k
+			var s := tamanho_nuvem * rng.randf_range(1.0 - variacao_tamanho, 1.0 + variacao_tamanho)
+			var desvio := Vector3(rng.randf_range(-1, 1), 0.0, rng.randf_range(-1, 1)) * espalhamento_ponto
+			var t := Transform3D(Basis.from_scale(Vector3(s, s * achatamento, s)),
+				Vector3(pontos[p * 2], altura_nuvens + rng.randf_range(-0.8, 0.8), pontos[p * 2 + 1]) + desvio)
+			mm.set_instance_transform(i, t)
+			var desenho := (float(rng.randi() % desenhos_no_atlas) + 0.5) / float(desenhos_no_atlas)
+			mm.set_instance_custom_data(i, Color(desenho, 0, 0, 0))
+			bases.append(t)
+	
 	var nuvens := MultiMeshInstance3D.new()
 	nuvens.name = "Nuvens"
 	nuvens.multimesh = mm
@@ -194,9 +214,19 @@ func _criar_mar() -> void:
 	mar.name = "Mar"
 	mar.mesh = plano
 	mar.position.y = -0.05
-	mar.material_override = _material(cor_mar, false)
+	mar.material_override = material_mar if material_mar else _material(cor_mar, false)
 	add_child(mar)
 
+func _carregar_entorno() -> void:
+	var dados = _ler_json(ARQ_ENTORNO)
+	if dados == null:
+		return
+	var mi := MeshInstance3D.new()
+	mi.name = "Entorno"
+	mi.mesh = _malha(dados["triangulos"], -0.02)
+	mi.material_override = _material(cor_entorno, false)
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(mi)
 
 func _carregar_areas() -> void:
 	var areas: Dictionary = _ler_json(ARQ_AREAS)
