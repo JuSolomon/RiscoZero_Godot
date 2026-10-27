@@ -12,8 +12,8 @@ enum UnitType
 
 var UnitDict = { 
 	UnitType.COMLURB: "Comlurb",
-	UnitType.CET: 'Cet',
-	UnitType.SAMU: 'Samu',
+	UnitType.CET: 'CET',
+	UnitType.SAMU: 'SAMU',
 	UnitType.DEFESA_CIVIL: 'Defesa Civil',
 	UnitType.GUARDA_MUNICIPAL: 'Guarda Municipal',
 	UnitType.BOMBEIROS: 'Bombeiros'
@@ -28,9 +28,37 @@ enum EventState
 	ESCALADO
 }
 
-enum ZonaType
+# Características de uma subprefeitura. Um evento com etiquetas só surge
+# em subprefeituras que tenham pelo menos uma delas.
+enum Etiqueta
 {
-	CENTRO,
-	ZONA_NORTE,
-	ZONA_SUL
+	PRAIA,
+	ENCOSTA,
+	MATA,
+	ALAGAMENTO,
+	COMERCIO,
+	CARNAVAL
+}
+
+var EtiquetaDict = {
+	Etiqueta.PRAIA: 'Praia',
+	Etiqueta.ENCOSTA: 'Encosta',
+	Etiqueta.MATA: 'Mata',
+	Etiqueta.ALAGAMENTO: 'Alagamento',
+	Etiqueta.COMERCIO: 'Comércio',
+	Etiqueta.CARNAVAL: 'Carnaval'
+}
+
+# Dificuldade de um evento: vem da população da subprefeitura onde ele surge
+enum Dificuldade
+{
+	FACIL,
+	NORMAL,
+	DIFICIL
+}
+
+var DificuldadeDict = {
+	Dificuldade.FACIL: 'Fácil',
+	Dificuldade.NORMAL: 'Normal',
+	Dificuldade.DIFICIL: 'Difícil'
 }

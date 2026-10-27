@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://7rt5cy0sonj5"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://ko15jvpz3z85" path="res://Events/alta/incendio_grandes_proporcoes.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "INCENDIO_EM_LOJA"
+nome = "Incêndio em loja"
+descricao = "Um curto-circuito começou um incêndio numa loja da rua comercial. A fumaça já chega aos prédios vizinhos."
+etiquetas = Array[int]([4])
+dias_para_resolver = 1
+dias_para_escalar = 1
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 2
+receita_facil = Dictionary[int, int]({5: 1})
+receita_normal = Dictionary[int, int]({5: 2})
+receita_dificil = Dictionary[int, int]({5: 2, 1: 1})

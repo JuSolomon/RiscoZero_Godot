@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "zona_oeste_3"
+nome = "Zona Oeste 3"
+descricao = "Santa Cruz, Sepetiba e Guaratiba: a maior subprefeitura em área, com praias da baía, mangues e áreas rurais."
+populacao = 520000
+etiquetas = Array[int]([0, 2, 3])

@@ -13,11 +13,19 @@ signal regiao_desbloqueada(id: String)
 ## "Tentar de novo" recarrega a cena e recomeça nesta região (vazio = mostra o menu)
 static var regiao_para_reiniciar: String = ""
 
+const PASTA_DADOS := "res://Subprefeituras/"
+
 @export var mapa: MapaRio
 @export var road_network: RoadNetwork
-@export var viaturas_por_sede: int = 2
 
 var desbloqueadas: Array[String] = []
+
+# id -> SubprefeituraData (carregado sob demanda)
+var _dados: Dictionary = {}
+
+
+func _ready() -> void:
+	add_to_group("regioes")
 
 
 func cobrir_todas() -> void:
@@ -26,11 +34,13 @@ func cobrir_todas() -> void:
 			mapa.cobrir(id)
 
 
-func desbloquear(id: String, animar: bool) -> void:
+## criar_sedes = false: a região chega sem sedes (o jogador constrói depois)
+func desbloquear(id: String, animar: bool, criar_sedes: bool = true) -> void:
 	if id in desbloqueadas:
 		return
 	desbloqueadas.append(id)
-	_criar_sedes(id)
+	if criar_sedes:
+		_criar_sedes(id)
 	if animar:
 		mapa.revelar(id)
 	else:
@@ -38,8 +48,23 @@ func desbloquear(id: String, animar: bool) -> void:
 	regiao_desbloqueada.emit(id)
 
 
+## Dados de jogo da subprefeitura (res://Subprefeituras/<id>.tres)
+func dados(id: String) -> SubprefeituraData:
+	if not _dados.has(id):
+		var caminho := PASTA_DADOS + id + ".tres"
+		if ResourceLoader.exists(caminho):
+			_dados[id] = load(caminho)
+		else:
+			push_warning("RegionManager: sem %s; usando valores padrão." % caminho)
+			var d := SubprefeituraData.new()
+			d.id = id
+			d.nome = mapa.get_regiao(id).get("nome", id)
+			_dados[id] = d
+	return _dados[id]
+
+
 func nome(id: String) -> String:
-	return mapa.get_regiao(id).get("nome", id)
+	return dados(id).nome
 
 
 ## Sorteia uma região vizinha das desbloqueadas ("" se não houver)
@@ -81,7 +106,7 @@ func _criar_sedes(id: String) -> void:
 		var base := UnitBase.new()
 		base.name = "Sede_%s_%s" % [id, GameTypes.UnitDict[tipos[i]].replace(" ", "")]
 		base.unit_type = tipos[i]
-		base.viaturas = viaturas_por_sede
+		base.viaturas = CityStats.config.viaturas_por_sede
 		raiz.add_child(base)
 		var ponto := road_network.ponto_na_regiao_perto_de(id, alvo) if road_network else Vector3.INF
 		base.global_position = alvo if ponto == Vector3.INF else ponto

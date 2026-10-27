@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://oit194nkot6"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 
 [resource]
 script = ExtResource("1_data")
 id = "DESLIZAMENTO"
 nome = "Deslizamento de terra"
 descricao = "Parte da encosta desabou sobre as casas. Há desaparecidos e a cidade inteira acompanha o resgate ao vivo."
-zona_id = 2
 dias_para_resolver = 3
 dias_para_escalar = 2
 severidade_inicial = 3
-required_unit_type = 5
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({3: 1, 5: 1})
+receita_normal = Dictionary[int, int]({3: 1, 5: 2})
+receita_dificil = Dictionary[int, int]({3: 2, 5: 2, 2: 1})

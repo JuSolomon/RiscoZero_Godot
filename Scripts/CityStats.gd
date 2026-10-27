@@ -44,12 +44,7 @@ func nova_rodada() -> void:
 #  REGISTROS (chamados pelo EventManager / DispatchManager)
 # -------------------------------------------------
 
-func custo_envio(ev: EventInstance) -> int:
-	return config.custo_envio[_nivel(ev)]
-
-
-func registrar_envio(ev: EventInstance) -> void:
-	var custo := custo_envio(ev)
+func registrar_envio(custo: int) -> void:
 	money_total -= custo
 	gastos += custo
 	mudou.emit()

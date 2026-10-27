@@ -27,6 +27,7 @@ func _ready() -> void:
 	close_button = find_child("CloseButton", true, false)
 	enviar_button = find_child("EnviarButton", true, false)
 	avisos = find_child("Avisos", true, false)
+	avisos.bbcode_enabled = true
 	enviar_button.pressed.connect(_on_enviar_pressed)
 
 func setup_completo(event: EventInstance):
@@ -35,11 +36,13 @@ func setup_completo(event: EventInstance):
 
 	tags[0].text = 'Tempo para escalar'
 	tags[1].text = 'Tempo para resolver'
-	tags[2].text = 'Órgão responsável'
+	tags[2].text = 'Local'
 	
 	valores[0].text = _formatar_ticks(event.get_tempo_restante_escalar())
 	valores[1].text = _formatar_ticks(TimeManager.ticks_per_day * event.dias_para_resolver - event.ticks_para_resolver)
-	valores[2].text = str(GameTypes.UnitDict[event.evento_base.required_unit_type])
+	var regioes := get_tree().get_first_node_in_group("regioes")
+	var local: String = regioes.nome(event.regiao_id) if regioes and event.regiao_id != "" else "-"
+	valores[2].text = "%s (%s)" % [local, GameTypes.DificuldadeDict[event.dificuldade]]
 	
 	title.text = event.evento_base.nome
 	body.text = event.evento_base.descricao
@@ -105,5 +108,20 @@ func _atualizar_despacho() -> void:
 	var dispatch := get_tree().get_first_node_in_group("dispatch")
 	var motivo: String = "Sistema de despacho não encontrado." if dispatch == null else dispatch.motivo_bloqueio(evento_atual)
 	enviar_button.disabled = motivo != ""
-	enviar_button.text = "Enviar equipe (R$ %d)" % CityStats.custo_envio(evento_atual)
-	avisos.text = motivo
+	enviar_button.text = "Enviar viaturas" if motivo != "" or dispatch == null \
+		else "Enviar viaturas (≈ R$ %d)" % dispatch.estimar_custo(evento_atual)
+	avisos.text = _texto_equipe(evento_atual) + ("\n[color=#ffd080]%s[/color]" % motivo if motivo != "" else "")
+
+
+# Uma linha por órgão: "Guarda Municipal: 1 no local, 1 a caminho (de 2)"
+func _texto_equipe(ev: EventInstance) -> String:
+	var linhas: Array[String] = ["[b]Equipe necessária[/b]"]
+	for tipo in ev.receita:
+		var no_local := ev.contar(tipo, true)
+		var a_caminho := ev.contar(tipo) - no_local
+		var status := "%d no local" % no_local
+		if a_caminho > 0:
+			status += ", %d a caminho" % a_caminho
+		var cor := "#80ff80" if no_local >= ev.receita[tipo] else "#ffffff"
+		linhas.append("[color=%s]%s: %s (de %d)[/color]" % [cor, GameTypes.UnitDict[tipo], status, ev.receita[tipo]])
+	return "\n".join(linhas)

@@ -65,7 +65,7 @@ func _ready() -> void:
 	hide()
 
 
-## botoes: Array de [texto, Callable]
+## botoes: Array de [texto, Callable] ou [texto, Callable, dica ao passar o mouse]
 ## embaixo = true deixa o meio da tela livre para ver o mapa
 func mostrar(titulo: String, texto: String, botoes: Array, colunas: int = 1, escurecer: bool = true, embaixo: bool = false) -> void:
 	_centro.alignment = BoxContainer.ALIGNMENT_END if embaixo else BoxContainer.ALIGNMENT_CENTER
@@ -85,6 +85,8 @@ func mostrar(titulo: String, texto: String, botoes: Array, colunas: int = 1, esc
 		botao.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		botao.add_theme_font_size_override("font_size", tamanho_botao)
 		botao.pressed.connect(par[1])
+		if par.size() > 2:
+			botao.tooltip_text = par[2]
 		_botoes.add_child(botao)
 	show()
 

@@ -17,8 +17,15 @@ var ticks_para_escalar: int = 0
 
 var estado : GameTypes.EventState: set = set_estado_evento
 
-# Viatura enviada para este evento (null = nenhuma)
-var unidade_designada: Node = null
+# Subprefeitura onde o evento surgiu e dificuldade dele (GameTypes.Dificuldade)
+var regiao_id: String = ""
+var dificuldade: int = GameTypes.Dificuldade.NORMAL
+
+# Viaturas necessárias (órgão -> quantidade), conforme a dificuldade
+var receita: Dictionary = {}
+
+# Viaturas designadas para este evento (a caminho ou já no local)
+var unidades: Array[Node] = []
 
 # Quantas vezes esta demanda já escalou (0 = ainda no estágio inicial)
 var escaladas: int = 0
@@ -95,3 +102,39 @@ func get_tempo_restante_escalar() -> int:
 	#if resultado > 1:
 		#resultado = floori(resultado)
 	return (TimeManager.ticks_per_day * dias_para_escalar) - ticks_para_escalar
+
+
+# ------------------------------------------------
+# VIATURAS
+# ------------------------------------------------
+
+## Remove da lista viaturas que já não existem
+func limpar_unidades() -> void:
+	unidades = unidades.filter(func(u): return is_instance_valid(u) and u.is_inside_tree())
+
+
+## Viaturas designadas de um órgão (só_no_local = apenas as já estacionadas)
+func contar(tipo: int, so_no_local: bool = false) -> int:
+	var n := 0
+	for u in unidades:
+		if is_instance_valid(u) and u.unit_type == tipo and (not so_no_local or u.estado == Unit.Estado.ESTACIONADO):
+			n += 1
+	return n
+
+
+## Órgão -> quantas viaturas ainda faltam enviar
+func faltando() -> Dictionary:
+	var falta := {}
+	for tipo in receita:
+		var n: int = receita[tipo] - contar(tipo)
+		if n > 0:
+			falta[tipo] = n
+	return falta
+
+
+## Todas as viaturas da receita estão estacionadas no local?
+func equipe_completa_no_local() -> bool:
+	for tipo in receita:
+		if contar(tipo, true) < receita[tipo]:
+			return false
+	return true

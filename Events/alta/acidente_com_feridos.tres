@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://uqs955fcsi70b"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 
 [resource]
 script = ExtResource("1_data")
 id = "ACIDENTE_COM_FERIDOS"
 nome = "Acidente com feridos"
 descricao = "Engavetamento envolvendo um ônibus no meio do caos do trânsito. Há feridos presos nas ferragens e as ambulâncias não conseguem passar."
-zona_id = 0
 dias_para_resolver = 2
 dias_para_escalar = 1
 severidade_inicial = 3
-required_unit_type = 2
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({2: 1, 1: 1})
+receita_normal = Dictionary[int, int]({2: 2, 1: 1})
+receita_dificil = Dictionary[int, int]({2: 2, 1: 1, 5: 1})

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://bwy2i02dzlwx"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "DESABAMENTO_DE_IMOVEL"
+nome = "Desabamento de imóvel"
+descricao = "O prédio condenado veio abaixo. Bombeiros procuram sobreviventes e a pergunta nos jornais é uma só: quem deveria ter interditado?"
+dias_para_resolver = 3
+dias_para_escalar = 1
+severidade_inicial = 3
+receita_facil = Dictionary[int, int]({3: 1, 5: 1})
+receita_normal = Dictionary[int, int]({3: 1, 5: 2})
+receita_dificil = Dictionary[int, int]({3: 2, 5: 2, 2: 1})

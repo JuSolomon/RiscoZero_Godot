@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://jfrp84oao3owb"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 [ext_resource type="Resource" uid="uid://uqs955fcsi70b" path="res://Events/alta/acidente_com_feridos.tres" id="2_prox"]
 
 [resource]
@@ -8,10 +8,10 @@ script = ExtResource("1_data")
 id = "ENGARRAFAMENTO_GENERALIZADO"
 nome = "Engarrafamento generalizado"
 descricao = "O nó no trânsito se espalhou pelas vias principais. Motoristas buzinam, aplicativos mostram tudo vermelho e o rádio só fala disso."
-zona_id = 0
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")
 severidade_inicial = 2
-required_unit_type = 1
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({1: 1})
+receita_normal = Dictionary[int, int]({1: 2})
+receita_dificil = Dictionary[int, int]({1: 2, 4: 1})

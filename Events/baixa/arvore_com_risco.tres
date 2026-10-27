@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://jhesg0jr8w67b"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 [ext_resource type="Resource" uid="uid://pgy7sget7g8gb" path="res://Events/media/arvore_caida.tres" id="2_prox"]
 
 [resource]
@@ -8,10 +8,10 @@ script = ExtResource("1_data")
 id = "ARVORE_COM_RISCO"
 nome = "Árvore com risco de queda"
 descricao = "Uma árvore antiga está inclinada sobre a calçada e os fios. Os vizinhos já ligaram três vezes."
-zona_id = 2
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")
 severidade_inicial = 1
-required_unit_type = 0
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({0: 1})
+receita_normal = Dictionary[int, int]({0: 1})
+receita_dificil = Dictionary[int, int]({0: 1, 1: 1})

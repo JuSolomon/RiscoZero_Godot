@@ -231,15 +231,6 @@ func _get_unit_type_name(unit_type: int) -> String:
 
 
 ## Chamada pelo EventManager ao clicar num marcador
-## event_data:
-## {
-##   "id": String,
-##   "title": String,
-##   "body": String,
-##   "dias_restantes_resolver": int,
-##   "dias_restantes_escalar": int,
-##   "required_unit_type": int
-## }
 func show_event_card(event: EventInstance) -> void:
 	if event == null:
 		print("HUD: EventCard não encontrado, não foi possível abrir o evento.")

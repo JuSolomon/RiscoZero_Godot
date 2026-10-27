@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://c0t9k1bblr30b"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 [ext_resource type="Resource" uid="uid://oit194nkot6" path="res://Events/alta/deslizamento.tres" id="2_prox"]
 
 [resource]
@@ -8,10 +8,11 @@ script = ExtResource("1_data")
 id = "ENCOSTA_INSTAVEL"
 nome = "Encosta instável"
 descricao = "Moradores relatam rachaduras nas paredes e árvores inclinando no morro. Com a chuva da semana, o risco é real."
-zona_id = 2
+etiquetas = Array[int]([1])
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")
 severidade_inicial = 2
-required_unit_type = 3
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({3: 1})
+receita_normal = Dictionary[int, int]({3: 2})
+receita_dificil = Dictionary[int, int]({3: 2, 5: 1})

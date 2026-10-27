@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "centro"
+nome = "Centro / Histórico"
+descricao = "Coração administrativo e histórico do Rio: Centro, Lapa, Santa Teresa, Saúde e Gamboa. Comércio intenso de dia, vida noturna à noite e os maiores blocos de Carnaval."
+populacao = 300000
+etiquetas = Array[int]([4, 5, 1])

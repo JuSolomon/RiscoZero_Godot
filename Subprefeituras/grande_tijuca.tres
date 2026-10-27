@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "grande_tijuca"
+nome = "Grande Tijuca"
+descricao = "Tijuca, Vila Isabel, Grajaú e Maracanã, aos pés da Floresta da Tijuca. Encostas, alagamentos na Praça da Bandeira e blocos tradicionais."
+populacao = 380000
+etiquetas = Array[int]([1, 2, 3, 4, 5])

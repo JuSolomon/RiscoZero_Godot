@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://j584a16oomiwb"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://bwy2i02dzlwx" path="res://Events/alta/desabamento_de_imovel.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "IMOVEL_COM_RISCO"
+nome = "Imóvel com risco de desabamento"
+descricao = "Rachaduras enormes apareceram num prédio antigo. Os moradores juram que o estalo começou ontem."
+dias_para_resolver = 1
+dias_para_escalar = 2
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 2
+receita_facil = Dictionary[int, int]({3: 1})
+receita_normal = Dictionary[int, int]({3: 1})
+receita_dificil = Dictionary[int, int]({3: 2})

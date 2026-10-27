@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "zona_sul"
+nome = "Zona Sul"
+descricao = "Copacabana, Ipanema, Leblon, Botafogo e Lagoa. Praias lotadas, turismo, morros e a Lagoa Rodrigo de Freitas. Tudo o que acontece aqui vira notícia."
+populacao = 640000
+etiquetas = Array[int]([0, 1, 2, 3, 4, 5])

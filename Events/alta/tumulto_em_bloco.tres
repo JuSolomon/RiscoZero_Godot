@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://9b2zh7teuu53b"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 
 [resource]
 script = ExtResource("1_data")
 id = "TUMULTO_EM_BLOCO"
 nome = "Tumulto em massa no bloco"
 descricao = "Um bloco gigante saiu do controle: correria, pessoas pisoteadas e feridos. O vídeo já roda o mundo."
-zona_id = 0
 dias_para_resolver = 2
 dias_para_escalar = 1
 severidade_inicial = 3
-required_unit_type = 4
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({4: 2, 2: 1})
+receita_normal = Dictionary[int, int]({4: 3, 2: 1})
+receita_dificil = Dictionary[int, int]({4: 3, 2: 2})

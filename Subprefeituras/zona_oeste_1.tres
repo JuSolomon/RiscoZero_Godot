@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "zona_oeste_1"
+nome = "Zona Oeste 1"
+descricao = "Bangu, Realengo e arredores, entre os maciços da Pedra Branca e do Gericinó. Calor extremo no verão e rios que enchem rápido."
+populacao = 700000
+etiquetas = Array[int]([4, 1, 2, 3])

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EventLibrary" format=3 uid="uid://dfel452xxamnr"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
-[ext_resource type="Script" uid="uid://dxaypspyqbgqr" path="res://Scripts/Event/EventLibrary.gd" id="2_lib"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventLibrary.gd" id="2_lib"]
 [ext_resource type="Resource" uid="uid://j2rfj4fsymb7b" path="res://Events/baixa/lixo_acumulado.tres" id="3_ev"]
 [ext_resource type="Resource" uid="uid://fqct34171orjb" path="res://Events/baixa/semaforo_quebrado.tres" id="4_ev"]
 [ext_resource type="Resource" uid="uid://75zc1skqxgro" path="res://Events/baixa/bueiros_entupidos.tres" id="5_ev"]
@@ -12,8 +12,18 @@
 [ext_resource type="Resource" uid="uid://jhesg0jr8w67b" path="res://Events/baixa/arvore_com_risco.tres" id="10_ev"]
 [ext_resource type="Resource" uid="uid://yl19zenoslohb" path="res://Events/baixa/foco_de_incendio.tres" id="11_ev"]
 [ext_resource type="Resource" uid="uid://4egx7npdzisdb" path="res://Events/media/mal_subito_calor.tres" id="12_ev"]
+[ext_resource type="Resource" uid="uid://ea88sh18ndrv" path="res://Events/baixa/buraco_na_via.tres" id="13_ev"]
+[ext_resource type="Resource" uid="uid://zmvl1bmi3jvpb" path="res://Events/baixa/onibus_quebrado.tres" id="14_ev"]
+[ext_resource type="Resource" uid="uid://opjunnrvkaylb" path="res://Events/media/vazamento_de_gas.tres" id="15_ev"]
+[ext_resource type="Resource" uid="uid://j584a16oomiwb" path="res://Events/media/imovel_com_risco.tres" id="16_ev"]
+[ext_resource type="Resource" uid="uid://nu44q5f9id6n" path="res://Events/baixa/fio_caido.tres" id="17_ev"]
+[ext_resource type="Resource" uid="uid://bds75756gk1i" path="res://Events/baixa/ambulantes.tres" id="18_ev"]
+[ext_resource type="Resource" uid="uid://7rt5cy0sonj5" path="res://Events/media/incendio_em_loja.tres" id="19_ev"]
+[ext_resource type="Resource" uid="uid://ru0sgtzcsuly" path="res://Events/media/rio_transbordando.tres" id="20_ev"]
+[ext_resource type="Resource" uid="uid://50fjvflf6o21" path="res://Events/media/banhistas_em_risco.tres" id="21_ev"]
+[ext_resource type="Resource" uid="uid://kbph2wavfe8s" path="res://Events/baixa/foliao_passando_mal.tres" id="22_ev"]
+[ext_resource type="Resource" uid="uid://xu4cgywu2j5tb" path="res://Events/baixa/pedras_na_pista.tres" id="23_ev"]
 
 [resource]
 script = ExtResource("2_lib")
-events = Array[ExtResource("1_data")]([ExtResource("3_ev"), ExtResource("4_ev"), ExtResource("5_ev"), ExtResource("6_ev"), ExtResource("7_ev"), ExtResource("8_ev"), ExtResource("9_ev"), ExtResource("10_ev"), ExtResource("11_ev"), ExtResource("12_ev")])
-metadata/_custom_type_script = "uid://dxaypspyqbgqr"
+events = Array[ExtResource("1_data")]([ExtResource("3_ev"), ExtResource("4_ev"), ExtResource("5_ev"), ExtResource("6_ev"), ExtResource("7_ev"), ExtResource("8_ev"), ExtResource("9_ev"), ExtResource("10_ev"), ExtResource("11_ev"), ExtResource("12_ev"), ExtResource("13_ev"), ExtResource("14_ev"), ExtResource("15_ev"), ExtResource("16_ev"), ExtResource("17_ev"), ExtResource("18_ev"), ExtResource("19_ev"), ExtResource("20_ev"), ExtResource("21_ev"), ExtResource("22_ev"), ExtResource("23_ev")])

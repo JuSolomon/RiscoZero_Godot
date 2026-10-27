@@ -68,7 +68,9 @@ func _mostrar_menu() -> void:
 	var ids: Array = regioes.mapa.ids_regioes()
 	ids.sort_custom(func(a, b): return regioes.nome(a) < regioes.nome(b))
 	for id in ids:
-		botoes.append([regioes.nome(id), _iniciar.bind(id)])
+		var sub := regioes.dados(id)
+		botoes.append([sub.nome, _iniciar.bind(id), "%s\n\nPopulação: ~%s mil • Dificuldade: %s" % [
+			sub.descricao, sub.populacao / 1000, GameTypes.DificuldadeDict[sub.dificuldade(CityStats.config)]]])
 	botoes.append(["Aleatória", func() -> void: _iniciar(ids.pick_random())])
 	tela.mostrar("Risco Zero",
 		"[center]Você é o novo subprefeito. Escolha a subprefeitura onde vai começar o seu mandato.[/center]",
@@ -164,9 +166,10 @@ func _mostrar_oferta() -> void:
 
 	tela.mostrar("Proposta de anexação",
 		("[center]O prefeito ficou satisfeito com o seu trabalho em [b]%s[/b] e oferece a subprefeitura vizinha:\n\n" +
-		"[font_size=36][b]%s[/b][/font_size]\n(%s km², oficialmente \"%s\")\n\n" +
+		"[font_size=36][b]%s[/b][/font_size]\n(%s km², oficialmente \"%s\")\n\n%s\n\n" +
 		"Mais território significa mais demandas — e mais responsabilidade.[/center]")
-		% [atual, nova, str(dados["area_km2"]).replace(".", ","), dados["nome_oficial"]],
+		% [atual, nova, str(dados["area_km2"]).replace(".", ","), dados["nome_oficial"],
+		regioes.dados(_regiao_ofertada).descricao],
 		[["Aceitar", _responder_oferta.bind(true)], ["Recusar", _responder_oferta.bind(false)]], 2, false, true)
 
 
@@ -180,12 +183,12 @@ func _responder_oferta(aceitou: bool) -> void:
 	regioes.mapa.revelacao_terminada.connect(func(_id) -> void:
 		var nome := regioes.nome(id)
 		if aceitou:
-			_mostrar_fim("[b]%s[/b] agora faz parte do seu comando. Novas sedes foram instaladas na região." % nome)
+			_mostrar_fim("[b]%s[/b] agora faz parte do seu comando. A região chega sem sedes: construí-las será o seu próximo desafio." % nome)
 		else:
 			_mostrar_fim("Você recusou [b]%s[/b] e manteve o foco na sua subprefeitura. A região segue com outra gestão." % nome),
 		CONNECT_ONE_SHOT)
 	if aceitou:
-		regioes.desbloquear(id, true)
+		regioes.desbloquear(id, true, false)
 	else:
 		regioes.mapa.revelar(id)
 

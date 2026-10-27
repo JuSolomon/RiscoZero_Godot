@@ -159,14 +159,22 @@ func _escalar_evento(event_id: String) -> void:
 	if "event_id" in ev_marker:
 		ev_marker.event_id = novo_id
 
-	var novo_evento := _criar_instancia(template, novo_id)
+	var novo_evento := _criar_instancia(template, novo_id, ev.dificuldade, ev.regiao_id)
 	novo_evento.escaladas = ev.escaladas + 1
-	# A viatura a caminho continua valendo se o órgão responsável for o mesmo
-	if template.required_unit_type == ev.evento_base.required_unit_type:
-		novo_evento.unidade_designada = ev.unidade_designada
+
+	# Viaturas já designadas continuam se o novo estágio precisar do órgão delas; as outras voltam
+	var dispatch := get_tree().get_first_node_in_group("dispatch")
+	ev.limpar_unidades()
+	for u in ev.unidades:
+		if novo_evento.faltando().get(u.unit_type, 0) > 0:
+			novo_evento.unidades.append(u)
+		elif dispatch:
+			dispatch.liberar(u)
 
 	ev.queue_free()
 	ev_marker.add_child(novo_evento)
+	if dispatch:
+		dispatch.verificar_inicio(novo_evento)
 
 	print("EventManager: evento escalado -> ", event_id, " virou ", novo_id, " (", template.nome, ")")
 
@@ -227,11 +235,17 @@ func _gerar_id() -> String:
 
 
 # Cria a instância de um evento a partir do template e registra nos ativos
-func _criar_instancia(template: EventData, event_id: String) -> EventInstance:
+func _criar_instancia(template: EventData, event_id: String,
+		dificuldade: int = GameTypes.Dificuldade.NORMAL, regiao_id: String = "") -> EventInstance:
 	var novo_evento := EventInstance.new()
 	novo_evento.name = event_id
 	novo_evento.id = event_id
 	novo_evento.evento_base = template
+	novo_evento.regiao_id = regiao_id
+	novo_evento.dificuldade = dificuldade
+	novo_evento.receita = template.receita(dificuldade).duplicate()
+	if novo_evento.receita.is_empty():
+		push_warning("EventManager: evento '%s' sem receita para a dificuldade %d." % [template.nome, dificuldade])
 	novo_evento.dias_para_resolver = template.dias_para_resolver
 	novo_evento.dias_para_escalar = template.dias_para_escalar
 	novo_evento.set_estado_evento(GameTypes.EventState.ATIVO)
@@ -244,12 +258,12 @@ func _criar_instancia(template: EventData, event_id: String) -> EventInstance:
 
 
 # ------------------------------------------------
-# POSICIONAMENTO – Raycast até o chão
+# POSICIONAMENTO – cruzamento de rua da região (ou raycast até o chão)
 # ------------------------------------------------
 
-func _get_random_city_position() -> Vector3:
-	if regioes and regioes.road_network:
-		var ponto: Vector3 = regioes.road_network.ponto_aleatorio(regioes.desbloqueadas)
+func _get_random_city_position(regiao_id: String = "") -> Vector3:
+	if regiao_id != "" and regioes and regioes.road_network:
+		var ponto: Vector3 = regioes.road_network.ponto_aleatorio([regiao_id])
 		if ponto != Vector3.INF:
 			return ponto + Vector3.UP * marker_height_offset
 
@@ -298,9 +312,19 @@ func spawn_random_event() -> void:
 		print("EventManager: ERRO – event_library não configurada.")
 		return
 
-	var template: EventData = event_library.get_random_event()
+	# Sorteia a subprefeitura e um evento que faça sentido nela
+	var regiao_id := ""
+	var dificuldade: int = GameTypes.Dificuldade.NORMAL
+	var template: EventData
+	if regioes and not regioes.desbloqueadas.is_empty():
+		regiao_id = regioes.desbloqueadas.pick_random()
+		var sub: SubprefeituraData = regioes.dados(regiao_id)
+		template = event_library.get_random_event_for(sub.etiquetas)
+		dificuldade = sub.dificuldade(CityStats.config)
+	else:
+		template = event_library.get_random_event()
 	if template == null:
-		print("EventManager: ERRO – event_library está vazia.")
+		print("EventManager: ERRO – nenhum evento possível na biblioteca.")
 		return
 
 	var marker := marker_scene.instantiate() as Area3D
@@ -320,10 +344,10 @@ func spawn_random_event() -> void:
 
 	# Adiciona ao mapa antes de posicionar (global_position exige estar na árvore)
 	get_tree().current_scene.add_child(marker)
-	var pos := _get_random_city_position()
+	var pos := _get_random_city_position(regiao_id)
 	marker.global_position = pos
 	marker.scale = Vector3.ONE * escala_marcador
-	marker.add_child(_criar_instancia(template, event_id))
+	marker.add_child(_criar_instancia(template, event_id, dificuldade, regiao_id))
 
 	print("EventManager: Evento criado em ", pos, " id = ", event_id, " template = ", template.nome)
 

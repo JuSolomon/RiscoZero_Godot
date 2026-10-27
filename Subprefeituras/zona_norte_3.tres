@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "zona_norte_3"
+nome = "Zona Norte 3"
+descricao = "Da Grande Madureira até a Pavuna: Madureira, Irajá, Anchieta e Acari. Muito populosa, berço do samba, com rios que transbordam nas chuvas."
+populacao = 1000000
+etiquetas = Array[int]([4, 5, 3])

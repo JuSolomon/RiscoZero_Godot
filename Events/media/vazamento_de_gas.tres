@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://opjunnrvkaylb"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://fflkw55ir5hd" path="res://Events/alta/explosao_em_imovel.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "VAZAMENTO_DE_GAS"
+nome = "Vazamento de gás"
+descricao = "Moradores sentem cheiro forte de gás num prédio residencial. O síndico já evacuou metade dos andares — a outra metade não acredita."
+dias_para_resolver = 1
+dias_para_escalar = 1
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 2
+receita_facil = Dictionary[int, int]({5: 1})
+receita_normal = Dictionary[int, int]({5: 1, 3: 1})
+receita_dificil = Dictionary[int, int]({5: 2, 3: 1})

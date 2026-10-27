@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://n9ipowxpx0ryb"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 [ext_resource type="Resource" uid="uid://m0b86yepboeo" path="res://Events/alta/grande_enchente.tres" id="2_prox"]
 
 [resource]
@@ -8,10 +8,10 @@ script = ExtResource("1_data")
 id = "ENCHENTE_LOCALIZADA"
 nome = "Enchente localizada"
 descricao = "A água subiu e invadiu casas e comércios do bairro. Moradores tentam salvar os móveis enquanto a chuva continua."
-zona_id = 1
 dias_para_resolver = 2
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")
 severidade_inicial = 2
-required_unit_type = 3
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({3: 1})
+receita_normal = Dictionary[int, int]({3: 1, 0: 1})
+receita_dificil = Dictionary[int, int]({3: 2, 5: 1})

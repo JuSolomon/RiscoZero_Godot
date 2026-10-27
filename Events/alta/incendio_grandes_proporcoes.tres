@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://ko15jvpz3z85"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "INCENDIO_GRANDES_PROPORCOES"
+nome = "Incêndio de grandes proporções"
+descricao = "O fogo se espalhou por um quarteirão comercial inteiro. Lojas destruídas, trânsito parado e a fumaça é vista de longe."
+dias_para_resolver = 2
+dias_para_escalar = 1
+severidade_inicial = 3
+receita_facil = Dictionary[int, int]({5: 2, 1: 1})
+receita_normal = Dictionary[int, int]({5: 2, 1: 1, 2: 1})
+receita_dificil = Dictionary[int, int]({5: 3, 1: 1, 2: 1})

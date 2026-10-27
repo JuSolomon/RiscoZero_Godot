@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SubprefeituraData" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Mapa/SubprefeituraData.gd" id="1_sub"]
+
+[resource]
+script = ExtResource("1_sub")
+id = "jacarepagua"
+nome = "Jacarepaguá"
+descricao = "Freguesia, Taquara, Pechincha e Curicica, entre o Maciço da Pedra Branca e as lagoas. Cresce rápido e sofre com enchentes."
+populacao = 600000
+etiquetas = Array[int]([1, 2, 3, 4])

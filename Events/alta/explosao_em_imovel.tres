@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://fflkw55ir5hd"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "EXPLOSAO_EM_IMOVEL"
+nome = "Explosão em imóvel"
+descricao = "O vazamento terminou em explosão. Parte do prédio desabou e há feridos sob os escombros."
+dias_para_resolver = 2
+dias_para_escalar = 1
+severidade_inicial = 3
+receita_facil = Dictionary[int, int]({5: 1, 2: 1})
+receita_normal = Dictionary[int, int]({5: 2, 2: 1})
+receita_dificil = Dictionary[int, int]({5: 2, 3: 1, 2: 2})

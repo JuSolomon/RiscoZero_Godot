@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://50fjvflf6o21"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "BANHISTAS_EM_RISCO"
+nome = "Banhistas em risco no mar"
+descricao = "Ressaca forte e bandeira vermelha, mas a praia está cheia. Já houve dois resgates e os salva-vidas pedem reforço."
+etiquetas = Array[int]([0])
+dias_para_resolver = 1
+dias_para_escalar = 1
+severidade_inicial = 2
+receita_facil = Dictionary[int, int]({5: 1})
+receita_normal = Dictionary[int, int]({5: 1, 2: 1})
+receita_dificil = Dictionary[int, int]({5: 2, 2: 1})

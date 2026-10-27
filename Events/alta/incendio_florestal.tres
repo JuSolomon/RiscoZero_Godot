@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://mjbgeh5xvkbbb"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 
 [resource]
 script = ExtResource("1_data")
 id = "INCENDIO_FLORESTAL"
 nome = "Incêndio florestal"
 descricao = "O fogo se espalhou pela mata e a fumaça já cobre o bairro. Moradores das áreas próximas começam a ser evacuados."
-zona_id = 1
 dias_para_resolver = 3
 dias_para_escalar = 2
 severidade_inicial = 3
-required_unit_type = 5
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({5: 2})
+receita_normal = Dictionary[int, int]({5: 2, 3: 1})
+receita_dificil = Dictionary[int, int]({5: 3, 3: 1})

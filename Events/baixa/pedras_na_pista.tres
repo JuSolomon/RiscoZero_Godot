@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://xu4cgywu2j5tb"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Resource" uid="uid://oit194nkot6" path="res://Events/alta/deslizamento.tres" id="2_prox"]
+
+[resource]
+script = ExtResource("1_data")
+id = "PEDRAS_NA_PISTA"
+nome = "Pedras rolando na pista"
+descricao = "Pedras se soltaram da encosta e caíram numa estrada. Ainda não machucou ninguém, mas o morro continua escorrendo."
+etiquetas = Array[int]([1])
+dias_para_resolver = 1
+dias_para_escalar = 1
+evento_escalonado = ExtResource("2_prox")
+severidade_inicial = 1
+receita_facil = Dictionary[int, int]({3: 1})
+receita_normal = Dictionary[int, int]({3: 1, 1: 1})
+receita_dificil = Dictionary[int, int]({3: 2, 1: 1})

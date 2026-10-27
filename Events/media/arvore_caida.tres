@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://pgy7sget7g8gb"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 
 [resource]
 script = ExtResource("1_data")
 id = "ARVORE_CAIDA"
 nome = "Árvore caída na via"
 descricao = "Uma árvore grande caiu sobre a pista e atingiu fios e um carro estacionado. A rua está interditada."
-zona_id = 2
 dias_para_resolver = 1
 dias_para_escalar = 2
 severidade_inicial = 2
-required_unit_type = 5
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({5: 1})
+receita_normal = Dictionary[int, int]({5: 1, 1: 1})
+receita_dificil = Dictionary[int, int]({5: 1, 1: 1, 0: 1})

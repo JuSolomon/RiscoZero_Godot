@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://qes1icxt7q8zb"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 [ext_resource type="Resource" uid="uid://9b2zh7teuu53b" path="res://Events/alta/tumulto_em_bloco.tres" id="2_prox"]
 
 [resource]
@@ -8,10 +8,10 @@ script = ExtResource("1_data")
 id = "BRIGA_EM_BLOCO"
 nome = "Briga em bloco"
 descricao = "Uma confusão entre foliões virou briga generalizada. A música parou e o clima esquentou."
-zona_id = 0
 dias_para_resolver = 1
 dias_para_escalar = 1
 evento_escalonado = ExtResource("2_prox")
 severidade_inicial = 2
-required_unit_type = 4
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({4: 1})
+receita_normal = Dictionary[int, int]({4: 2})
+receita_dificil = Dictionary[int, int]({4: 2, 2: 1})

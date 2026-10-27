@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventData" format=3 uid="uid://75zc1skqxgro"]
 
-[ext_resource type="Script" uid="uid://biu7j8xueeqy6" path="res://Scripts/Event/EventData.gd" id="1_data"]
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
 [ext_resource type="Resource" uid="uid://n9ipowxpx0ryb" path="res://Events/media/enchente_localizada.tres" id="2_prox"]
 
 [resource]
@@ -8,10 +8,10 @@ script = ExtResource("1_data")
 id = "BUEIROS_ENTUPIDOS"
 nome = "Bueiros entupidos"
 descricao = "Os bueiros da região estão entupidos de lixo e folhas. Com a previsão de chuva, é questão de tempo."
-zona_id = 1
 dias_para_resolver = 1
 dias_para_escalar = 2
 evento_escalonado = ExtResource("2_prox")
 severidade_inicial = 1
-required_unit_type = 0
-metadata/_custom_type_script = "uid://biu7j8xueeqy6"
+receita_facil = Dictionary[int, int]({0: 1})
+receita_normal = Dictionary[int, int]({0: 2})
+receita_dificil = Dictionary[int, int]({0: 2})

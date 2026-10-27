@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://9ehtheu3t87mb"]
+
+[ext_resource type="Script" path="res://Scripts/Event/EventData.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "CONFUSAO_AMBULANTES"
+nome = "Confusão entre ambulantes e fiscais"
+descricao = "A tentativa de retirar as barracas virou empurra-empurra. Tem vídeo circulando e cada um conta uma versão."
+dias_para_resolver = 1
+dias_para_escalar = 1
+severidade_inicial = 2
+receita_facil = Dictionary[int, int]({4: 1})
+receita_normal = Dictionary[int, int]({4: 2})
+receita_dificil = Dictionary[int, int]({4: 2, 2: 1})

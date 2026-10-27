@@ -8,13 +8,25 @@ class_name BalanceConfig
 
 @export_group("Rodada")
 @export var dias_por_rodada: int = 7
-@export var orcamento_rodada: int = 15000
+## Dinheiro no início do jogo (também é o orçamento usado na nota de finanças)
+@export var orcamento_rodada: int = 20000
 @export var popularidade_inicial: float = 50.0
 ## Nota mínima (0 a 100) para receber a proposta de anexação
 @export var nota_minima: float = 60.0
 
-@export_group("Custos")
-@export var custo_envio: Array[int] = [500, 1500, 4000]
+@export_group("Viaturas e custos")
+## Viaturas de cada sede no começo
+@export var viaturas_por_sede: int = 2
+## Custo fixo de cada viatura enviada
+@export var custo_por_viatura: int = 400
+## Custo por km de trajeto (sede mais longe = envio mais caro)
+@export var custo_por_km: int = 30
+
+@export_group("Dificuldade pela população")
+## A partir de quantos habitantes a subprefeitura é Normal
+@export var populacao_normal: int = 400000
+## A partir de quantos habitantes a subprefeitura é Difícil
+@export var populacao_dificil: int = 700000
 
 @export_group("Popularidade")
 @export var pop_resolver: Array[float] = [1.0, 2.0, 4.0]
