@@ -58,6 +58,11 @@ func registrar_resolucao(ev: EventInstance) -> void:
 	_mudar_popularidade(config.pop_resolver[_nivel(ev)])
 
 
+## Tirar uma viatura de uma ocorrência em aberto (voltar ou redirecionar)
+func registrar_cancelamento(ev: EventInstance) -> void:
+	_mudar_popularidade(config.pop_cancelar[_nivel(ev)])
+
+
 func registrar_escalada(ev: EventInstance) -> void:
 	_mudar_popularidade(config.pop_escalar[_nivel(ev)])
 

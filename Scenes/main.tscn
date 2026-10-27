@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://8ndtnhhvp1u5" path="res://Scripts/Mapa/MapaRio.gd" id="53_mapa"]
 [ext_resource type="Script" uid="uid://bryddkrivdxuf" path="res://Scripts/Mapa/RegionManager.gd" id="54_reg"]
 [ext_resource type="Script" uid="uid://cfmm2k7hbsi4w" path="res://Scripts/UI/TelaMVP.gd" id="55_tela"]
+[ext_resource type="Script" uid="uid://7kovddt6dssv" path="res://Scripts/UI/PainelDespacho.gd" id="56_painel"]
+[ext_resource type="Script" uid="uid://db1rrcr3n1gmk" path="res://Scripts/UI/ListaOcorrencias.gd" id="57_lista"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -226,3 +228,12 @@ road_network = NodePath("../RoadNetwork")
 
 [node name="Tela" type="CanvasLayer" parent="." unique_id=1690052744]
 script = ExtResource("55_tela")
+
+[node name="PainelDespacho" type="CanvasLayer" parent="." unique_id=1349046203 node_paths=PackedStringArray("dispatch")]
+script = ExtResource("56_painel")
+dispatch = NodePath("../DispatchManager")
+
+[node name="ListaOcorrencias" type="CanvasLayer" parent="." unique_id=871209645 node_paths=PackedStringArray("event_manager", "hud")]
+script = ExtResource("57_lista")
+event_manager = NodePath("../EventManager")
+hud = NodePath("../HUD")

@@ -107,6 +107,7 @@ func _criar_sedes(id: String) -> void:
 		base.name = "Sede_%s_%s" % [id, GameTypes.UnitDict[tipos[i]].replace(" ", "")]
 		base.unit_type = tipos[i]
 		base.viaturas = CityStats.config.viaturas_por_sede
+		base.regiao_id = id
 		raiz.add_child(base)
 		var ponto := road_network.ponto_na_regiao_perto_de(id, alvo) if road_network else Vector3.INF
 		base.global_position = alvo if ponto == Vector3.INF else ponto

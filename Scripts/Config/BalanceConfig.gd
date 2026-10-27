@@ -33,6 +33,8 @@ class_name BalanceConfig
 @export var pop_escalar: Array[float] = [-1.0, -3.0, 0.0]
 @export var pop_falhar: Array[float] = [0.0, -4.0, -8.0]
 @export var pop_por_morte: float = -1.0
+## Tirar uma viatura de uma ocorrência em aberto (voltar para a sede ou redirecionar)
+@export var pop_cancelar: Array[float] = [-1.0, -2.0, -4.0]
 
 @export_group("Mortes quando o evento falha")
 @export var mortes_min: Array[int] = [0, 0, 3]

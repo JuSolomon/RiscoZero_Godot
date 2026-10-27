@@ -29,6 +29,9 @@ extends Node
 ## Tamanho do marcador no mapa
 @export var escala_marcador: float = 1.0
 
+## Avisa quando uma nova ocorrência aparece no mapa (alertas do HUD)
+signal evento_criado(ev: EventInstance)
+
 ## Quantos eventos por dia
 @export var min_events_per_day: int = 1
 @export var max_events_per_day: int = 3
@@ -165,11 +168,13 @@ func _escalar_evento(event_id: String) -> void:
 	# Viaturas já designadas continuam se o novo estágio precisar do órgão delas; as outras voltam
 	var dispatch := get_tree().get_first_node_in_group("dispatch")
 	ev.limpar_unidades()
-	for u in ev.unidades:
+	for u in ev.unidades.duplicate():
 		if novo_evento.faltando().get(u.unit_type, 0) > 0:
 			novo_evento.unidades.append(u)
 		elif dispatch:
+			ev.unidades.erase(u)
 			dispatch.liberar(u)
+	ev.unidades.clear()
 
 	ev.queue_free()
 	ev_marker.add_child(novo_evento)
@@ -199,6 +204,11 @@ func iniciar_atendimento(event_id: String) -> void:
 	print("EventManager: equipe chegou, atendimento iniciado -> ", event_id)
 
 
+## Ocorrências em aberto no mapa
+func eventos_ativos() -> Array:
+	return _active_events.values()
+
+
 ## Demandas ainda abertas que já escalaram (contam como não atendidas na nota)
 func contar_pendentes_escalados() -> int:
 	var n := 0
@@ -221,8 +231,11 @@ func get_evento_do_marcador(marker: Node) -> EventInstance:
 	return _active_events.get(marker.event_id)
 
 
-# Remove o marcador do mapa junto com a instância do evento
+# Remove o marcador do mapa junto com a instância do evento (e libera as viaturas dele)
 func _remover_marcador(ev: EventInstance) -> void:
+	var dispatch := get_tree().get_first_node_in_group("dispatch")
+	if dispatch:
+		dispatch.liberar_evento(ev)
 	var marker := ev.get_parent()
 	if marker is Area3D:
 		marker.queue_free()
@@ -347,7 +360,9 @@ func spawn_random_event() -> void:
 	var pos := _get_random_city_position(regiao_id)
 	marker.global_position = pos
 	marker.scale = Vector3.ONE * escala_marcador
-	marker.add_child(_criar_instancia(template, event_id, dificuldade, regiao_id))
+	var instancia := _criar_instancia(template, event_id, dificuldade, regiao_id)
+	marker.add_child(instancia)
+	evento_criado.emit(instancia)
 
 	print("EventManager: Evento criado em ", pos, " id = ", event_id, " template = ", template.nome)
 
@@ -365,6 +380,12 @@ func _on_marker_clicked(event_id: String) -> void:
 
 	var ev: EventInstance = _active_events[event_id]
 	var template: EventData = ev.evento_base
+
+	# Escolhendo destino para viaturas (menu da sede / redirecionar): o clique envia
+	var painel := get_tree().get_first_node_in_group("painel_despacho")
+	if painel and painel.escolhendo_alvo():
+		painel.alvo_escolhido(ev)
+		return
 
 	var hud: Node = null
 
