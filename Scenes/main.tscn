@@ -12,12 +12,12 @@
 [ext_resource type="Resource" uid="uid://dfel452xxamnr" path="res://Events/event_library.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://d1lloedybbpg7" path="res://Scenes/EventMarker.tscn" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://d1clxvcnuj17y" path="res://Scenes/UI/debug_ui.tscn" id="46_nwwfm"]
-[ext_resource type="Script" uid="uid://8ndtnhhvp1u5" path="res://Scripts/Mapa/MapaRio.gd" id="53_mapa"]
-[ext_resource type="Script" uid="uid://bryddkrivdxuf" path="res://Scripts/Mapa/RegionManager.gd" id="54_reg"]
-[ext_resource type="Script" uid="uid://cfmm2k7hbsi4w" path="res://Scripts/UI/TelaMVP.gd" id="55_tela"]
 [ext_resource type="Script" uid="uid://g0a66c44dmj4" path="res://Scripts/Dispatch/RoadNetwork.gd" id="49_road"]
 [ext_resource type="Script" uid="uid://d08rh6lib0mkr" path="res://Scripts/Dispatch/DispatchManager.gd" id="50_disp"]
 [ext_resource type="PackedScene" uid="uid://ci0u38ci8s8gq" path="res://Scenes/Unit.tscn" id="52_unit"]
+[ext_resource type="Script" uid="uid://8ndtnhhvp1u5" path="res://Scripts/Mapa/MapaRio.gd" id="53_mapa"]
+[ext_resource type="Script" uid="uid://bryddkrivdxuf" path="res://Scripts/Mapa/RegionManager.gd" id="54_reg"]
+[ext_resource type="Script" uid="uid://cfmm2k7hbsi4w" path="res://Scripts/UI/TelaMVP.gd" id="55_tela"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 bg_color = Color(0.19879684, 0.5212005, 0.66384554, 1)
@@ -199,9 +199,9 @@ world_env = NodePath("../WorldEnvironment")
 
 [node name="EventManager" type="Node3D" parent="." unique_id=252366997 node_paths=PackedStringArray("regioes")]
 script = ExtResource("8_ynf5e")
-regioes = NodePath("../RegionManager")
 event_library = ExtResource("9_hptm8")
 marker_scene = ExtResource("9_ynf5e")
+regioes = NodePath("../RegionManager")
 city_radius = 30.0
 
 [node name="DebugUI" parent="." unique_id=623105750 instance=ExtResource("46_nwwfm")]
