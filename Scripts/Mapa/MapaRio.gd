@@ -32,9 +32,26 @@ const ARQ_RUAS := "res://Mapa/dados/ruas.json"
 @export var larguras_ruas: Array[float] = [0.55, 0.42, 0.32, 0.22, 0.0]
 
 @export_group("Nuvens")
+## Forma de cada nuvem. Vazio = esfera. Para nuvens desenhadas em 2D use um QuadMesh
+## com um material de Billboard (ver Mapa/LEIAME.md)
+@export var malha_nuvem: Mesh
+## Material das nuvens. Vazio = branco na Cor Nuvem
+@export var material_nuvem: Material
 @export var altura_nuvens: float = 4.0
 @export var tamanho_nuvem: float = 7.0
+## Variação aleatória do tamanho (0.3 = de 70% a 130%)
+@export_range(0.0, 1.0) var variacao_tamanho: float = 0.3
+## Altura da nuvem em relação à largura (1 = redonda; use 1 com QuadMesh/Billboard)
+@export_range(0.05, 1.0) var achatamento: float = 0.45
+## Opacidade da névoa que cobre o chão das regiões bloqueadas (0 = sem névoa)
+@export_range(0.0, 1.0) var opacidade_nevoa: float = 0.93
+
+@export_subgroup("Revelação")
 @export var duracao_revelacao: float = 3.5
+## Quanto as nuvens sobem ao sumir
+@export var subida_revelacao: float = 25.0
+## Quanto as nuvens se afastam do centro da região ao sumir
+@export var espalhamento_revelacao: float = 0.6
 
 # id -> dados da região (Dictionary vindo do JSON)
 var regioes: Dictionary = {}
@@ -84,7 +101,7 @@ func cobrir(id: String) -> void:
 	var nevoa := MeshInstance3D.new()
 	nevoa.name = "Nevoa"
 	nevoa.mesh = _malha(dados["triangulos"], altura_nuvens * 0.5)
-	nevoa.material_override = _material(Color(cor_nuvem, 0.93), true)
+	nevoa.material_override = _material(Color(cor_nuvem, opacidade_nevoa), true)
 	nevoa.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	cobertura.add_child(nevoa)
 
@@ -92,24 +109,27 @@ func cobrir(id: String) -> void:
 	var pontos: Array = dados["nuvens"]
 	var mm := MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
-	var esfera := SphereMesh.new()
-	esfera.radial_segments = 12
-	esfera.rings = 6
-	mm.mesh = esfera
+	if malha_nuvem:
+		mm.mesh = malha_nuvem
+	else:
+		var esfera := SphereMesh.new()
+		esfera.radial_segments = 12
+		esfera.rings = 6
+		mm.mesh = esfera
 	mm.instance_count = pontos.size() / 2
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(id)
 	var bases: Array[Transform3D] = []
 	for i in mm.instance_count:
-		var s := tamanho_nuvem * rng.randf_range(0.7, 1.3)
-		var t := Transform3D(Basis.from_scale(Vector3(s, s * 0.45, s)),
+		var s := tamanho_nuvem * rng.randf_range(1.0 - variacao_tamanho, 1.0 + variacao_tamanho)
+		var t := Transform3D(Basis.from_scale(Vector3(s, s * achatamento, s)),
 			Vector3(pontos[i * 2], altura_nuvens + rng.randf_range(-0.8, 0.8), pontos[i * 2 + 1]))
 		mm.set_instance_transform(i, t)
 		bases.append(t)
 	var nuvens := MultiMeshInstance3D.new()
 	nuvens.name = "Nuvens"
 	nuvens.multimesh = mm
-	nuvens.material_override = _material(cor_nuvem, false)
+	nuvens.material_override = material_nuvem if material_nuvem else _material(cor_nuvem, false)
 	nuvens.set_meta("bases", bases)
 	cobertura.add_child(nuvens)
 
@@ -141,7 +161,7 @@ func revelar(id: String) -> void:
 func _animar_revelacao(t: float, cobertura: Node3D, centro: Vector3) -> void:
 	var nevoa: MeshInstance3D = cobertura.get_node("Nevoa")
 	var mat: StandardMaterial3D = nevoa.material_override
-	mat.albedo_color.a = 0.93 * clampf(1.0 - t * 1.6, 0.0, 1.0)
+	mat.albedo_color.a = opacidade_nevoa * clampf(1.0 - t * 1.6, 0.0, 1.0)
 
 	var nuvens: MultiMeshInstance3D = cobertura.get_node("Nuvens")
 	var bases: Array = nuvens.get_meta("bases")
@@ -150,7 +170,7 @@ func _animar_revelacao(t: float, cobertura: Node3D, centro: Vector3) -> void:
 		var b: Transform3D = bases[i]
 		var fora := b.origin - centro
 		fora.y = 0.0
-		var origem := b.origin + fora * t * 0.6 + Vector3.UP * t * 25.0
+		var origem := b.origin + fora * t * espalhamento_revelacao + Vector3.UP * t * subida_revelacao
 		var escala := 1.0 - t * 0.85
 		mm.set_instance_transform(i, Transform3D(b.basis.scaled(Vector3.ONE * escala), origem))
 
